@@ -20,7 +20,7 @@ namespace CapaDeDatos.CRUD
         SqlCommand Comando = new SqlCommand();
 
         //obtenemos todos lo registro de la tabla Tarea
-        public DataTable ObtenerProyectoDetalle()
+        public DataTable ObtenerTarea()
         {
             try
             {
