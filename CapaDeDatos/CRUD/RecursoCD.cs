@@ -22,7 +22,7 @@ namespace CapaDeDatos.CRUD
         SqlCommand Comando = new SqlCommand();
 
         //obtenemos todos lo registro de la tabla recurso
-        public DataTable ObtenerProyectoDetalle()
+        public DataTable ObtenerRecurso()
         {
             try
             {

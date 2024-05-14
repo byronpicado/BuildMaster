@@ -37,8 +37,9 @@ namespace CapaDeDatos.CRUD
             return Tabla;
         }
 
-        public void Insertar(Personal personal)
+        public bool Insertar(Personal personal)
         {
+            bool agregado = false;
             try
 
             {
@@ -55,13 +56,15 @@ namespace CapaDeDatos.CRUD
                 Comando.Parameters.AddWithValue("@fecha_contratacion", personal.fecha_contratacion);
 
 
-                Comando.ExecuteNonQuery();
+              agregado=  Comando.ExecuteNonQuery()>0;
                 Comando.Parameters.Clear();
                 Conexion.CerrarConexion();
+                return agregado;
             }
             catch (Exception ex)
             {
                 String msj = ex.ToString();
+                return false;
             }
 
         }

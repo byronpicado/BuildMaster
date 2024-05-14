@@ -38,8 +38,9 @@ namespace CapaDeDatos.CRUD
             return Tabla;
         }
 
-        public void Insertar(MantenimientoEquipo mantenimientoEquipo)
+        public bool Insertar(MantenimientoEquipo mantenimientoEquipo)
         {
+            bool agregado = false;
             try
 
             {
@@ -52,13 +53,15 @@ namespace CapaDeDatos.CRUD
                 Comando.Parameters.AddWithValue("@id_equipo", mantenimientoEquipo.id_equipo); 
 
 
-                Comando.ExecuteNonQuery();
+              agregado=  Comando.ExecuteNonQuery()>1;
                 Comando.Parameters.Clear();
                 Conexion.CerrarConexion();
+                return agregado;
             }
             catch (Exception ex)
             {
                 String msj = ex.ToString();
+                return false;
             }
 
         }
