@@ -19,18 +19,18 @@ namespace CapaDeNegocio.CN_CRUD
             return tabla;
         }
         //pasar a capa de datos
-        public bool Insertar(Personal personal)
+        public bool Insertar(Responsable responsable)
         {
-            return personalCD.Insertar(personal);
+            return responsableCD.Insertar(responsable);
         }
-        public bool Editar(Personal personal)
+        public bool Editar(Responsable responsable)
         {
-            return personalCD.Editar(personal);
+            return responsableCD.Editar(responsable);
         }
 
-        public bool Eliminar(int personalId)
+        public bool Eliminar(int responsableId)
         {
-            return personalCD.Eliminar(personalId);
+            return responsableCD.Eliminar(responsableId);
             return false;
         }
     }
