@@ -9,7 +9,6 @@ namespace Entidades
     public class Cliente
 
     {
-
         public string Id_cliente { get; set; }
 
         public string nombre1 { get; set; }
@@ -25,12 +24,12 @@ namespace Entidades
         public string correo { get; set; }
 
         //Constructor sin parametros
-        public Cliente() { }
+        public Cliente(int v) { }
 
 
         //Construtor con parametros 
 
-        public Cliente(string idCliente, string nombre1, string nombre2, string apellidoPaterno, string apellidoMaterno, string telefono, string correo)
+        public Cliente(int v, string idCliente, string nombre1, string nombre2, string apellidoPaterno, string apellidoMaterno, string telefono, string correo)
 
         {
 

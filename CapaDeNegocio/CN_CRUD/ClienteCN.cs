@@ -6,28 +6,29 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Entidades;
 
 namespace CapaDeNegocio.CN_CRUD
 {
 
     //Obtner desde la capa de datos
-    internal class ClienteCN
+    public class ClienteCN
     {
 
 
             private ClienteCD clienteCD = new ClienteCD();
-            public DataTable ObetenerCliente()
+            public DataTable ObtenerCliente()
             {
                 DataTable tabla = new DataTable();
                 tabla = clienteCD.ObtenerCliente();
                 return tabla;
             }
             //pasar a capa de datos
-            public bool Insertar(Cliente cliente)
+            public bool Insertar(Entidades.Cliente cliente)
             {
                 return clienteCD.Insertar(cliente);
             }
-            public bool Editar(Cliente cliente)
+            public bool Editar(Entidades.Cliente cliente)
             {
                 return clienteCD.Editar(cliente);
             }

@@ -46,14 +46,116 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="Catálogos\FrmCliente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Catálogos\FrmCliente.Designer.cs">
+      <DependentUpon>FrmCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Catálogos\FrmEquipo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catálogos\FrmEquipo.Designer.cs">
+      <DependentUpon>FrmEquipo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Catálogos\FrmHabilidad.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catálogos\FrmHabilidad.Designer.cs">
+      <DependentUpon>FrmHabilidad.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Catálogos\FrmMantenimiento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catálogos\FrmMantenimiento.Designer.cs">
+      <DependentUpon>FrmMantenimiento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Catálogos\FrmPersonal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catálogos\FrmPersonal.Designer.cs">
+      <DependentUpon>FrmPersonal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Catálogos\FrmProgreso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catálogos\FrmProgreso.Designer.cs">
+      <DependentUpon>FrmProgreso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Catálogos\FrmProyecto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catálogos\FrmProyecto.Designer.cs">
+      <DependentUpon>FrmProyecto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Catálogos\FrmProyectoDetalle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catálogos\FrmProyectoDetalle.Designer.cs">
+      <DependentUpon>FrmProyectoDetalle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Catálogos\FrmRecurso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catálogos\FrmRecurso.Designer.cs">
+      <DependentUpon>FrmRecurso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Catálogos\FrmResponsable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catálogos\FrmResponsable.Designer.cs">
+      <DependentUpon>FrmResponsable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Catálogos\FrmTarea.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Catálogos\FrmTarea.Designer.cs">
+      <DependentUpon>FrmTarea.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPrincipal.Designer.cs">
+      <DependentUpon>FrmPrincipal.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Catálogos\FrmCliente.resx">
+      <DependentUpon>FrmCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catálogos\FrmEquipo.resx">
+      <DependentUpon>FrmEquipo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catálogos\FrmHabilidad.resx">
+      <DependentUpon>FrmHabilidad.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catálogos\FrmMantenimiento.resx">
+      <DependentUpon>FrmMantenimiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catálogos\FrmPersonal.resx">
+      <DependentUpon>FrmPersonal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catálogos\FrmProgreso.resx">
+      <DependentUpon>FrmProgreso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catálogos\FrmProyecto.resx">
+      <DependentUpon>FrmProyecto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catálogos\FrmProyectoDetalle.resx">
+      <DependentUpon>FrmProyectoDetalle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catálogos\FrmRecurso.resx">
+      <DependentUpon>FrmRecurso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catálogos\FrmResponsable.resx">
+      <DependentUpon>FrmResponsable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Catálogos\FrmTarea.resx">
+      <DependentUpon>FrmTarea.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPrincipal.resx">
+      <DependentUpon>FrmPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -77,9 +179,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CapaDeDatos\CapaDeDatos.csproj">
+      <Project>{BA09E672-9C62-4B24-BF42-273438908647}</Project>
+      <Name>CapaDeDatos</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CapaDeNegocio\CapaDeNegocio.csproj">
       <Project>{68b7d289-06a1-49b5-8d7c-c948cd34ea6e}</Project>
       <Name>CapaDeNegocio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Entidades\Entidades.csproj">
+      <Project>{3b7b0fdf-8212-4fec-bd60-1ad68189e0da}</Project>
+      <Name>Entidades</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

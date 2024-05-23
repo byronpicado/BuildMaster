@@ -1,25 +1,21 @@
 ﻿using Entidades;
 using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace CapaDeDatos.CRUD
 {
     public class ResponsableCD
     {
-        //Cadena de Conexion
+        // Cadena de Conexion
         private ConexionCD Conexion = new ConexionCD();
 
-        //Variables 
+        // Variables 
         SqlDataReader LectorDatos;
         DataTable Tabla = new DataTable();
         SqlCommand Comando = new SqlCommand();
 
-        //obtenemos todos lo registro de la tabla responsable
+        // Obtenemos todos los registros de la tabla Responsable
         public DataTable ObtenerResponsable()
         {
             try
@@ -28,77 +24,102 @@ namespace CapaDeDatos.CRUD
                 Comando.CommandText = "SELECT * FROM Responsable";
                 Comando.CommandType = CommandType.Text;
                 LectorDatos = Comando.ExecuteReader();
-                Conexion.CerrarConexion();
                 Tabla.Load(LectorDatos);
+                LectorDatos.Close();
+                Conexion.CerrarConexion();
             }
             catch (Exception ex)
             {
-                string excepxion = ex.Message;
+                string excepcion = ex.Message;
+                // Manejar o registrar el error adecuadamente
+            }
+            finally
+            {
+                if (LectorDatos != null && !LectorDatos.IsClosed)
+                {
+                    LectorDatos.Close();
+                }
+                if (Comando.Connection != null && Comando.Connection.State == ConnectionState.Open)
+                {
+                    Conexion.CerrarConexion();
+                }
             }
             return Tabla;
         }
 
-        public bool Insertar( Responsable responsable)
+        public bool Insertar(Responsable responsable)
         {
             bool agregado = false;
             try
-
             {
                 Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "Insert INTO Responsable (id_responsable,nombre1,nombre2,apellidoPaterno,apellidoMaterno,cargo) VALUES (@id_responsable,@nombre1,@nombre2,@apellidoPaterno,@apellidoMaterno,@cargo)";
+                Comando.CommandText = "INSERT INTO Responsable (id_responsable, nombre1, nombre2, apellidoPaterno, apellidoMaterno, cargo) VALUES (@id_responsable, @nombre1, @nombre2, @apellidoPaterno, @apellidoMaterno, @cargo)";
                 Comando.CommandType = CommandType.Text;
 
                 Comando.Parameters.AddWithValue("@id_responsable", responsable.id_responsable);
                 Comando.Parameters.AddWithValue("@nombre1", responsable.nombre1);
                 Comando.Parameters.AddWithValue("@nombre2", responsable.nombre2);
-
                 Comando.Parameters.AddWithValue("@apellidoPaterno", responsable.apellidoPaterno);
-
                 Comando.Parameters.AddWithValue("@apellidoMaterno", responsable.apellidoMaterno);
                 Comando.Parameters.AddWithValue("@cargo", responsable.cargo);
 
-               agregado = Comando.ExecuteNonQuery()>0;
+                agregado = Comando.ExecuteNonQuery() > 0;
                 Comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return agregado;
             }
             catch (Exception ex)
             {
-                String msj = ex.ToString();
-                return false;
+                string msj = ex.ToString();
+                // Manejar o registrar el error adecuadamente
             }
-
+            finally
+            {
+                if (Comando.Connection != null && Comando.Connection.State == ConnectionState.Open)
+                {
+                    Conexion.CerrarConexion();
+                }
+            }
+            return agregado;
         }
-        //para editar un registro en la tabla Responsable
+
+        // Para editar un registro en la tabla Responsable
         public bool Editar(Responsable responsable)
         {
             bool editado = false;
             try
             {
                 Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "UPDATE responsable SET nombre1=@nombre1,nombre2=@nombre2,apellidoPaterno=@apellidopatero,apellidoMaterno=@apellidoMaterno,cargo=@cargo WHERE id_responsable=@id_responsabel";
+                Comando.CommandText = "UPDATE Responsable SET nombre1 = @nombre1, nombre2 = @nombre2, apellidoPaterno = @apellidoPaterno, apellidoMaterno = @apellidoMaterno, cargo = @cargo WHERE id_responsable = @id_responsable";
                 Comando.CommandType = CommandType.Text;
+
                 Comando.Parameters.AddWithValue("@id_responsable", responsable.id_responsable);
                 Comando.Parameters.AddWithValue("@nombre1", responsable.nombre1);
                 Comando.Parameters.AddWithValue("@nombre2", responsable.nombre2);
-
                 Comando.Parameters.AddWithValue("@apellidoPaterno", responsable.apellidoPaterno);
-
                 Comando.Parameters.AddWithValue("@apellidoMaterno", responsable.apellidoMaterno);
                 Comando.Parameters.AddWithValue("@cargo", responsable.cargo);
+
                 editado = Comando.ExecuteNonQuery() > 0;
                 Comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return editado;
             }
             catch (Exception ex)
             {
-                String msj = ex.ToString();
-                return false;
+                string msj = ex.ToString();
+                // Manejar o registrar el error adecuadamente
             }
+            finally
+            {
+                if (Comando.Connection != null && Comando.Connection.State == ConnectionState.Open)
+                {
+                    Conexion.CerrarConexion();
+                }
+            }
+            return editado;
         }
-        //para eliminar un objeto de la tabla
-        public bool Eliminar(int responsableId)
+
+//para eliminar un objeto de la tabla
+public bool Eliminar(int responsableId)
         {
             bool eliminado = false;
             try

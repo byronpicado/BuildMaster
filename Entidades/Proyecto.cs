@@ -35,19 +35,19 @@ namespace Entidades
 
         {
 
-            IdProyecto = idProyecto;
+            id_proyecto = idProyecto;
 
-            IdCliente = idCliente;
+            id_cliente = idCliente;
 
-            IdResponsable = idResponsable;
+            id_responsable = idResponsable;
 
-            Nombre = nombre;
+            this.nombre = nombre;
 
-            Descripcion = descripcion;
+            this.descripcion = descripcion;
 
-            FechaInicio = fechaInicio;
+            this.fecha_inicio = fechaInicio;
 
-            FechaFin = fechaFin;
+            this.fecha_fin = fechaFin;
 
             Estado = estado;
 

@@ -29,8 +29,10 @@ namespace CapaDeDatos.CRUD
                 Comando.CommandText = "SELECT * FROM Habilidad";
                 Comando.CommandType = CommandType.Text;
                 LectorDatos = Comando.ExecuteReader();
-                Conexion.CerrarConexion();
                 Tabla.Load(LectorDatos);
+                LectorDatos.Close();
+                Conexion.CerrarConexion();
+              
             }
             catch (Exception ex)
             {

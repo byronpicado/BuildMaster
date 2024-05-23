@@ -9,10 +9,10 @@ using System.Threading.Tasks;
 
 namespace CapaDeNegocio.CN_CRUD
 {
-    internal class ResponsableCN
+    public class ResponsableCN
     {
         private ResponsableCD responsableCD = new ResponsableCD();
-        public DataTable ObtenerRecurso()
+        public DataTable ObtenerResponsable()
         {
             DataTable tabla = new DataTable();
             tabla = responsableCD.ObtenerResponsable();

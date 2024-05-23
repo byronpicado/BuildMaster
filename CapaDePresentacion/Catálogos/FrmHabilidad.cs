@@ -8,13 +8,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace CapaDePresentacion
+namespace CapaDePresentacion.Catálogos
 {
-    public partial class Form1 : Form
+    public partial class FrmHabilidad : Form
     {
-        public Form1()
+        public FrmHabilidad()
         {
             InitializeComponent();
+        }
+
+        private void TxtIdCliente_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
