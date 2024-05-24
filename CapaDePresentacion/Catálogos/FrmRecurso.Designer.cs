@@ -93,66 +93,69 @@
             // BtnEliminar
             // 
             this.BtnEliminar.BackColor = System.Drawing.Color.Red;
-            this.BtnEliminar.Location = new System.Drawing.Point(691, 136);
+            this.BtnEliminar.Location = new System.Drawing.Point(687, 201);
             this.BtnEliminar.Name = "BtnEliminar";
             this.BtnEliminar.Size = new System.Drawing.Size(85, 30);
             this.BtnEliminar.TabIndex = 16;
             this.BtnEliminar.Text = "Eliminar";
             this.BtnEliminar.UseVisualStyleBackColor = false;
+            this.BtnEliminar.Click += new System.EventHandler(this.BtnEliminar_Click);
             // 
             // BtnEditar
             // 
             this.BtnEditar.BackColor = System.Drawing.Color.DarkOrange;
-            this.BtnEditar.Location = new System.Drawing.Point(396, 136);
+            this.BtnEditar.Location = new System.Drawing.Point(392, 201);
             this.BtnEditar.Name = "BtnEditar";
             this.BtnEditar.Size = new System.Drawing.Size(75, 30);
             this.BtnEditar.TabIndex = 15;
             this.BtnEditar.Text = "Editar";
             this.BtnEditar.UseVisualStyleBackColor = false;
+            this.BtnEditar.Click += new System.EventHandler(this.BtnEditar_Click);
             // 
             // BtnGuardar
             // 
             this.BtnGuardar.AutoSize = true;
             this.BtnGuardar.BackColor = System.Drawing.Color.Lime;
-            this.BtnGuardar.Location = new System.Drawing.Point(71, 136);
+            this.BtnGuardar.Location = new System.Drawing.Point(67, 201);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(85, 30);
             this.BtnGuardar.TabIndex = 14;
             this.BtnGuardar.Text = "Guardar";
             this.BtnGuardar.UseVisualStyleBackColor = false;
+            this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click);
             // 
             // TxtCosto
             // 
-            this.TxtCosto.Location = new System.Drawing.Point(664, 41);
+            this.TxtCosto.Location = new System.Drawing.Point(571, 41);
             this.TxtCosto.Name = "TxtCosto";
-            this.TxtCosto.Size = new System.Drawing.Size(179, 26);
+            this.TxtCosto.Size = new System.Drawing.Size(272, 26);
             this.TxtCosto.TabIndex = 10;
             // 
             // TxtDescripcion
             // 
-            this.TxtDescripcion.Location = new System.Drawing.Point(414, 41);
+            this.TxtDescripcion.Location = new System.Drawing.Point(46, 120);
             this.TxtDescripcion.Name = "TxtDescripcion";
-            this.TxtDescripcion.Size = new System.Drawing.Size(194, 26);
+            this.TxtDescripcion.Size = new System.Drawing.Size(835, 26);
             this.TxtDescripcion.TabIndex = 9;
             // 
             // TxtTipo
             // 
             this.TxtTipo.Location = new System.Drawing.Point(199, 41);
             this.TxtTipo.Name = "TxtTipo";
-            this.TxtTipo.Size = new System.Drawing.Size(168, 26);
+            this.TxtTipo.Size = new System.Drawing.Size(289, 26);
             this.TxtTipo.TabIndex = 8;
             // 
             // TxtIdRecurso
             // 
             this.TxtIdRecurso.Location = new System.Drawing.Point(46, 42);
             this.TxtIdRecurso.Name = "TxtIdRecurso";
-            this.TxtIdRecurso.Size = new System.Drawing.Size(100, 26);
+            this.TxtIdRecurso.Size = new System.Drawing.Size(132, 26);
             this.TxtIdRecurso.TabIndex = 7;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(660, 18);
+            this.label5.Location = new System.Drawing.Point(567, 18);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(51, 20);
             this.label5.TabIndex = 3;
@@ -161,7 +164,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(410, 18);
+            this.label4.Location = new System.Drawing.Point(42, 97);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(92, 20);
             this.label4.TabIndex = 2;
@@ -195,6 +198,7 @@
             this.Controls.Add(this.label1);
             this.Name = "FrmRecurso";
             this.Text = "Formulario Recurso";
+            this.Load += new System.EventHandler(this.FrmRecurso_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVRecurso)).EndInit();
             this.panelRecurso.ResumeLayout(false);
             this.panelRecurso.PerformLayout();

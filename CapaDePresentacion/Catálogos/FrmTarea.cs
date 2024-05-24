@@ -16,5 +16,25 @@ namespace CapaDePresentacion.Catálogos
         {
             InitializeComponent();
         }
+
+        private void FrmTarea_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnGuardar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnEditar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnEliminar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

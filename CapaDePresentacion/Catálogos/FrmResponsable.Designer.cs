@@ -93,6 +93,7 @@
             this.BtnEliminar.TabIndex = 16;
             this.BtnEliminar.Text = "Eliminar";
             this.BtnEliminar.UseVisualStyleBackColor = false;
+            this.BtnEliminar.Click += new System.EventHandler(this.BtnEliminar_Click);
             // 
             // BtnEditar
             // 
@@ -103,6 +104,7 @@
             this.BtnEditar.TabIndex = 15;
             this.BtnEditar.Text = "Editar";
             this.BtnEditar.UseVisualStyleBackColor = false;
+            this.BtnEditar.Click += new System.EventHandler(this.BtnEditar_Click);
             // 
             // BtnGuardar
             // 
@@ -114,47 +116,48 @@
             this.BtnGuardar.TabIndex = 14;
             this.BtnGuardar.Text = "Guardar";
             this.BtnGuardar.UseVisualStyleBackColor = false;
+            this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click);
             // 
             // TxtCargo
             // 
             this.TxtCargo.Location = new System.Drawing.Point(325, 126);
             this.TxtCargo.Name = "TxtCargo";
-            this.TxtCargo.Size = new System.Drawing.Size(178, 26);
+            this.TxtCargo.Size = new System.Drawing.Size(592, 26);
             this.TxtCargo.TabIndex = 12;
             // 
             // TxtApellidoMaterno
             // 
             this.TxtApellidoMaterno.Location = new System.Drawing.Point(46, 126);
             this.TxtApellidoMaterno.Name = "TxtApellidoMaterno";
-            this.TxtApellidoMaterno.Size = new System.Drawing.Size(183, 26);
+            this.TxtApellidoMaterno.Size = new System.Drawing.Size(248, 26);
             this.TxtApellidoMaterno.TabIndex = 11;
             // 
             // TxtApellidoPaterno
             // 
             this.TxtApellidoPaterno.Location = new System.Drawing.Point(664, 41);
             this.TxtApellidoPaterno.Name = "TxtApellidoPaterno";
-            this.TxtApellidoPaterno.Size = new System.Drawing.Size(179, 26);
+            this.TxtApellidoPaterno.Size = new System.Drawing.Size(253, 26);
             this.TxtApellidoPaterno.TabIndex = 10;
             // 
             // TxtNombre2
             // 
             this.TxtNombre2.Location = new System.Drawing.Point(414, 41);
             this.TxtNombre2.Name = "TxtNombre2";
-            this.TxtNombre2.Size = new System.Drawing.Size(194, 26);
+            this.TxtNombre2.Size = new System.Drawing.Size(220, 26);
             this.TxtNombre2.TabIndex = 9;
             // 
             // TxtNombre1
             // 
             this.TxtNombre1.Location = new System.Drawing.Point(199, 41);
             this.TxtNombre1.Name = "TxtNombre1";
-            this.TxtNombre1.Size = new System.Drawing.Size(168, 26);
+            this.TxtNombre1.Size = new System.Drawing.Size(187, 26);
             this.TxtNombre1.TabIndex = 8;
             // 
             // TxtIdResponsable
             // 
             this.TxtIdResponsable.Location = new System.Drawing.Point(46, 42);
             this.TxtIdResponsable.Name = "TxtIdResponsable";
-            this.TxtIdResponsable.Size = new System.Drawing.Size(100, 26);
+            this.TxtIdResponsable.Size = new System.Drawing.Size(124, 26);
             this.TxtIdResponsable.TabIndex = 7;
             // 
             // label7

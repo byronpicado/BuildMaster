@@ -44,8 +44,8 @@ namespace CapaDePresentacion.Catálogos
             TxtNombre.Text = "";
             TxtDescripcion.Text = "";
             TxtEstado.Text = "";
-            DTPFechaInicio.Value = DateTime.Now; // Resetea al valor actual
-            DTPFechaFin.Value= DateTime.Now;
+            DTPFechaInicio.Text = ""; // Resetea al valor actual
+            DTPFechaFin.Text= "";
         }
 
         private void BtnGuardar_Click(object sender, EventArgs e)
@@ -106,7 +106,7 @@ namespace CapaDePresentacion.Catálogos
                     TxtDescripcion.Text = DGVProyecto.CurrentRow.Cells["descripcion"].Value.ToString();
                     DTPFechaInicio.Text = DGVProyecto.CurrentRow.Cells["fecha_inicio"].Value.ToString();
                     DTPFechaFin.Text = DGVProyecto.CurrentRow.Cells["fecha_fin"].Value.ToString();
-                    TxtEstado.Text = DGVProyecto.CurrentRow.Cells["Descripcion"].Value.ToString();
+                    TxtEstado.Text = DGVProyecto.CurrentRow.Cells["Estado"].Value.ToString();
 
 
 
@@ -124,7 +124,34 @@ namespace CapaDePresentacion.Catálogos
 
         private void BtnEliminar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                if (DGVProyecto.SelectedRows.Count > 0)
+                {
+                    int proyectoid = int.Parse(DGVProyecto.CurrentRow.Cells["id_proyecto"].Value.ToString());
+                    // clienteCN.ValidarAntesDeEliminar(clienteid);
 
+                    // Llamada al método Eliminar en ClienteCN
+                    if (proyectoCN.Eliminar(proyectoid))
+                    {
+                        LimpiarDatos();
+                        MostrarProyecto();
+                        MessageBox.Show("El registro se eliminó correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("El registro no se eliminó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Debe seleccionar una fila de la lista", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ocurrió un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

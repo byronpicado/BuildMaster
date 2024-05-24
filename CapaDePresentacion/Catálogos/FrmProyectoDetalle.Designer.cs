@@ -34,12 +34,12 @@
             this.BtnEliminar = new System.Windows.Forms.Button();
             this.BtnEditar = new System.Windows.Forms.Button();
             this.BtnGuardar = new System.Windows.Forms.Button();
-            this.TxtFechaRegistro = new System.Windows.Forms.TextBox();
             this.TxtDescripcion = new System.Windows.Forms.TextBox();
             this.TxtIdProyectoDetalle = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProyectoDetalle)).BeginInit();
             this.panelProyectoDetalle.SuspendLayout();
             this.SuspendLayout();
@@ -72,10 +72,10 @@
             // 
             this.panelProyectoDetalle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(122)))), ((int)(((byte)(191)))));
             this.panelProyectoDetalle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelProyectoDetalle.Controls.Add(this.dateTimePicker1);
             this.panelProyectoDetalle.Controls.Add(this.BtnEliminar);
             this.panelProyectoDetalle.Controls.Add(this.BtnEditar);
             this.panelProyectoDetalle.Controls.Add(this.BtnGuardar);
-            this.panelProyectoDetalle.Controls.Add(this.TxtFechaRegistro);
             this.panelProyectoDetalle.Controls.Add(this.TxtDescripcion);
             this.panelProyectoDetalle.Controls.Add(this.TxtIdProyectoDetalle);
             this.panelProyectoDetalle.Controls.Add(this.label4);
@@ -89,59 +89,55 @@
             // BtnEliminar
             // 
             this.BtnEliminar.BackColor = System.Drawing.Color.Red;
-            this.BtnEliminar.Location = new System.Drawing.Point(616, 158);
+            this.BtnEliminar.Location = new System.Drawing.Point(615, 199);
             this.BtnEliminar.Name = "BtnEliminar";
             this.BtnEliminar.Size = new System.Drawing.Size(85, 30);
             this.BtnEliminar.TabIndex = 16;
             this.BtnEliminar.Text = "Eliminar";
             this.BtnEliminar.UseVisualStyleBackColor = false;
+            this.BtnEliminar.Click += new System.EventHandler(this.BtnEliminar_Click);
             // 
             // BtnEditar
             // 
             this.BtnEditar.BackColor = System.Drawing.Color.DarkOrange;
-            this.BtnEditar.Location = new System.Drawing.Point(389, 158);
+            this.BtnEditar.Location = new System.Drawing.Point(388, 199);
             this.BtnEditar.Name = "BtnEditar";
             this.BtnEditar.Size = new System.Drawing.Size(75, 30);
             this.BtnEditar.TabIndex = 15;
             this.BtnEditar.Text = "Editar";
             this.BtnEditar.UseVisualStyleBackColor = false;
+            this.BtnEditar.Click += new System.EventHandler(this.BtnEditar_Click);
             // 
             // BtnGuardar
             // 
             this.BtnGuardar.AutoSize = true;
             this.BtnGuardar.BackColor = System.Drawing.Color.Lime;
-            this.BtnGuardar.Location = new System.Drawing.Point(191, 158);
+            this.BtnGuardar.Location = new System.Drawing.Point(190, 199);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(85, 30);
             this.BtnGuardar.TabIndex = 14;
             this.BtnGuardar.Text = "Guardar";
             this.BtnGuardar.UseVisualStyleBackColor = false;
-            // 
-            // TxtFechaRegistro
-            // 
-            this.TxtFechaRegistro.Location = new System.Drawing.Point(559, 40);
-            this.TxtFechaRegistro.Name = "TxtFechaRegistro";
-            this.TxtFechaRegistro.Size = new System.Drawing.Size(194, 26);
-            this.TxtFechaRegistro.TabIndex = 9;
+            this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click);
             // 
             // TxtDescripcion
             // 
-            this.TxtDescripcion.Location = new System.Drawing.Point(344, 40);
+            this.TxtDescripcion.Location = new System.Drawing.Point(204, 42);
             this.TxtDescripcion.Name = "TxtDescripcion";
-            this.TxtDescripcion.Size = new System.Drawing.Size(168, 26);
+            this.TxtDescripcion.Size = new System.Drawing.Size(714, 26);
             this.TxtDescripcion.TabIndex = 8;
             // 
             // TxtIdProyectoDetalle
             // 
-            this.TxtIdProyectoDetalle.Location = new System.Drawing.Point(191, 41);
+            this.TxtIdProyectoDetalle.Location = new System.Drawing.Point(56, 42);
             this.TxtIdProyectoDetalle.Name = "TxtIdProyectoDetalle";
-            this.TxtIdProyectoDetalle.Size = new System.Drawing.Size(100, 26);
+            this.TxtIdProyectoDetalle.Size = new System.Drawing.Size(132, 26);
             this.TxtIdProyectoDetalle.TabIndex = 7;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(555, 17);
+            this.label4.Location = new System.Drawing.Point(52, 87);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(136, 20);
             this.label4.TabIndex = 2;
@@ -150,7 +146,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(340, 17);
+            this.label3.Location = new System.Drawing.Point(200, 19);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(92, 20);
             this.label3.TabIndex = 1;
@@ -159,11 +155,18 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(187, 17);
+            this.label2.Location = new System.Drawing.Point(52, 18);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(27, 20);
             this.label2.TabIndex = 0;
             this.label2.Text = "Id ";
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(56, 110);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(336, 26);
+            this.dateTimePicker1.TabIndex = 17;
             // 
             // FrmProyectoDetalle
             // 
@@ -175,6 +178,7 @@
             this.Controls.Add(this.label1);
             this.Name = "FrmProyectoDetalle";
             this.Text = "Formulario Proyecto Detalle";
+            this.Load += new System.EventHandler(this.FrmProyectoDetalle_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVProyectoDetalle)).EndInit();
             this.panelProyectoDetalle.ResumeLayout(false);
             this.panelProyectoDetalle.PerformLayout();
@@ -191,11 +195,11 @@
         private System.Windows.Forms.Button BtnEliminar;
         private System.Windows.Forms.Button BtnEditar;
         private System.Windows.Forms.Button BtnGuardar;
-        private System.Windows.Forms.TextBox TxtFechaRegistro;
         private System.Windows.Forms.TextBox TxtDescripcion;
         private System.Windows.Forms.TextBox TxtIdProyectoDetalle;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }

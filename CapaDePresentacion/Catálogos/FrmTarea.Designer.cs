@@ -35,8 +35,6 @@
             this.BtnEditar = new System.Windows.Forms.Button();
             this.BtnGuardar = new System.Windows.Forms.Button();
             this.TxtEstado = new System.Windows.Forms.TextBox();
-            this.TxtFechaFin = new System.Windows.Forms.TextBox();
-            this.TxtFechaInicio = new System.Windows.Forms.TextBox();
             this.TxtDescripcion = new System.Windows.Forms.TextBox();
             this.TxtIdTarea = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -44,6 +42,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.DGVTarea)).BeginInit();
             this.panelTarea.SuspendLayout();
             this.SuspendLayout();
@@ -76,12 +76,12 @@
             // 
             this.panelTarea.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(122)))), ((int)(((byte)(191)))));
             this.panelTarea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelTarea.Controls.Add(this.dateTimePicker2);
+            this.panelTarea.Controls.Add(this.dateTimePicker1);
             this.panelTarea.Controls.Add(this.BtnEliminar);
             this.panelTarea.Controls.Add(this.BtnEditar);
             this.panelTarea.Controls.Add(this.BtnGuardar);
             this.panelTarea.Controls.Add(this.TxtEstado);
-            this.panelTarea.Controls.Add(this.TxtFechaFin);
-            this.panelTarea.Controls.Add(this.TxtFechaInicio);
             this.panelTarea.Controls.Add(this.TxtDescripcion);
             this.panelTarea.Controls.Add(this.TxtIdTarea);
             this.panelTarea.Controls.Add(this.label7);
@@ -103,6 +103,7 @@
             this.BtnEliminar.TabIndex = 16;
             this.BtnEliminar.Text = "Eliminar";
             this.BtnEliminar.UseVisualStyleBackColor = false;
+            this.BtnEliminar.Click += new System.EventHandler(this.BtnEliminar_Click);
             // 
             // BtnEditar
             // 
@@ -113,6 +114,7 @@
             this.BtnEditar.TabIndex = 15;
             this.BtnEditar.Text = "Editar";
             this.BtnEditar.UseVisualStyleBackColor = false;
+            this.BtnEditar.Click += new System.EventHandler(this.BtnEditar_Click);
             // 
             // BtnGuardar
             // 
@@ -124,6 +126,7 @@
             this.BtnGuardar.TabIndex = 14;
             this.BtnGuardar.Text = "Guardar";
             this.BtnGuardar.UseVisualStyleBackColor = false;
+            this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click);
             // 
             // TxtEstado
             // 
@@ -132,32 +135,18 @@
             this.TxtEstado.Size = new System.Drawing.Size(178, 26);
             this.TxtEstado.TabIndex = 12;
             // 
-            // TxtFechaFin
-            // 
-            this.TxtFechaFin.Location = new System.Drawing.Point(680, 41);
-            this.TxtFechaFin.Name = "TxtFechaFin";
-            this.TxtFechaFin.Size = new System.Drawing.Size(183, 26);
-            this.TxtFechaFin.TabIndex = 11;
-            // 
-            // TxtFechaInicio
-            // 
-            this.TxtFechaInicio.Location = new System.Drawing.Point(437, 42);
-            this.TxtFechaInicio.Name = "TxtFechaInicio";
-            this.TxtFechaInicio.Size = new System.Drawing.Size(179, 26);
-            this.TxtFechaInicio.TabIndex = 10;
-            // 
             // TxtDescripcion
             // 
             this.TxtDescripcion.Location = new System.Drawing.Point(199, 41);
             this.TxtDescripcion.Name = "TxtDescripcion";
-            this.TxtDescripcion.Size = new System.Drawing.Size(168, 26);
+            this.TxtDescripcion.Size = new System.Drawing.Size(713, 26);
             this.TxtDescripcion.TabIndex = 8;
             // 
             // TxtIdTarea
             // 
             this.TxtIdTarea.Location = new System.Drawing.Point(46, 42);
             this.TxtIdTarea.Name = "TxtIdTarea";
-            this.TxtIdTarea.Size = new System.Drawing.Size(100, 26);
+            this.TxtIdTarea.Size = new System.Drawing.Size(127, 26);
             this.TxtIdTarea.TabIndex = 7;
             // 
             // label7
@@ -172,7 +161,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(676, 17);
+            this.label6.Location = new System.Drawing.Point(614, 101);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(75, 20);
             this.label6.TabIndex = 4;
@@ -181,7 +170,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(433, 19);
+            this.label5.Location = new System.Drawing.Point(269, 103);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(93, 20);
             this.label5.TabIndex = 3;
@@ -205,6 +194,20 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Id ";
             // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(273, 125);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(328, 26);
+            this.dateTimePicker1.TabIndex = 17;
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.Location = new System.Drawing.Point(618, 125);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(294, 26);
+            this.dateTimePicker2.TabIndex = 18;
+            // 
             // FrmTarea
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -215,6 +218,7 @@
             this.Controls.Add(this.label1);
             this.Name = "FrmTarea";
             this.Text = "Formulario Tarea";
+            this.Load += new System.EventHandler(this.FrmTarea_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVTarea)).EndInit();
             this.panelTarea.ResumeLayout(false);
             this.panelTarea.PerformLayout();
@@ -232,8 +236,6 @@
         private System.Windows.Forms.Button BtnEditar;
         private System.Windows.Forms.Button BtnGuardar;
         private System.Windows.Forms.TextBox TxtEstado;
-        private System.Windows.Forms.TextBox TxtFechaFin;
-        private System.Windows.Forms.TextBox TxtFechaInicio;
         private System.Windows.Forms.TextBox TxtDescripcion;
         private System.Windows.Forms.TextBox TxtIdTarea;
         private System.Windows.Forms.Label label7;
@@ -241,5 +243,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }

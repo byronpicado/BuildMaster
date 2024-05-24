@@ -43,5 +43,20 @@ namespace CapaDePresentacion.Catálogos
             TxtCargo.Text = "";
 
         }
+
+        private void BtnGuardar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnEditar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnEliminar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
