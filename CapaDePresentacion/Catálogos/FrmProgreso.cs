@@ -18,7 +18,7 @@ namespace CapaDePresentacion.Catálogos
     {
         // Variables
         private ProgresoCN progresoCN;
-        private Proyecto progreso;
+        private Progreso progreso;
         private bool editar = false;
         private int progresoid;
         public FrmProgreso()
