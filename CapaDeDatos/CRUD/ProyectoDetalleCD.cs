@@ -47,19 +47,11 @@ namespace CapaDeDatos.CRUD
 
             {
                 Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "Insert INTO ProyectoDetalle (id_proyectoDetalle,id_proyecto,id_cliente,id_responsable,id_recurso,id_tarea,id_progreso,id_equipo,id_Personal_proyecto,id_personal,descripcion,fecha_registro) VALUES (@id_proyectoDetalle,@id_proyecto,@id_cliente,@id_responsable,@id_recurso,@id_tarea,@id_progreso,@id_equipo,@id_Personal_proyecto,@id_personal,@descripcion,@fecha_registro)";
+                Comando.CommandText = "Insert INTO ProyectoDetalle (id_proyectoDetalle,id_proyecto,id_cliente,id_responsable,id_recurso,id_tarea,id_progreso,id_equipo,id_Personal_proyecto,id_personal,descripcion,fecha_registro) VALUES (@id_proyectoDetalle,@descripcion,@fecha_registro)";
                 Comando.CommandType = CommandType.Text;
 
                 Comando.Parameters.AddWithValue("@id_proyectoDetalle", proyectoDetalle.id_proyectoDetalle);
-                Comando.Parameters.AddWithValue("@id_proyecto", proyectoDetalle.id_proyecto);
-                Comando.Parameters.AddWithValue("@id_cliente",proyectoDetalle.id_cliente);
-                Comando.Parameters.AddWithValue("@id_responsable", proyectoDetalle.id_responsable);
-                Comando.Parameters.AddWithValue("id_recurso", proyectoDetalle.id_recurso);
-                Comando.Parameters.AddWithValue("@id_tarea", proyectoDetalle.id_tarea);
-                Comando.Parameters.AddWithValue("@id_progreso", proyectoDetalle.id_progreso);
-                Comando.Parameters.AddWithValue("@id_equipo",proyectoDetalle.id_equipo);
-                Comando.Parameters.AddWithValue("@id_Personal_proyecto", proyectoDetalle.id_Personal_proyecto);
-                Comando.Parameters.AddWithValue("@id_personal", proyectoDetalle.id_personal);
+                
                 Comando.Parameters.AddWithValue("@descripcion", proyectoDetalle.descripcion);
                 Comando.Parameters.AddWithValue("@fecha_registro", proyectoDetalle.fecha_registro);
                 
@@ -85,18 +77,10 @@ namespace CapaDeDatos.CRUD
             try
             {
                 Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "UPDATE ProyectoDetalle SET id_proyecto=@id_proyecto,id_cliente=@id_cliente,id_responsable=@id_responsable,id_recurso=@id_recurso,id_tarea=@id_tarea,id_progreso=@id_progreso,id_equipo=@id_equipo,id_Personal_proyecto=@id_Personal_proyecto,id_personal=@id_personal,descripcion=@descripcion,fecha_registro=@fecha_registro WHERE id_proyectoDetalle=@id_proyectoDetalle";
+                Comando.CommandText = "UPDATE ProyectoDetalle SET id_proyecto=@id_proyecto,descripcion=@descripcion,fecha_registro=@fecha_registro WHERE id_proyectoDetalle=@id_proyectoDetalle";
                 Comando.CommandType = CommandType.Text;
                 Comando.Parameters.AddWithValue("@id_proyectoDetalle", proyectoDetalle.id_proyectoDetalle);
-                Comando.Parameters.AddWithValue("@id_proyecto", proyectoDetalle.id_proyecto);
-                Comando.Parameters.AddWithValue("@id_cliente", proyectoDetalle.id_cliente);
-                Comando.Parameters.AddWithValue("@id_responsable", proyectoDetalle.id_responsable);
-                Comando.Parameters.AddWithValue("id_recurso", proyectoDetalle.id_recurso);
-                Comando.Parameters.AddWithValue("@id_tarea", proyectoDetalle.id_tarea);
-                Comando.Parameters.AddWithValue("@id_progreso", proyectoDetalle.id_progreso);
-                Comando.Parameters.AddWithValue("@id_equipo", proyectoDetalle.id_equipo);
-                Comando.Parameters.AddWithValue("@id_Personal_proyecto", proyectoDetalle.id_Personal_proyecto);
-                Comando.Parameters.AddWithValue("@id_personal", proyectoDetalle.id_personal);
+   
                 Comando.Parameters.AddWithValue("@descripcion", proyectoDetalle.descripcion);
                 Comando.Parameters.AddWithValue("@fecha_registro", proyectoDetalle.fecha_registro);
                 editado = Comando.ExecuteNonQuery() > 0;

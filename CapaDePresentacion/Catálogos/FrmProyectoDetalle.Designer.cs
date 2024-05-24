@@ -31,6 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.DGVProyectoDetalle = new System.Windows.Forms.DataGridView();
             this.panelProyectoDetalle = new System.Windows.Forms.Panel();
+            this.DTPFechaRegistro = new System.Windows.Forms.DateTimePicker();
             this.BtnEliminar = new System.Windows.Forms.Button();
             this.BtnEditar = new System.Windows.Forms.Button();
             this.BtnGuardar = new System.Windows.Forms.Button();
@@ -39,7 +40,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProyectoDetalle)).BeginInit();
             this.panelProyectoDetalle.SuspendLayout();
             this.SuspendLayout();
@@ -72,7 +72,7 @@
             // 
             this.panelProyectoDetalle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(122)))), ((int)(((byte)(191)))));
             this.panelProyectoDetalle.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelProyectoDetalle.Controls.Add(this.dateTimePicker1);
+            this.panelProyectoDetalle.Controls.Add(this.DTPFechaRegistro);
             this.panelProyectoDetalle.Controls.Add(this.BtnEliminar);
             this.panelProyectoDetalle.Controls.Add(this.BtnEditar);
             this.panelProyectoDetalle.Controls.Add(this.BtnGuardar);
@@ -85,6 +85,13 @@
             this.panelProyectoDetalle.Name = "panelProyectoDetalle";
             this.panelProyectoDetalle.Size = new System.Drawing.Size(935, 255);
             this.panelProyectoDetalle.TabIndex = 18;
+            // 
+            // DTPFechaRegistro
+            // 
+            this.DTPFechaRegistro.Location = new System.Drawing.Point(56, 110);
+            this.DTPFechaRegistro.Name = "DTPFechaRegistro";
+            this.DTPFechaRegistro.Size = new System.Drawing.Size(336, 26);
+            this.DTPFechaRegistro.TabIndex = 17;
             // 
             // BtnEliminar
             // 
@@ -161,13 +168,6 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Id ";
             // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(56, 110);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(336, 26);
-            this.dateTimePicker1.TabIndex = 17;
-            // 
             // FrmProyectoDetalle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -200,6 +200,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker DTPFechaRegistro;
     }
 }
