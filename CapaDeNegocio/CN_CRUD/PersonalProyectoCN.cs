@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CapaDeNegocio.CN_CRUD
 {
-    internal class PersonalProyectoCN
+    public class PersonalProyectoCN
     {
         private Personal_ProyectoCD personal_ProyectoCD = new Personal_ProyectoCD();
         public DataTable ObtenerPersonal_proyecto()

@@ -34,8 +34,7 @@
             this.BtnEliminar = new System.Windows.Forms.Button();
             this.BtnEditar = new System.Windows.Forms.Button();
             this.BtnGuardar = new System.Windows.Forms.Button();
-            this.TxtCorreo = new System.Windows.Forms.TextBox();
-            this.TxtTelefono = new System.Windows.Forms.TextBox();
+            this.TxtCargo = new System.Windows.Forms.TextBox();
             this.TxtApellidoMaterno = new System.Windows.Forms.TextBox();
             this.TxtApellidoPaterno = new System.Windows.Forms.TextBox();
             this.TxtNombre2 = new System.Windows.Forms.TextBox();
@@ -48,6 +47,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.DTPFechaContratacion = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.DGVPersonal)).BeginInit();
             this.panelPersonal.SuspendLayout();
             this.SuspendLayout();
@@ -80,11 +80,11 @@
             // 
             this.panelPersonal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(122)))), ((int)(((byte)(191)))));
             this.panelPersonal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelPersonal.Controls.Add(this.DTPFechaContratacion);
             this.panelPersonal.Controls.Add(this.BtnEliminar);
             this.panelPersonal.Controls.Add(this.BtnEditar);
             this.panelPersonal.Controls.Add(this.BtnGuardar);
-            this.panelPersonal.Controls.Add(this.TxtCorreo);
-            this.panelPersonal.Controls.Add(this.TxtTelefono);
+            this.panelPersonal.Controls.Add(this.TxtCargo);
             this.panelPersonal.Controls.Add(this.TxtApellidoMaterno);
             this.panelPersonal.Controls.Add(this.TxtApellidoPaterno);
             this.panelPersonal.Controls.Add(this.TxtNombre2);
@@ -111,6 +111,7 @@
             this.BtnEliminar.TabIndex = 16;
             this.BtnEliminar.Text = "Eliminar";
             this.BtnEliminar.UseVisualStyleBackColor = false;
+            this.BtnEliminar.Click += new System.EventHandler(this.BtnEliminar_Click);
             // 
             // BtnEditar
             // 
@@ -121,6 +122,7 @@
             this.BtnEditar.TabIndex = 15;
             this.BtnEditar.Text = "Editar";
             this.BtnEditar.UseVisualStyleBackColor = false;
+            this.BtnEditar.Click += new System.EventHandler(this.BtnEditar_Click);
             // 
             // BtnGuardar
             // 
@@ -132,20 +134,14 @@
             this.BtnGuardar.TabIndex = 14;
             this.BtnGuardar.Text = "Guardar";
             this.BtnGuardar.UseVisualStyleBackColor = false;
+            this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click);
             // 
-            // TxtCorreo
+            // TxtCargo
             // 
-            this.TxtCorreo.Location = new System.Drawing.Point(549, 125);
-            this.TxtCorreo.Name = "TxtCorreo";
-            this.TxtCorreo.Size = new System.Drawing.Size(294, 26);
-            this.TxtCorreo.TabIndex = 13;
-            // 
-            // TxtTelefono
-            // 
-            this.TxtTelefono.Location = new System.Drawing.Point(325, 126);
-            this.TxtTelefono.Name = "TxtTelefono";
-            this.TxtTelefono.Size = new System.Drawing.Size(178, 26);
-            this.TxtTelefono.TabIndex = 12;
+            this.TxtCargo.Location = new System.Drawing.Point(325, 126);
+            this.TxtCargo.Name = "TxtCargo";
+            this.TxtCargo.Size = new System.Drawing.Size(178, 26);
+            this.TxtCargo.TabIndex = 12;
             // 
             // TxtApellidoMaterno
             // 
@@ -245,6 +241,13 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Id ";
             // 
+            // DTPFechaContratacion
+            // 
+            this.DTPFechaContratacion.Location = new System.Drawing.Point(549, 126);
+            this.DTPFechaContratacion.Name = "DTPFechaContratacion";
+            this.DTPFechaContratacion.Size = new System.Drawing.Size(330, 26);
+            this.DTPFechaContratacion.TabIndex = 17;
+            // 
             // FrmPersonal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -255,6 +258,7 @@
             this.Controls.Add(this.label1);
             this.Name = "FrmPersonal";
             this.Text = "Formulario Personal";
+            this.Load += new System.EventHandler(this.FrmPersonal_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVPersonal)).EndInit();
             this.panelPersonal.ResumeLayout(false);
             this.panelPersonal.PerformLayout();
@@ -271,8 +275,7 @@
         private System.Windows.Forms.Button BtnEliminar;
         private System.Windows.Forms.Button BtnEditar;
         private System.Windows.Forms.Button BtnGuardar;
-        private System.Windows.Forms.TextBox TxtCorreo;
-        private System.Windows.Forms.TextBox TxtTelefono;
+        private System.Windows.Forms.TextBox TxtCargo;
         private System.Windows.Forms.TextBox TxtApellidoMaterno;
         private System.Windows.Forms.TextBox TxtApellidoPaterno;
         private System.Windows.Forms.TextBox TxtNombre2;
@@ -285,5 +288,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DateTimePicker DTPFechaContratacion;
     }
 }

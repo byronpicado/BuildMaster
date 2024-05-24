@@ -1,5 +1,6 @@
 ﻿using CapaDeDatos.CRUD;
 using Entidades;
+using Entidades.Entidades;
 using System;
 using System.Collections.Generic;
 using System.Data;

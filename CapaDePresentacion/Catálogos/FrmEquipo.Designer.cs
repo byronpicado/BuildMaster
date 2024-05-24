@@ -31,10 +31,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.DGVEquipo = new System.Windows.Forms.DataGridView();
             this.panelEquipo = new System.Windows.Forms.Panel();
+            this.DTPFecha_Adquisicion = new System.Windows.Forms.DateTimePicker();
             this.BtnEliminar = new System.Windows.Forms.Button();
             this.BtnEditar = new System.Windows.Forms.Button();
             this.BtnGuardar = new System.Windows.Forms.Button();
-            this.TxtFechaAdquisicion = new System.Windows.Forms.TextBox();
             this.TxtMarca = new System.Windows.Forms.TextBox();
             this.TxtTipo = new System.Windows.Forms.TextBox();
             this.TxtIdEquipo = new System.Windows.Forms.TextBox();
@@ -61,12 +61,12 @@
             this.DGVEquipo.AllowUserToAddRows = false;
             this.DGVEquipo.AllowUserToDeleteRows = false;
             this.DGVEquipo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVEquipo.Location = new System.Drawing.Point(22, 264);
+            this.DGVEquipo.Location = new System.Drawing.Point(155, 262);
             this.DGVEquipo.Name = "DGVEquipo";
             this.DGVEquipo.ReadOnly = true;
             this.DGVEquipo.RowHeadersWidth = 62;
             this.DGVEquipo.RowTemplate.Height = 28;
-            this.DGVEquipo.Size = new System.Drawing.Size(935, 373);
+            this.DGVEquipo.Size = new System.Drawing.Size(690, 373);
             this.DGVEquipo.TabIndex = 19;
             this.DGVEquipo.Tag = "";
             // 
@@ -74,10 +74,10 @@
             // 
             this.panelEquipo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(122)))), ((int)(((byte)(191)))));
             this.panelEquipo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelEquipo.Controls.Add(this.DTPFecha_Adquisicion);
             this.panelEquipo.Controls.Add(this.BtnEliminar);
             this.panelEquipo.Controls.Add(this.BtnEditar);
             this.panelEquipo.Controls.Add(this.BtnGuardar);
-            this.panelEquipo.Controls.Add(this.TxtFechaAdquisicion);
             this.panelEquipo.Controls.Add(this.TxtMarca);
             this.panelEquipo.Controls.Add(this.TxtTipo);
             this.panelEquipo.Controls.Add(this.TxtIdEquipo);
@@ -85,10 +85,18 @@
             this.panelEquipo.Controls.Add(this.label4);
             this.panelEquipo.Controls.Add(this.label3);
             this.panelEquipo.Controls.Add(this.label2);
-            this.panelEquipo.Location = new System.Drawing.Point(22, 47);
+            this.panelEquipo.Location = new System.Drawing.Point(12, 47);
             this.panelEquipo.Name = "panelEquipo";
-            this.panelEquipo.Size = new System.Drawing.Size(935, 190);
+            this.panelEquipo.Size = new System.Drawing.Size(954, 190);
             this.panelEquipo.TabIndex = 18;
+            // 
+            // DTPFecha_Adquisicion
+            // 
+            this.DTPFecha_Adquisicion.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DTPFecha_Adquisicion.Location = new System.Drawing.Point(638, 41);
+            this.DTPFecha_Adquisicion.Name = "DTPFecha_Adquisicion";
+            this.DTPFecha_Adquisicion.Size = new System.Drawing.Size(292, 26);
+            this.DTPFecha_Adquisicion.TabIndex = 17;
             // 
             // BtnEliminar
             // 
@@ -99,6 +107,7 @@
             this.BtnEliminar.TabIndex = 16;
             this.BtnEliminar.Text = "Eliminar";
             this.BtnEliminar.UseVisualStyleBackColor = false;
+            this.BtnEliminar.Click += new System.EventHandler(this.BtnEliminar_Click);
             // 
             // BtnEditar
             // 
@@ -109,6 +118,7 @@
             this.BtnEditar.TabIndex = 15;
             this.BtnEditar.Text = "Editar";
             this.BtnEditar.UseVisualStyleBackColor = false;
+            this.BtnEditar.Click += new System.EventHandler(this.BtnEditar_Click);
             // 
             // BtnGuardar
             // 
@@ -120,13 +130,7 @@
             this.BtnGuardar.TabIndex = 14;
             this.BtnGuardar.Text = "Guardar";
             this.BtnGuardar.UseVisualStyleBackColor = false;
-            // 
-            // TxtFechaAdquisicion
-            // 
-            this.TxtFechaAdquisicion.Location = new System.Drawing.Point(664, 41);
-            this.TxtFechaAdquisicion.Name = "TxtFechaAdquisicion";
-            this.TxtFechaAdquisicion.Size = new System.Drawing.Size(179, 26);
-            this.TxtFechaAdquisicion.TabIndex = 10;
+            this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click);
             // 
             // TxtMarca
             // 
@@ -152,7 +156,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(660, 18);
+            this.label5.Location = new System.Drawing.Point(634, 18);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(139, 20);
             this.label5.TabIndex = 3;
@@ -212,7 +216,6 @@
         private System.Windows.Forms.Button BtnEliminar;
         private System.Windows.Forms.Button BtnEditar;
         private System.Windows.Forms.Button BtnGuardar;
-        private System.Windows.Forms.TextBox TxtFechaAdquisicion;
         private System.Windows.Forms.TextBox TxtMarca;
         private System.Windows.Forms.TextBox TxtTipo;
         private System.Windows.Forms.TextBox TxtIdEquipo;
@@ -220,5 +223,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DateTimePicker DTPFecha_Adquisicion;
     }
 }

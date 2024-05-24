@@ -31,13 +31,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.DGVCliente = new System.Windows.Forms.DataGridView();
             this.panelHabilidad = new System.Windows.Forms.Panel();
+            this.BtnEliminar = new System.Windows.Forms.Button();
             this.BtnEditar = new System.Windows.Forms.Button();
             this.BtnGuardar = new System.Windows.Forms.Button();
-            this.TxtNombre1 = new System.Windows.Forms.TextBox();
-            this.TxtIdCliente = new System.Windows.Forms.TextBox();
+            this.TxtDescripcion = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.BtnEliminar = new System.Windows.Forms.Button();
+            this.TxtId_habilidad = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVCliente)).BeginInit();
             this.panelHabilidad.SuspendLayout();
             this.SuspendLayout();
@@ -70,17 +70,28 @@
             // 
             this.panelHabilidad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(122)))), ((int)(((byte)(191)))));
             this.panelHabilidad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelHabilidad.Controls.Add(this.TxtId_habilidad);
             this.panelHabilidad.Controls.Add(this.BtnEliminar);
             this.panelHabilidad.Controls.Add(this.BtnEditar);
             this.panelHabilidad.Controls.Add(this.BtnGuardar);
-            this.panelHabilidad.Controls.Add(this.TxtNombre1);
-            this.panelHabilidad.Controls.Add(this.TxtIdCliente);
+            this.panelHabilidad.Controls.Add(this.TxtDescripcion);
             this.panelHabilidad.Controls.Add(this.label3);
             this.panelHabilidad.Controls.Add(this.label2);
             this.panelHabilidad.Location = new System.Drawing.Point(22, 70);
             this.panelHabilidad.Name = "panelHabilidad";
             this.panelHabilidad.Size = new System.Drawing.Size(935, 255);
             this.panelHabilidad.TabIndex = 18;
+            // 
+            // BtnEliminar
+            // 
+            this.BtnEliminar.BackColor = System.Drawing.Color.Red;
+            this.BtnEliminar.Location = new System.Drawing.Point(709, 161);
+            this.BtnEliminar.Name = "BtnEliminar";
+            this.BtnEliminar.Size = new System.Drawing.Size(85, 30);
+            this.BtnEliminar.TabIndex = 16;
+            this.BtnEliminar.Text = "Eliminar";
+            this.BtnEliminar.UseVisualStyleBackColor = false;
+            this.BtnEliminar.Click += new System.EventHandler(this.BtnEliminar_Click);
             // 
             // BtnEditar
             // 
@@ -91,6 +102,7 @@
             this.BtnEditar.TabIndex = 15;
             this.BtnEditar.Text = "Editar";
             this.BtnEditar.UseVisualStyleBackColor = false;
+            this.BtnEditar.Click += new System.EventHandler(this.BtnEditar_Click);
             // 
             // BtnGuardar
             // 
@@ -102,21 +114,14 @@
             this.BtnGuardar.TabIndex = 14;
             this.BtnGuardar.Text = "Guardar";
             this.BtnGuardar.UseVisualStyleBackColor = false;
+            this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click);
             // 
-            // TxtNombre1
+            // TxtDescripcion
             // 
-            this.TxtNombre1.Location = new System.Drawing.Point(246, 47);
-            this.TxtNombre1.Name = "TxtNombre1";
-            this.TxtNombre1.Size = new System.Drawing.Size(661, 26);
-            this.TxtNombre1.TabIndex = 8;
-            // 
-            // TxtIdCliente
-            // 
-            this.TxtIdCliente.Location = new System.Drawing.Point(82, 47);
-            this.TxtIdCliente.Name = "TxtIdCliente";
-            this.TxtIdCliente.Size = new System.Drawing.Size(100, 26);
-            this.TxtIdCliente.TabIndex = 7;
-            this.TxtIdCliente.TextChanged += new System.EventHandler(this.TxtIdCliente_TextChanged);
+            this.TxtDescripcion.Location = new System.Drawing.Point(246, 47);
+            this.TxtDescripcion.Name = "TxtDescripcion";
+            this.TxtDescripcion.Size = new System.Drawing.Size(661, 26);
+            this.TxtDescripcion.TabIndex = 8;
             // 
             // label3
             // 
@@ -136,15 +141,12 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Id ";
             // 
-            // BtnEliminar
+            // TxtId_habilidad
             // 
-            this.BtnEliminar.BackColor = System.Drawing.Color.Red;
-            this.BtnEliminar.Location = new System.Drawing.Point(709, 161);
-            this.BtnEliminar.Name = "BtnEliminar";
-            this.BtnEliminar.Size = new System.Drawing.Size(85, 30);
-            this.BtnEliminar.TabIndex = 16;
-            this.BtnEliminar.Text = "Eliminar";
-            this.BtnEliminar.UseVisualStyleBackColor = false;
+            this.TxtId_habilidad.Location = new System.Drawing.Point(82, 46);
+            this.TxtId_habilidad.Name = "TxtId_habilidad";
+            this.TxtId_habilidad.Size = new System.Drawing.Size(100, 26);
+            this.TxtId_habilidad.TabIndex = 17;
             // 
             // FrmHabilidad
             // 
@@ -156,6 +158,7 @@
             this.Controls.Add(this.label1);
             this.Name = "FrmHabilidad";
             this.Text = "Formulario Habilidad";
+            this.Load += new System.EventHandler(this.FrmHabilidad_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVCliente)).EndInit();
             this.panelHabilidad.ResumeLayout(false);
             this.panelHabilidad.PerformLayout();
@@ -171,10 +174,10 @@
         private System.Windows.Forms.Panel panelHabilidad;
         private System.Windows.Forms.Button BtnEditar;
         private System.Windows.Forms.Button BtnGuardar;
-        private System.Windows.Forms.TextBox TxtNombre1;
-        private System.Windows.Forms.TextBox TxtIdCliente;
+        private System.Windows.Forms.TextBox TxtDescripcion;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button BtnEliminar;
+        private System.Windows.Forms.TextBox TxtId_habilidad;
     }
 }

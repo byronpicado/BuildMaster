@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CapaDeNegocio.CN_CRUD
 {
-    internal class TareaCN
+    public class TareaCN
     {
         private TareaCD tareaCD = new TareaCD();
         public DataTable ObtenerTarea()

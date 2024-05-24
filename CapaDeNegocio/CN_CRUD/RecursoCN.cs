@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CapaDeNegocio.CN_CRUD
 {
-    internal class RecursoCN
+    public class RecursoCN
     {
         private RecursoCD recursoCD = new RecursoCD();
         public DataTable ObtenerRecurso()

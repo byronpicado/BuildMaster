@@ -31,10 +31,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.DGVProgreso = new System.Windows.Forms.DataGridView();
             this.panelProgreso = new System.Windows.Forms.Panel();
+            this.DTPFechaRegistro = new System.Windows.Forms.DateTimePicker();
             this.BtnEliminar = new System.Windows.Forms.Button();
             this.BtnEditar = new System.Windows.Forms.Button();
             this.BtnGuardar = new System.Windows.Forms.Button();
-            this.TxtFecha_registro = new System.Windows.Forms.TextBox();
             this.TxtDescripcion = new System.Windows.Forms.TextBox();
             this.TxtIdProgreso = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -50,9 +50,9 @@
             this.label1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(356, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(257, 32);
+            this.label1.Size = new System.Drawing.Size(268, 32);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Catálogo de Progeso";
+            this.label1.Text = "Catálogo de Progreso";
             // 
             // DGVProgreso
             // 
@@ -72,10 +72,10 @@
             // 
             this.panelProgreso.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(122)))), ((int)(((byte)(191)))));
             this.panelProgreso.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelProgreso.Controls.Add(this.DTPFechaRegistro);
             this.panelProgreso.Controls.Add(this.BtnEliminar);
             this.panelProgreso.Controls.Add(this.BtnEditar);
             this.panelProgreso.Controls.Add(this.BtnGuardar);
-            this.panelProgreso.Controls.Add(this.TxtFecha_registro);
             this.panelProgreso.Controls.Add(this.TxtDescripcion);
             this.panelProgreso.Controls.Add(this.TxtIdProgreso);
             this.panelProgreso.Controls.Add(this.label4);
@@ -86,6 +86,13 @@
             this.panelProgreso.Size = new System.Drawing.Size(935, 255);
             this.panelProgreso.TabIndex = 18;
             // 
+            // DTPFechaRegistro
+            // 
+            this.DTPFechaRegistro.Location = new System.Drawing.Point(586, 40);
+            this.DTPFechaRegistro.Name = "DTPFechaRegistro";
+            this.DTPFechaRegistro.Size = new System.Drawing.Size(323, 26);
+            this.DTPFechaRegistro.TabIndex = 17;
+            // 
             // BtnEliminar
             // 
             this.BtnEliminar.BackColor = System.Drawing.Color.Red;
@@ -95,6 +102,7 @@
             this.BtnEliminar.TabIndex = 16;
             this.BtnEliminar.Text = "Eliminar";
             this.BtnEliminar.UseVisualStyleBackColor = false;
+            this.BtnEliminar.Click += new System.EventHandler(this.BtnEliminar_Click);
             // 
             // BtnEditar
             // 
@@ -105,6 +113,7 @@
             this.BtnEditar.TabIndex = 15;
             this.BtnEditar.Text = "Editar";
             this.BtnEditar.UseVisualStyleBackColor = false;
+            this.BtnEditar.Click += new System.EventHandler(this.BtnEditar_Click);
             // 
             // BtnGuardar
             // 
@@ -116,33 +125,27 @@
             this.BtnGuardar.TabIndex = 14;
             this.BtnGuardar.Text = "Guardar";
             this.BtnGuardar.UseVisualStyleBackColor = false;
-            // 
-            // TxtFecha_registro
-            // 
-            this.TxtFecha_registro.Location = new System.Drawing.Point(414, 41);
-            this.TxtFecha_registro.Name = "TxtFecha_registro";
-            this.TxtFecha_registro.Size = new System.Drawing.Size(194, 26);
-            this.TxtFecha_registro.TabIndex = 9;
+            this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click);
             // 
             // TxtDescripcion
             // 
-            this.TxtDescripcion.Location = new System.Drawing.Point(199, 41);
+            this.TxtDescripcion.Location = new System.Drawing.Point(46, 110);
             this.TxtDescripcion.Name = "TxtDescripcion";
-            this.TxtDescripcion.Size = new System.Drawing.Size(168, 26);
+            this.TxtDescripcion.Size = new System.Drawing.Size(863, 26);
             this.TxtDescripcion.TabIndex = 8;
             // 
             // TxtIdProgreso
             // 
             this.TxtIdProgreso.Location = new System.Drawing.Point(46, 42);
             this.TxtIdProgreso.Name = "TxtIdProgreso";
-            this.TxtIdProgreso.Size = new System.Drawing.Size(100, 26);
+            this.TxtIdProgreso.Size = new System.Drawing.Size(224, 26);
             this.TxtIdProgreso.TabIndex = 7;
             this.TxtIdProgreso.TextChanged += new System.EventHandler(this.TxtIdProgreso_TextChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(410, 18);
+            this.label4.Location = new System.Drawing.Point(582, 17);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(118, 20);
             this.label4.TabIndex = 2;
@@ -151,7 +154,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(195, 18);
+            this.label3.Location = new System.Drawing.Point(42, 87);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(92, 20);
             this.label3.TabIndex = 1;
@@ -176,6 +179,7 @@
             this.Controls.Add(this.label1);
             this.Name = "FrmProgreso";
             this.Text = "Formulario Progreso";
+            this.Load += new System.EventHandler(this.FrmProgreso_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVProgreso)).EndInit();
             this.panelProgreso.ResumeLayout(false);
             this.panelProgreso.PerformLayout();
@@ -192,11 +196,11 @@
         private System.Windows.Forms.Button BtnEliminar;
         private System.Windows.Forms.Button BtnEditar;
         private System.Windows.Forms.Button BtnGuardar;
-        private System.Windows.Forms.TextBox TxtFecha_registro;
         private System.Windows.Forms.TextBox TxtDescripcion;
         private System.Windows.Forms.TextBox TxtIdProgreso;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DateTimePicker DTPFechaRegistro;
     }
 }

@@ -1,25 +1,21 @@
-﻿using Entidades;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
+﻿using System;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
+using Entidades;
 
 namespace CapaDeDatos.CRUD
 {
     public class MantenimientoCD
     {
-        //Cadena de Conexion
+        // Cadena de Conexion
         private ConexionCD Conexion = new ConexionCD();
 
-        //Variables 
+        // Variables 
         SqlDataReader LectorDatos;
         DataTable Tabla = new DataTable();
         SqlCommand Comando = new SqlCommand();
 
-        //obtenemos todos lo registro de la tabla mantenimiento
+        // Obtenemos todos los registros de la tabla mantenimiento
         public DataTable ObtenerMantenimiento()
         {
             try
@@ -31,11 +27,22 @@ namespace CapaDeDatos.CRUD
                 Tabla.Load(LectorDatos);
                 LectorDatos.Close();
                 Conexion.CerrarConexion();
-                
             }
             catch (Exception ex)
             {
-                string excepxion = ex.Message;
+                string excepcion = ex.Message;
+                // Manejar o registrar el error adecuadamente
+            }
+            finally
+            {
+                if (LectorDatos != null && !LectorDatos.IsClosed)
+                {
+                    LectorDatos.Close();
+                }
+                if (Comando.Connection != null && Comando.Connection.State == ConnectionState.Open)
+                {
+                    Conexion.CerrarConexion();
+                }
             }
             return Tabla;
         }
@@ -44,74 +51,94 @@ namespace CapaDeDatos.CRUD
         {
             bool agregado = false;
             try
-
             {
                 Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "Insert INTO Mantenimiento (id_mantenimiento,fecha_mantenimiento,descripcion) VALUES (@id_mantenimiento,@fecha_mantenimiento,@descripcion)";
+                Comando.CommandText = "INSERT INTO Mantenimiento (id_mantenimiento, fecha_mantenimiento, descripcion) VALUES (@id_mantenimiento, @fecha_mantenimiento, @descripcion)";
                 Comando.CommandType = CommandType.Text;
 
                 Comando.Parameters.AddWithValue("@id_mantenimiento", mantenimiento.id_mantenimiento);
                 Comando.Parameters.AddWithValue("@fecha_mantenimiento", mantenimiento.fecha_mantenimiento);
-                Comando.Parameters.AddWithValue("@descripcion",mantenimiento.descripcion);
+                Comando.Parameters.AddWithValue("@descripcion", mantenimiento.descripcion);
 
-
-              agregado=Comando.ExecuteNonQuery()>0;
+                agregado = Comando.ExecuteNonQuery() > 0;
                 Comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return agregado;
             }
             catch (Exception ex)
             {
-                String msj = ex.ToString();
-                return false;
+                string msj = ex.ToString();
+                // Manejar o registrar el error adecuadamente
             }
-
+            finally
+            {
+                if (Comando.Connection != null && Comando.Connection.State == ConnectionState.Open)
+                {
+                    Conexion.CerrarConexion();
+                }
+            }
+            return agregado;
         }
-        //para editar un registro en la tabla Mantenimiento
+
+        // Para editar un registro en la tabla Mantenimiento
         public bool Editar(Mantenimiento mantenimiento)
         {
             bool editado = false;
             try
             {
                 Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "UPDATE mantenimiento SET fecha_mantenimiento=@fecha_mantenimiento,descripcion=@descripcion WHERE id_mantenimiento = @id_mantenimiento";
+                Comando.CommandText = "UPDATE Mantenimiento SET fecha_mantenimiento = @fecha_mantenimiento, descripcion = @descripcion WHERE id_mantenimiento = @id_mantenimiento";
                 Comando.CommandType = CommandType.Text;
+
                 Comando.Parameters.AddWithValue("@id_mantenimiento", mantenimiento.id_mantenimiento);
                 Comando.Parameters.AddWithValue("@fecha_mantenimiento", mantenimiento.fecha_mantenimiento);
                 Comando.Parameters.AddWithValue("@descripcion", mantenimiento.descripcion);
+
                 editado = Comando.ExecuteNonQuery() > 0;
                 Comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return editado;
             }
             catch (Exception ex)
             {
-                String msj = ex.ToString();
-                return false;
+                string msj = ex.ToString();
+                // Manejar o registrar el error adecuadamente
             }
+            finally
+            {
+                if (Comando.Connection != null && Comando.Connection.State == ConnectionState.Open)
+                {
+                    Conexion.CerrarConexion();
+                }
+            }
+            return editado;
         }
-        public bool Eliminar(int categoriaId)
+
+        public bool Eliminar(int mantenimientoId)
         {
             bool eliminado = false;
             try
             {
                 Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "DELETE FROM Categorias WHERE Id = @Id";
-                Comando.Parameters.AddWithValue("@Id", categoriaId);
+                Comando.CommandText = "DELETE FROM Mantenimiento WHERE id_mantenimiento = @id_mantenimiento";
+                Comando.CommandType = CommandType.Text;
+                Comando.Parameters.AddWithValue("@id_mantenimiento", mantenimientoId);
+
                 eliminado = Comando.ExecuteNonQuery() > 0;
                 Comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return eliminado;
             }
             catch (Exception ex)
             {
                 string msj = ex.ToString();
-                return false;
+                // Manejar o registrar el error adecuadamente
             }
-
+            finally
+            {
+                if (Comando.Connection != null && Comando.Connection.State == ConnectionState.Open)
+                {
+                    Conexion.CerrarConexion();
+                }
+            }
+            return eliminado;
         }
-
-
     }
-
 }

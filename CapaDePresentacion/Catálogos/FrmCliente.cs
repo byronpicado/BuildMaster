@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using CapaDeDatos.CRUD;
 using CapaDeNegocio.CN_CRUD;
 using Entidades;
+using Entidades.Entidades;
 
 namespace CapaDePresentacion.Catálogos
 {
@@ -25,9 +26,6 @@ namespace CapaDePresentacion.Catálogos
 
             MostrarClientes();
         }
-
-
-
 
         // Obtener las clientes desde la Capa de Negocio y la vamos a enviar al DGV
         private void MostrarClientes()
@@ -57,7 +55,7 @@ namespace CapaDePresentacion.Catálogos
                 // Si es nuevo
                 if (editar == false)
                 {
-                    cliente = new Cliente(0, TxtIdCliente.Text, TxtNombre1.Text, TxtNombre2.Text, TxtApellidoPaterno.Text, TxtApellidoMaterno.Text, TxtTelefono.Text, TxtCorreo.Text);
+                    cliente = new Cliente(TxtIdCliente.Text, TxtNombre1.Text, TxtNombre2.Text, TxtApellidoPaterno.Text, TxtApellidoMaterno.Text, TxtTelefono.Text, TxtCorreo.Text);
 
                     // clienteCN.ValidarAntesDeCrear(cliente);
 
@@ -72,7 +70,7 @@ namespace CapaDePresentacion.Catálogos
                 else // Es uno existente
                 {
                     editar = false;
-                    cliente = new Cliente(0, TxtIdCliente.Text, TxtNombre1.Text, TxtNombre2.Text, TxtApellidoPaterno.Text, TxtApellidoMaterno.Text, TxtTelefono.Text, TxtCorreo.Text);
+                    cliente = new Cliente(TxtIdCliente.Text, TxtNombre1.Text, TxtNombre2.Text, TxtApellidoPaterno.Text, TxtApellidoMaterno.Text, TxtTelefono.Text, TxtCorreo.Text);
 
                     // clienteCN.ValidarAntesDeEditar(cliente);
 
@@ -127,6 +125,7 @@ namespace CapaDePresentacion.Catálogos
                 if (DGVCliente.SelectedRows.Count > 0)
                 {
                     int clienteid = int.Parse(DGVCliente.CurrentRow.Cells["id_cliente"].Value.ToString());
+                   // clienteCN.ValidarAntesDeEliminar(clienteid);
 
                     // Llamada al método Eliminar en ClienteCN
                     if (clienteCN.Eliminar(clienteid))

@@ -77,7 +77,7 @@ namespace CapaDeDatos.CRUD
             try
             {
                 Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "UPDATE personal SET nombre1=@nombre1,nombre2=nombre2,apellidoPaterno=@apellidoPaterno,apellidoMaterno=@apellidoMaterno,cargo=@cargo,fecha_contratacion=@fecha_contratacion WHERE id_personal = @id_personal";
+                Comando.CommandText = "UPDATE personal SET nombre1=@nombre1,nombre2=@nombre2,apellidoPaterno=@apellidoPaterno,apellidoMaterno=@apellidoMaterno,cargo=@cargo,fecha_contratacion=@fecha_contratacion WHERE id_personal = @id_personal";
                 Comando.CommandType = CommandType.Text;
                 Comando.Parameters.AddWithValue("@id_personal", personal.id_personal);
                 Comando.Parameters.AddWithValue("@nombre1", personal.nombre1);

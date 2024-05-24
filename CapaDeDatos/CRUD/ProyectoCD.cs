@@ -51,8 +51,7 @@ namespace CapaDeDatos.CRUD
                 Comando.CommandType = CommandType.Text;
 
                 Comando.Parameters.AddWithValue("@id_proyecto", proyecto.id_proyecto);
-                Comando.Parameters.AddWithValue("@id_cliente", proyecto.id_cliente);
-                Comando.Parameters.AddWithValue("@id_responsable", proyecto.id_responsable);
+    
                 Comando.Parameters.AddWithValue("@nombre", proyecto.nombre);
                 Comando.Parameters.AddWithValue("@descripcion", proyecto.descripcion);
                 Comando.Parameters.AddWithValue("@fecha_inicio", proyecto.fecha_inicio);
@@ -84,8 +83,7 @@ namespace CapaDeDatos.CRUD
                 Comando.CommandText = "UPDATE proyecto SET id_cliente=@id_cliente,id_responsable=@id_responsable,nombre=@nombre,descripcion=@descripcion,fecha_inicio=@fecha_inicio,fecha_fin=fecha_fin,Estado=@Estado WHERE id_proyecto=@id_proyecto";
                 Comando.CommandType = CommandType.Text;
                 Comando.Parameters.AddWithValue("@id_proyecto", proyecto.id_proyecto);
-                Comando.Parameters.AddWithValue("@id_cliente", proyecto.id_cliente);
-                Comando.Parameters.AddWithValue("@id_responsable", proyecto.id_responsable);
+        
                 Comando.Parameters.AddWithValue("@nombre", proyecto.nombre);
                 Comando.Parameters.AddWithValue("@descripcion", proyecto.descripcion);
                 Comando.Parameters.AddWithValue("@fecha_inicio", proyecto.fecha_inicio);

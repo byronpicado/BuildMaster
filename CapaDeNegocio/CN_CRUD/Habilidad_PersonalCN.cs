@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CapaDeNegocio.CN_CRUD
 {
-    internal class Habilidad_PersonalCN
+    public class Habilidad_PersonalCN
     {
         private Habilidad_PersonalCD habilidad_PersonalCD = new Habilidad_PersonalCD();
         public DataTable ObetenerHabilidad_Personal()

@@ -24,12 +24,12 @@ namespace Entidades
         public string correo { get; set; }
 
         //Constructor sin parametros
-        public Cliente(int v) { }
+        public Cliente() { }
 
 
         //Construtor con parametros 
 
-        public Cliente(int v, string idCliente, string nombre1, string nombre2, string apellidoPaterno, string apellidoMaterno, string telefono, string correo)
+        public Cliente(string idCliente, string nombre1, string nombre2, string apellidoPaterno, string apellidoMaterno, string telefono, string correo)
 
         {
 

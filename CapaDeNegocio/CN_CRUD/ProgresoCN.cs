@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CapaDeNegocio.CN_CRUD
 {
-    internal class ProgresoCN
+    public class ProgresoCN
     {
         private ProgresoCD progresoCD = new ProgresoCD();
         public DataTable ObtenerProgreso()
