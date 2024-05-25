@@ -11,15 +11,15 @@ namespace CapaDeDatos.CRUD
 {
     public class TareaCD
     {
-        //Cadena de Conexion
+        // Cadena de Conexión
         private ConexionCD Conexion = new ConexionCD();
 
-        //Variables 
+        // Variables 
         SqlDataReader LectorDatos;
         DataTable Tabla = new DataTable();
         SqlCommand Comando = new SqlCommand();
 
-        //obtenemos todos lo registro de la tabla Tarea
+        // Obtener todos los registros de la tabla Tarea
         public DataTable ObtenerTarea()
         {
             try
@@ -28,8 +28,9 @@ namespace CapaDeDatos.CRUD
                 Comando.CommandText = "SELECT * FROM Tarea";
                 Comando.CommandType = CommandType.Text;
                 LectorDatos = Comando.ExecuteReader();
-                Conexion.CerrarConexion();
+              
                 Tabla.Load(LectorDatos);
+                Conexion.CerrarConexion();
             }
             catch (Exception ex)
             {
@@ -38,24 +39,23 @@ namespace CapaDeDatos.CRUD
             return Tabla;
         }
 
+        // Insertar un registro en la tabla Tarea
         public bool Insertar(Tarea tarea)
         {
             bool agregado = false;
             try
-
             {
                 Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "Insert INTO Tarea (id_tarea,descripcion,fecha_inicio,fecha_fin,estado) VALUES (@id_tarea,@descripcion,@fecha_inicio,@fecha_fin,@estado)";
+                Comando.CommandText = "INSERT INTO Tarea (id_tarea, descripcion, fecha_inicio, fecha_fin, estado) VALUES (@id_tarea, @descripcion, @fecha_inicio, @fecha_fin, @estado)";
                 Comando.CommandType = CommandType.Text;
 
                 Comando.Parameters.AddWithValue("@id_tarea", tarea.id_tarea);
                 Comando.Parameters.AddWithValue("@descripcion", tarea.descripcion);
                 Comando.Parameters.AddWithValue("@fecha_inicio", tarea.fecha_inicio);
-
                 Comando.Parameters.AddWithValue("@fecha_fin", tarea.fecha_fin);
-
                 Comando.Parameters.AddWithValue("@estado", tarea.estado);
-               agregado= Comando.ExecuteNonQuery() > 0;
+
+                agregado = Comando.ExecuteNonQuery() > 0;
                 Comando.Parameters.Clear();
                 Conexion.CerrarConexion();
                 return agregado;
@@ -63,24 +63,26 @@ namespace CapaDeDatos.CRUD
             catch (Exception ex)
             {
                 String msj = ex.ToString();
-                return false;   
+                return false;
             }
-
         }
-        //para editar un registro en la tabla Tarea
+
+        // Editar un registro en la tabla Tarea
         public bool Editar(Tarea tarea)
         {
             bool editado = false;
             try
             {
                 Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "UPDATE tarea SET descripcion=@descripcion,fecha_inicio=@fecha_inicio,fecha_fin=@fecha_fin,estado=@estado WHERE id_tarea=@id_tarea";
+                Comando.CommandText = "UPDATE Tarea SET descripcion = @descripcion, fecha_inicio = @fecha_inicio, fecha_fin = @fecha_fin, estado = @estado WHERE id_tarea = @id_tarea";
                 Comando.CommandType = CommandType.Text;
+
                 Comando.Parameters.AddWithValue("@id_tarea", tarea.id_tarea);
                 Comando.Parameters.AddWithValue("@descripcion", tarea.descripcion);
                 Comando.Parameters.AddWithValue("@fecha_inicio", tarea.fecha_inicio);
                 Comando.Parameters.AddWithValue("@fecha_fin", tarea.fecha_fin);
                 Comando.Parameters.AddWithValue("@estado", tarea.estado);
+
                 editado = Comando.ExecuteNonQuery() > 0;
                 Comando.Parameters.Clear();
                 Conexion.CerrarConexion();
@@ -92,7 +94,8 @@ namespace CapaDeDatos.CRUD
                 return false;
             }
         }
-        //para eliminar un objeto de la tabla
+
+        // Eliminar un registro de la tabla Tarea
         public bool Eliminar(int tareaId)
         {
             bool eliminado = false;
@@ -111,10 +114,6 @@ namespace CapaDeDatos.CRUD
                 string msj = ex.ToString();
                 return false;
             }
-
         }
-
-
     }
-
-} 
+}

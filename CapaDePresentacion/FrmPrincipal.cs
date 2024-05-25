@@ -79,9 +79,7 @@ namespace CapaDePresentacion
 
         private void recursoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var Frm = new Catálogos.FrmRecurso();
-            Frm.ShowDialog();
-            Frm.Dispose();
+   
         }
 
         private void responsableToolStripMenuItem_Click(object sender, EventArgs e)

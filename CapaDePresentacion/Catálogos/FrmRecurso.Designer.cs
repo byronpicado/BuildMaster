@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.DGVRecurso = new System.Windows.Forms.DataGridView();
             this.panelRecurso = new System.Windows.Forms.Panel();
             this.BtnEliminar = new System.Windows.Forms.Button();
@@ -42,32 +41,23 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVRecurso)).BeginInit();
             this.panelRecurso.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(369, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(260, 32);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Catálogo de Recurso";
             // 
             // DGVRecurso
             // 
             this.DGVRecurso.AllowUserToAddRows = false;
             this.DGVRecurso.AllowUserToDeleteRows = false;
             this.DGVRecurso.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVRecurso.Location = new System.Drawing.Point(22, 354);
+            this.DGVRecurso.Location = new System.Drawing.Point(22, 356);
             this.DGVRecurso.Name = "DGVRecurso";
             this.DGVRecurso.ReadOnly = true;
             this.DGVRecurso.RowHeadersWidth = 62;
             this.DGVRecurso.RowTemplate.Height = 28;
             this.DGVRecurso.Size = new System.Drawing.Size(935, 318);
-            this.DGVRecurso.TabIndex = 19;
+            this.DGVRecurso.TabIndex = 22;
             this.DGVRecurso.Tag = "";
             // 
             // panelRecurso
@@ -85,10 +75,10 @@
             this.panelRecurso.Controls.Add(this.label4);
             this.panelRecurso.Controls.Add(this.label3);
             this.panelRecurso.Controls.Add(this.label2);
-            this.panelRecurso.Location = new System.Drawing.Point(22, 82);
+            this.panelRecurso.Location = new System.Drawing.Point(22, 84);
             this.panelRecurso.Name = "panelRecurso";
             this.panelRecurso.Size = new System.Drawing.Size(935, 255);
-            this.panelRecurso.TabIndex = 18;
+            this.panelRecurso.TabIndex = 21;
             // 
             // BtnEliminar
             // 
@@ -99,7 +89,6 @@
             this.BtnEliminar.TabIndex = 16;
             this.BtnEliminar.Text = "Eliminar";
             this.BtnEliminar.UseVisualStyleBackColor = false;
-            this.BtnEliminar.Click += new System.EventHandler(this.BtnEliminar_Click);
             // 
             // BtnEditar
             // 
@@ -110,7 +99,6 @@
             this.BtnEditar.TabIndex = 15;
             this.BtnEditar.Text = "Editar";
             this.BtnEditar.UseVisualStyleBackColor = false;
-            this.BtnEditar.Click += new System.EventHandler(this.BtnEditar_Click);
             // 
             // BtnGuardar
             // 
@@ -122,7 +110,6 @@
             this.BtnGuardar.TabIndex = 14;
             this.BtnGuardar.Text = "Guardar";
             this.BtnGuardar.UseVisualStyleBackColor = false;
-            this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click);
             // 
             // TxtCosto
             // 
@@ -188,6 +175,16 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Id ";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(369, 11);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(260, 32);
+            this.label1.TabIndex = 20;
+            this.label1.Text = "Catálogo de Recurso";
+            // 
             // FrmRecurso
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -197,7 +194,7 @@
             this.Controls.Add(this.panelRecurso);
             this.Controls.Add(this.label1);
             this.Name = "FrmRecurso";
-            this.Text = "Formulario Recurso";
+            this.Text = "FrmRecurso";
             this.Load += new System.EventHandler(this.FrmRecurso_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVRecurso)).EndInit();
             this.panelRecurso.ResumeLayout(false);
@@ -209,7 +206,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView DGVRecurso;
         private System.Windows.Forms.Panel panelRecurso;
         private System.Windows.Forms.Button BtnEliminar;
@@ -223,5 +219,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }

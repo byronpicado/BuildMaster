@@ -28,6 +28,8 @@ namespace CapaDePresentacion.Catálogos
 
         private void FrmProyecto_Load(object sender, EventArgs e)
         {
+            
+            
             MostrarProyecto();
         }
         // Obtener el proyecto desde la Capa de Negocio y la vamos a enviar al DGV
@@ -35,6 +37,8 @@ namespace CapaDePresentacion.Catálogos
         {
             proyectoCN = new ProyectoCN();
             DGVProyecto.DataSource = proyectoCN.ObtenerProyecto();
+            DGVProyecto.Columns["id_cliente"].Visible = false;
+            DGVProyecto.Columns["id_responsable"].Visible = false;
         }
 
         // Limpiar los controles de texto

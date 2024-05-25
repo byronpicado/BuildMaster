@@ -31,6 +31,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.DGVTarea = new System.Windows.Forms.DataGridView();
             this.panelTarea = new System.Windows.Forms.Panel();
+            this.DTPFechaFin = new System.Windows.Forms.DateTimePicker();
+            this.DTPFechaInicio = new System.Windows.Forms.DateTimePicker();
             this.BtnEliminar = new System.Windows.Forms.Button();
             this.BtnEditar = new System.Windows.Forms.Button();
             this.BtnGuardar = new System.Windows.Forms.Button();
@@ -42,8 +44,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.DGVTarea)).BeginInit();
             this.panelTarea.SuspendLayout();
             this.SuspendLayout();
@@ -76,8 +76,8 @@
             // 
             this.panelTarea.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(122)))), ((int)(((byte)(191)))));
             this.panelTarea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelTarea.Controls.Add(this.dateTimePicker2);
-            this.panelTarea.Controls.Add(this.dateTimePicker1);
+            this.panelTarea.Controls.Add(this.DTPFechaFin);
+            this.panelTarea.Controls.Add(this.DTPFechaInicio);
             this.panelTarea.Controls.Add(this.BtnEliminar);
             this.panelTarea.Controls.Add(this.BtnEditar);
             this.panelTarea.Controls.Add(this.BtnGuardar);
@@ -93,6 +93,20 @@
             this.panelTarea.Name = "panelTarea";
             this.panelTarea.Size = new System.Drawing.Size(935, 255);
             this.panelTarea.TabIndex = 18;
+            // 
+            // DTPFechaFin
+            // 
+            this.DTPFechaFin.Location = new System.Drawing.Point(596, 125);
+            this.DTPFechaFin.Name = "DTPFechaFin";
+            this.DTPFechaFin.Size = new System.Drawing.Size(316, 26);
+            this.DTPFechaFin.TabIndex = 18;
+            // 
+            // DTPFechaInicio
+            // 
+            this.DTPFechaInicio.Location = new System.Drawing.Point(245, 125);
+            this.DTPFechaInicio.Name = "DTPFechaInicio";
+            this.DTPFechaInicio.Size = new System.Drawing.Size(328, 26);
+            this.DTPFechaInicio.TabIndex = 17;
             // 
             // BtnEliminar
             // 
@@ -161,7 +175,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(614, 101);
+            this.label6.Location = new System.Drawing.Point(592, 101);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(75, 20);
             this.label6.TabIndex = 4;
@@ -170,7 +184,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(269, 103);
+            this.label5.Location = new System.Drawing.Point(241, 103);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(93, 20);
             this.label5.TabIndex = 3;
@@ -193,20 +207,6 @@
             this.label2.Size = new System.Drawing.Size(27, 20);
             this.label2.TabIndex = 0;
             this.label2.Text = "Id ";
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(273, 125);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(328, 26);
-            this.dateTimePicker1.TabIndex = 17;
-            // 
-            // dateTimePicker2
-            // 
-            this.dateTimePicker2.Location = new System.Drawing.Point(618, 125);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(294, 26);
-            this.dateTimePicker2.TabIndex = 18;
             // 
             // FrmTarea
             // 
@@ -243,7 +243,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker2;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.DateTimePicker DTPFechaFin;
+        private System.Windows.Forms.DateTimePicker DTPFechaInicio;
     }
 }

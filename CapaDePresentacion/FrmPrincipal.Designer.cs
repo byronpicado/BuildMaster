@@ -41,7 +41,6 @@ namespace CapaDePresentacion
             this.proyectoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.progresoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.proyectoDetalleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.recursoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.responsableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tareaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consultasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,7 +82,6 @@ namespace CapaDePresentacion
             this.proyectoToolStripMenuItem,
             this.progresoToolStripMenuItem,
             this.proyectoDetalleToolStripMenuItem,
-            this.recursoToolStripMenuItem,
             this.responsableToolStripMenuItem,
             this.tareaToolStripMenuItem});
             this.catálogosToolStripMenuItem.Name = "catálogosToolStripMenuItem";
@@ -145,13 +143,6 @@ namespace CapaDePresentacion
             this.proyectoDetalleToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.proyectoDetalleToolStripMenuItem.Text = "Proyecto Detalle";
             this.proyectoDetalleToolStripMenuItem.Click += new System.EventHandler(this.proyectoDetalleToolStripMenuItem_Click);
-            // 
-            // recursoToolStripMenuItem
-            // 
-            this.recursoToolStripMenuItem.Name = "recursoToolStripMenuItem";
-            this.recursoToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
-            this.recursoToolStripMenuItem.Text = "Recurso";
-            this.recursoToolStripMenuItem.Click += new System.EventHandler(this.recursoToolStripMenuItem_Click);
             // 
             // responsableToolStripMenuItem
             // 
@@ -221,7 +212,6 @@ namespace CapaDePresentacion
         private System.Windows.Forms.ToolStripMenuItem proyectoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem progresoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem proyectoDetalleToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem recursoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem responsableToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tareaToolStripMenuItem;
     }

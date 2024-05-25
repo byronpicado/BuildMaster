@@ -47,7 +47,7 @@ namespace CapaDeDatos.CRUD
 
             {
                 Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "Insert INTO Proyecto(id_proyecto,id_cliente,id_responsable,nombre,descripcion,fecha_inicio,fecha_fin,Estado) VALUES (@id_proyecto,@id_cliente,@id_responsable,@nombre,@descripcion,@fecha_inicio,@fecha_fin,@Estado)";
+                Comando.CommandText = "Insert INTO Proyecto(id_proyecto,nombre,descripcion,fecha_inicio,fecha_fin,Estado) VALUES (@id_proyecto,@nombre,@descripcion,@fecha_inicio,@fecha_fin,@Estado)";
                 Comando.CommandType = CommandType.Text;
 
                 Comando.Parameters.AddWithValue("@id_proyecto", proyecto.id_proyecto);
@@ -80,7 +80,7 @@ namespace CapaDeDatos.CRUD
             try
             {
                 Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "UPDATE proyecto SET id_cliente=@id_cliente,id_responsable=@id_responsable,nombre=@nombre,descripcion=@descripcion,fecha_inicio=@fecha_inicio,fecha_fin=fecha_fin,Estado=@Estado WHERE id_proyecto=@id_proyecto";
+                Comando.CommandText = "UPDATE proyecto SET nombre=@nombre,descripcion=@descripcion,fecha_inicio=@fecha_inicio,fecha_fin=@fecha_fin,Estado=@Estado WHERE id_proyecto=@id_proyecto";
                 Comando.CommandType = CommandType.Text;
                 Comando.Parameters.AddWithValue("@id_proyecto", proyecto.id_proyecto);
         

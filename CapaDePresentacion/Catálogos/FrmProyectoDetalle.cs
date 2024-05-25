@@ -30,20 +30,20 @@ namespace CapaDePresentacion.Catálogos
         {
             MostrarProyectoDetalle();
         }
-        // Obtener el proyecto desde la Capa de Negocio y la vamos a enviar al DGV
+        // Obtener el proyectoDetalle desde la Capa de Negocio y la vamos a enviar al DGV
         private void MostrarProyectoDetalle()
         {
             proyectoDetalleCN = new ProyectoDetalleCN();
             DGVProyectoDetalle.DataSource = proyectoDetalleCN.ObtenerProyectoDetalle();
+       
         }
 
         // Limpiar los controles de texto
         private void LimpiarDatos()
         {
             TxtIdProyectoDetalle.Text = "";
-            TxtDescripcion.Text = "";
-            TxtDescripcion.Text = "";    
-            DTPFechaRegistro.Text = ""; // Resetea al valor actual
+            TxtDescripcion.Text = "";   
+            DTPFechaRegistro.Text = ""; 
         }
 
         private void BtnGuardar_Click(object sender, EventArgs e)
@@ -52,12 +52,12 @@ namespace CapaDePresentacion.Catálogos
             {
                 // Obtener la fecha del DateTimePicker
                 DateTime fechaRegistro = DTPFechaRegistro.Value;
-            
+      
 
                 // Si es nuevo
                 if (editar == false)
                 {
-                    proyectoDetalle = new ProyectoDetalle(TxtIdProyectoDetalle.Text, TxtDescripcion.Text, fechaRegistro);
+                    proyectoDetalle = new ProyectoDetalle(TxtIdProyectoDetalle.Text, TxtDescripcion.Text,fechaRegistro);
 
                     if (proyectoDetalleCN.Insertar(proyectoDetalle))
                     {
@@ -90,6 +90,8 @@ namespace CapaDePresentacion.Catálogos
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
 
         private void BtnEditar_Click(object sender, EventArgs e)
         {
