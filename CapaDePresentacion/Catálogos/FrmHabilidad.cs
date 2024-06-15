@@ -1,4 +1,4 @@
-﻿using CapaDeDatos.CRUD;
+﻿
 using CapaDeNegocio.CN_CRUD;
 using Entidades;
 using Entidades.Entidades;
@@ -24,9 +24,10 @@ namespace CapaDePresentacion.Catálogos
         public FrmHabilidad()
         {
             InitializeComponent();
+            habilidadCN = new HabilidadCN();
         }
 
-    
+
 
         private void FrmHabilidad_Load(object sender, EventArgs e)
         {
@@ -35,61 +36,74 @@ namespace CapaDePresentacion.Catálogos
         // Obtener las clientes desde la Capa de Negocio y la vamos a enviar al DGV
         private void MostrarHabilidad()
         {
+            try
+            { 
             habilidadCN = new HabilidadCN();
-            DGVCliente.DataSource = habilidadCN.ObtenerHabilidad();
+            DGVHabilidad.DataSource = habilidadCN.ObtenerHabilidad();
+            DGVHabilidad.Columns["id_habilidad"].Visible = false;
+        }
+        catch(Exception ex)
+            {
+                LogError(ex);
+                MessageBox.Show("Ocurrió un error al cargar los datos de las habilidades.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
 
         //Limpiar los controles de texto
         private void LimpiarDatos()
         {
-            TxtId_habilidad.Text = "";
-            TxtDescripcion.Text = "";
-            TxtId_habilidad.Focus();
+            TxtCodigo.Clear();
+            TxtDescripcion.Clear();
+            TxtCodigo.Focus();
         }
 
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-                //Si es nuevo
-                if (editar == false)
+                if (ValidarInputs())
                 {
+                    //mandar a llamar habilidadId para el codigo generado en la BD
+                    habilidad = new Habilidad(TxtCodigo.Text, habilidadid, TxtDescripcion.Text);
 
-                    habilidad = new Habilidad(TxtId_habilidad.Text, TxtDescripcion.Text);
-
-                  //  habilidadCN.ValidarAntesDeCrear(habilidad);
-
-                    if (habilidadCN.Insertar(habilidad))
+                    if (!editar)
                     {
-                        LimpiarDatos();
-                        MostrarHabilidad();
+                        habilidadCN.ValidarAntesDeCrear(habilidad);
+                        if (habilidadCN.Insertar(habilidad))
+                        {
+                            LimpiarDatos();
+                            MostrarHabilidad();
+                            MessageBox.Show("Habilidad agregada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                            MessageBox.Show("El registro no se inserto correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
                     }
-                    else
-                        MessageBox.Show("El registro no se inserto correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                }
-                else //Es uno existente
-                {
-                    editar = false;
-                    habilidad = new Habilidad(TxtId_habilidad.Text, TxtDescripcion.Text);
-
-                    //categoriaCN.ValidarAntesDeEditar(categoria);
-
-                    if (habilidadCN.Editar(habilidad))
+                    else //Es uno existente
                     {
-                        LimpiarDatos();
-                        MostrarHabilidad();
+                        habilidadCN.ValidarAntesDeEditar(habilidad);
+                        if (habilidadCN.Editar(habilidad))
+                        {
+                            LimpiarDatos();
+                            MostrarHabilidad();
+                            MessageBox.Show("Habilidad actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("El registro no se edito correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                        }
                     }
-                    else
-                        MessageBox.Show("El registro no se edito correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                 }
-
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                LogError(ex);
+                MessageBox.Show("Ocurrió un error al guardar los datos de la habilidad", "Error",MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -97,50 +111,84 @@ namespace CapaDePresentacion.Catálogos
         {
             try
             {
-                if (DGVCliente.SelectedRows.Count > 0)
+                if (DGVHabilidad.SelectedRows.Count > 0)
                 {
                     editar = true;
-                    TxtId_habilidad.Text = DGVCliente.CurrentRow.Cells["id_habilidad"].Value.ToString();
-                    TxtDescripcion.Text = DGVCliente.CurrentRow.Cells["descripcion"].Value.ToString();
-                    habilidadid = int.Parse(DGVCliente.CurrentRow.Cells["id_habilidad"].Value.ToString());
+                    TxtCodigo.Text = DGVHabilidad.CurrentRow.Cells["codigo"].Value.ToString();
+                    TxtDescripcion.Text = DGVHabilidad.CurrentRow.Cells["descripcion"].Value.ToString();
+                    habilidadid = int.Parse(DGVHabilidad.CurrentRow.Cells["id_habilidad"].Value.ToString());
 
                 }
                 else
-                    MessageBox.Show("Debe seleccionar una fila de la lista", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Debe seleccionar una fila de la lista", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                LogError(ex);
+                MessageBox.Show("Ocurrió un error al intentar editar la habilidad.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
         private void BtnEliminar_Click(object sender, EventArgs e)
         
             {
-                try
+            try
+            {
+                if (DGVHabilidad.SelectedRows.Count > 0)
                 {
-                    if (DGVCliente.SelectedRows.Count > 0)
-                    {
-                        habilidadid = int.Parse(DGVCliente.CurrentRow.Cells["id_habilidad"].Value.ToString());
 
-                       // habilidadCN.ValidarAntesDeEliminar(habilidadid);
+                    if (MessageBox.Show("¿Está seguro que desea eliminar esta habilidad?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        int habilidadid = int.Parse(DGVHabilidad.CurrentRow.Cells["id_habilidad"].Value.ToString());
+
+                        habilidadCN.ValidarAntesDeEliminar(habilidadid);
 
                         if (habilidadCN.Eliminar(habilidadid))
                         {
                             LimpiarDatos();
                             MostrarHabilidad();
-                        MessageBox.Show("El registro se eliminó correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                            MessageBox.Show("El registro se eliminó correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
                         else
+                        {
                             MessageBox.Show("El registro no se elimino correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
-                    else
-                        MessageBox.Show("Debe seleccionar una fila de la lista", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
+                else
+                { 
+                    MessageBox.Show("Debe seleccionar una fila de la lista", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+            catch (Exception ex)
+            {
+                LogError(ex);
+                MessageBox.Show("Ocurrió un error al eliminar la habilidad.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            }
+
+        private void BtnLimpiar_Click(object sender, EventArgs e)
+        {
+            LimpiarDatos();
+        }
+        private bool ValidarInputs()
+        {
+            if (string.IsNullOrWhiteSpace(TxtCodigo.Text) ||
+                string.IsNullOrWhiteSpace(TxtDescripcion.Text))
+               
+
+            {
+                MessageBox.Show("Todos los campos marcados con * son obligatorios.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return true;
+        }
+
+        private void LogError(Exception ex)
+        {
+            // Log the exception (e.g., write to a log file or database)
+            Console.WriteLine(ex.ToString());
         }
     }
+}

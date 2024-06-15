@@ -1,5 +1,4 @@
-﻿using CapaDeDatos.CRUD;
-using CapaDeNegocio.CN_CRUD;
+﻿using CapaDeNegocio.CN_CRUD;
 using Entidades;
 using Entidades.Entidades;
 using System;
@@ -21,27 +20,11 @@ namespace CapaDePresentacion.Catálogos
         private Progreso progreso;
         private bool editar = false;
         private int progresoid;
+
         public FrmProgreso()
         {
             InitializeComponent();
-        }
-        private void TxtIdProgreso_TextChanged(object sender, EventArgs e)
-        {
-           
-        }
-        // Obtener el progreso desde la Capa de Negocio y la vamos a enviar al DGV
-        private void MostrarProgreso()
-        {
             progresoCN = new ProgresoCN();
-            DGVProgreso.DataSource = progresoCN.ObtenerProgreso();
-        }
-
-        // Limpiar los controles de texto
-        private void LimpiarDatos()
-        {
-            TxtIdProgreso.Text = "";
-            TxtDescripcion.Text = "";
-            DTPFechaRegistro.Value = DateTime.Now; // Resetea al valor actual
         }
 
         private void FrmProgreso_Load(object sender, EventArgs e)
@@ -49,78 +32,91 @@ namespace CapaDePresentacion.Catálogos
             MostrarProgreso();
         }
 
-        private void BtnGuardar_Click(object sender, EventArgs e)
+        private void MostrarProgreso()
         {
             try
             {
-                // Obtener la fecha del DateTimePicker
-                DateTime fechaRegistro = DTPFechaRegistro.Value;
-
-                // Si es nuevo
-                if (editar == false)
-                {
-                    progreso = new Progreso(TxtIdProgreso.Text, TxtDescripcion.Text, fechaRegistro);
-
-                    if (progresoCN.Insertar(progreso))
-                    {
-                        LimpiarDatos();
-                        MostrarProgreso();
-                    }
-                    else
-                    {
-                        MessageBox.Show("El registro no se insertó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else // Es uno existente
-                {
-                    editar = false;
-                    progreso = new Progreso(TxtIdProgreso.Text, TxtDescripcion.Text, fechaRegistro);
-
-                    if (progresoCN.Editar(progreso))
-                    {
-                        LimpiarDatos();
-                        MostrarProgreso();
-                    }
-                    else
-                    {
-                        MessageBox.Show("El registro no se editó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-    
-
-
-    private void BtnEditar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-
-                if (DGVProgreso.SelectedRows.Count > 0)
-                {
-                    editar = true;
-                    TxtIdProgreso.Text = DGVProgreso.CurrentRow.Cells["id_progreso"].Value.ToString();
-                    TxtDescripcion.Text = DGVProgreso.CurrentRow.Cells["descripcion"].Value.ToString();
-                    DTPFechaRegistro.Text = DGVProgreso.CurrentRow.Cells["fecha_registro"].Value.ToString();
-            
-
-
-                    progresoid = int.Parse(DGVProgreso.CurrentRow.Cells["id_progreso"].Value.ToString());
-
-                }
-                else
-                    MessageBox.Show("Debe seleccionar una fila de la lista", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                progresoCN = new ProgresoCN();
+                DGVProgreso.DataSource = progresoCN.ObtenerProgreso();
+                DGVProgreso.Columns["id_progreso"].Visible = false;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+        }
 
+        private void LimpiarDatos()
+        {
+            TxtCodigo.Clear();
+            TxtDescripcion.Clear();
+            DTPFechaRegistro.Value = DateTime.Now; // Resetea al valor actual
+            TxtCodigo.Focus();
+        }
 
+        private void BtnGuardar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (ValidarInputs())
+                {
+                    progreso = new Progreso(progresoid, TxtCodigo.Text, TxtDescripcion.Text, DTPFechaRegistro.Value);
+
+                    if (!editar)
+                    {
+                        if (progresoCN.Insertar(progreso))
+                        {
+                            LimpiarDatos();
+                            MostrarProgreso();
+                            MessageBox.Show("Progreso agregado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("El registro no se insertó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        if (progresoCN.Editar(progreso))
+                        {
+                            LimpiarDatos();
+                            MostrarProgreso();
+                            MessageBox.Show("Progreso actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("El registro no se editó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ocurrió un error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnEditar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DGVProgreso.SelectedRows.Count > 0)
+                {
+                    editar = true;
+                    progresoid = int.Parse(DGVProgreso.CurrentRow.Cells["id_progreso"].Value.ToString());
+                    TxtCodigo.Text = DGVProgreso.CurrentRow.Cells["codigo"].Value.ToString();
+                    TxtDescripcion.Text = DGVProgreso.CurrentRow.Cells["descripcion"].Value.ToString();
+                    DTPFechaRegistro.Value = Convert.ToDateTime(DGVProgreso.CurrentRow.Cells["fecha_registro"].Value);
+                }
+                else
+                {
+                    MessageBox.Show("Debe seleccionar una fila de la lista", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void BtnEliminar_Click(object sender, EventArgs e)
@@ -129,19 +125,20 @@ namespace CapaDePresentacion.Catálogos
             {
                 if (DGVProgreso.SelectedRows.Count > 0)
                 {
-                    int progresoid = int.Parse(DGVProgreso.CurrentRow.Cells["id_progreso"].Value.ToString());
-                    // clienteCN.ValidarAntesDeEliminar(clienteid);
+                    if (MessageBox.Show("¿Está seguro que desea eliminar este progreso?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        int progresoid = int.Parse(DGVProgreso.CurrentRow.Cells["id_progreso"].Value.ToString());
 
-                    // Llamada al método Eliminar en ClienteCN
-                    if (progresoCN.Eliminar(progresoid))
-                    {
-                        LimpiarDatos();
-                        MostrarProgreso();
-                        MessageBox.Show("El registro se eliminó correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show("El registro no se eliminó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        if (progresoCN.Eliminar(progresoid))
+                        {
+                            LimpiarDatos();
+                            MostrarProgreso();
+                            MessageBox.Show("El registro se eliminó correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("El registro no se eliminó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
                 else
@@ -154,6 +151,33 @@ namespace CapaDePresentacion.Catálogos
                 MessageBox.Show("Ocurrió un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private bool ValidarInputs()
+        {
+            if (string.IsNullOrWhiteSpace(TxtCodigo.Text) ||
+                string.IsNullOrWhiteSpace(TxtDescripcion.Text))
+            {
+                MessageBox.Show("Todos los campos son obligatorios", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            return true;
+        }
+
+        private void BtnLimpiar_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void BtnProgreso_Click(object sender, EventArgs e)
+        {
+            if (DGVProgreso.SelectedRows.Count > 0)
+            {
+                DGVProgreso.ClearSelection();
+        
+            }
+            else
+            {
+                LimpiarDatos();
+            }
+        }
     }
 }
-

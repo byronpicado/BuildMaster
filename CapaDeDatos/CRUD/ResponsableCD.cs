@@ -7,76 +7,141 @@ namespace CapaDeDatos.CRUD
 {
     public class ResponsableCD
     {
-        // Cadena de conexión
+        // Cadena de Conexion
         private ConexionCD Conexion = new ConexionCD();
 
-        // Obtenemos todos los registros de la tabla Responsable
+        // Variables a Utilizar
+        private SqlDataReader LectorDatos;
+        private DataTable Tabla = new DataTable();
+
         public DataTable ObtenerResponsable()
         {
-            DataTable tabla = new DataTable();
-            using (SqlConnection connection = Conexion.AbrirConexion())
+            using (SqlCommand comando = new SqlCommand())
             {
-                using (SqlCommand command = new SqlCommand("SELECT * FROM Responsable", connection))
-                {
-                    using (SqlDataReader reader = command.ExecuteReader())
-                    {
-                        tabla.Load(reader);
-                    }
-                }
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ObtenerResponsable";
+                comando.CommandType = CommandType.StoredProcedure;
+                LectorDatos = comando.ExecuteReader();
+                Tabla.Load(LectorDatos);
+                Conexion.CerrarConexion();
             }
-            return tabla;
+
+            return Tabla;
         }
 
-        // Para insertar un nuevo registro en la tabla Responsable
         public bool Insertar(Responsable responsable)
         {
-            using (SqlConnection connection = Conexion.AbrirConexion())
+            bool agregado = false;
+            using (SqlCommand comando = new SqlCommand())
             {
-                using (SqlCommand command = new SqlCommand("INSERT INTO Responsable (id_responsable, nombre1, nombre2, apellidoPaterno, apellidoMaterno, cargo) VALUES (@id_responsable, @nombre1, @nombre2, @apellidoPaterno, @apellidoMaterno, @cargo)", connection))
-                {
-                    command.Parameters.AddWithValue("@id_responsable", responsable.id_responsable);
-                    command.Parameters.AddWithValue("@nombre1", responsable.nombre1);
-                    command.Parameters.AddWithValue("@nombre2", responsable.nombre2);
-                    command.Parameters.AddWithValue("@apellidoPaterno", responsable.apellidoPaterno);
-                    command.Parameters.AddWithValue("@apellidoMaterno", responsable.apellidoMaterno);
-                    command.Parameters.AddWithValue("@cargo", responsable.cargo);
-
-                    return command.ExecuteNonQuery() > 0;
-                }
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "InsertarResponsable";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", responsable.codigo);
+                comando.Parameters.AddWithValue("@nombre1", responsable.nombre1);
+                comando.Parameters.AddWithValue("@nombre2", responsable.nombre2);
+                comando.Parameters.AddWithValue("@apellidoPaterno", responsable.apellidoPaterno);
+                comando.Parameters.AddWithValue("@apellidoMaterno", responsable.apellidoMaterno);
+                comando.Parameters.AddWithValue("@cargo", responsable.cargo);
+                agregado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
             }
+
+            return agregado;
         }
 
-        // Para editar un registro en la tabla Responsable
         public bool Editar(Responsable responsable)
         {
-            using (SqlConnection connection = Conexion.AbrirConexion())
+            bool editado = false;
+            using (SqlCommand comando = new SqlCommand())
             {
-                using (SqlCommand command = new SqlCommand("UPDATE Responsable SET nombre1 = @nombre1, nombre2 = @nombre2, apellidoPaterno = @apellidoPaterno, apellidoMaterno = @apellidoMaterno, cargo = @cargo WHERE id_responsable = @id_responsable", connection))
-                {
-                    command.Parameters.AddWithValue("@id_responsable", responsable.id_responsable);
-                    command.Parameters.AddWithValue("@nombre1", responsable.nombre1);
-                    command.Parameters.AddWithValue("@nombre2", responsable.nombre2);
-                    command.Parameters.AddWithValue("@apellidoPaterno", responsable.apellidoPaterno);
-                    command.Parameters.AddWithValue("@apellidoMaterno", responsable.apellidoMaterno);
-                    command.Parameters.AddWithValue("@cargo", responsable.cargo);
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ActualizarResponsable";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("id_responsable", responsable.id_responsable);
+                comando.Parameters.AddWithValue("@codigo", responsable.codigo);
+                comando.Parameters.AddWithValue("@nombre1", responsable.nombre1);
+                comando.Parameters.AddWithValue("@nombre2", responsable.nombre2);
+                comando.Parameters.AddWithValue("@apellidoPaterno", responsable.apellidoPaterno);
+                comando.Parameters.AddWithValue("@apellidoMaterno", responsable.apellidoMaterno);
+                comando.Parameters.AddWithValue("@cargo", responsable.cargo);
 
-                    return command.ExecuteNonQuery() > 0;
-                }
+                editado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
             }
+
+            return editado;
         }
 
-        // Para eliminar un registro de la tabla Responsable
         public bool Eliminar(int responsableId)
         {
-            using (SqlConnection connection = Conexion.AbrirConexion())
+            bool eliminado = false;
+            using (SqlCommand comando = new SqlCommand())
             {
-                using (SqlCommand command = new SqlCommand("DELETE FROM Responsable WHERE id_responsable = @id_responsable", connection))
-                {
-                    command.Parameters.AddWithValue("@id_responsable", responsableId);
-                    return command.ExecuteNonQuery() > 0;
-                }
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "EliminarResponsable";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_responsable", responsableId);
+                eliminado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
             }
+
+            return eliminado;
+        }
+
+        public bool ExisteResponsable(Responsable responsable)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ExisteResponsable";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", responsable.codigo);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
+
+            return existe;
+        }
+
+        public bool ExisteOtroResponsable(Responsable responsable)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ExisteOtroResponsable";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", responsable.codigo);
+                comando.Parameters.AddWithValue("@id_responsable", responsable.id_responsable);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
+
+            return existe;
+        }
+
+        public bool ResponsableConProyecto(int responsableId)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ResponsableConProyecto";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_responsable", responsableId);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
+
+            return existe;
         }
     }
 }
-

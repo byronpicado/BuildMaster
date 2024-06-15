@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
+using System;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
 using Entidades;
 using Entidades.Entidades;
 
@@ -12,111 +9,153 @@ namespace CapaDeDatos.CRUD
 {
     public class EquipoCD
     {
-        //Cadena de Conexion
+        // Cadena de Conexion
         private ConexionCD Conexion = new ConexionCD();
 
-        //Variables 
-        SqlDataReader LectorDatos;
-        DataTable Tabla = new DataTable();
-        SqlCommand Comando = new SqlCommand();
+        // Variables a Utilizar
+        private SqlDataReader LectorDatos;
+        private DataTable Tabla = new DataTable();
 
-        //obtenemos todos lo registro de la tabla equipo
         public DataTable ObtenerEquipo()
         {
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "SELECT * FROM Equipo";
-                Comando.CommandType = CommandType.Text;
-                LectorDatos = Comando.ExecuteReader();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ObtenerEquipos";
+                comando.CommandType = CommandType.StoredProcedure;
+                LectorDatos = comando.ExecuteReader();
                 Tabla.Load(LectorDatos);
-                LectorDatos.Close();
                 Conexion.CerrarConexion();
-                
             }
-            catch (Exception ex)
-            {
-                string excepxion = ex.Message;
-            }
+
             return Tabla;
         }
 
         public bool Insertar(Equipo equipo)
         {
-            bool agregado = false;  
-            try
-
+            bool agregado = false;
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "Insert INTO equipo (id_equipo,tipo,marca,fecha_adquisicion) VALUES (@id_equipo,@tipo,@marca,@fecha_adquisicion)";
-                Comando.CommandType = CommandType.Text;
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "InsertarEquipo";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", equipo.codigo);
+                comando.Parameters.AddWithValue("@tipo", equipo.tipo);
+                comando.Parameters.AddWithValue("@marca", equipo.marca);
+                comando.Parameters.AddWithValue("@fecha_adquisicion", equipo.fecha_adquisicion);
 
-                Comando.Parameters.AddWithValue("@id_equipo",equipo.id_equipo);
-                Comando.Parameters.AddWithValue("@tipo", equipo.tipo);
-                Comando.Parameters.AddWithValue("@marca", equipo.marca);
-                Comando.Parameters.AddWithValue("@fecha_adquisicion", equipo.fecha_adquisicion);
-                
-
-               agregado= Comando.ExecuteNonQuery()>0;
-                Comando.Parameters.Clear();
+                agregado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return agregado;
-            }
-            catch (Exception ex)
-            {
-                String msj = ex.ToString();
-                return false;
             }
 
+            return agregado;
         }
-        //para editar un registro en la tabla Equipo
+
         public bool Editar(Equipo equipo)
         {
             bool editado = false;
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "UPDATE equipo SET tipo=@tipo,marca=@marca,fecha_adquisicion=@fecha_adquisicion WHERE id_equipo = @id_equipo";
-                Comando.CommandType = CommandType.Text;
-
-                Comando.Parameters.AddWithValue("@id_equipo", equipo.id_equipo);
-                Comando.Parameters.AddWithValue("@tipo", equipo.tipo);
-                Comando.Parameters.AddWithValue("@marca", equipo.marca);
-                Comando.Parameters.AddWithValue("@fecha_adquisicion", equipo.fecha_adquisicion);
-                editado = Comando.ExecuteNonQuery() > 0;
-                Comando.Parameters.Clear();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ActualizarEquipo";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_equipo", equipo.id_equipo);
+                comando.Parameters.AddWithValue("@codigo", equipo.codigo);
+                comando.Parameters.AddWithValue("@tipo", equipo.tipo);
+                comando.Parameters.AddWithValue("@marca", equipo.marca);
+                comando.Parameters.AddWithValue("@fecha_adquisicion", equipo.fecha_adquisicion);
+                editado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return editado;
             }
-            catch (Exception ex)
-            {
-                String msj = ex.ToString();
-                return false;
-            }
+
+            return editado;
         }
+
         public bool Eliminar(int equipoId)
         {
             bool eliminado = false;
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "DELETE FROM Equipo WHERE id_equipo = @id_equipo";
-                Comando.Parameters.AddWithValue("@id_equipo", equipoId);
-                eliminado = Comando.ExecuteNonQuery() > 0;
-                Comando.Parameters.Clear();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "EliminarEquipo";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_equipo", equipoId);
+                eliminado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return eliminado;
-            }
-            catch (Exception ex)
-            {
-                string msj = ex.ToString();
-                return false;
             }
 
+            return eliminado;
         }
 
+        public bool ExisteEquipo(Equipo equipo)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ExisteEquipo";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", equipo.codigo);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
 
+            return existe;
+        }
+
+        public bool ExisteOtroEquipo(Equipo equipo)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ExisteOtroEquipo";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", equipo.codigo);
+                comando.Parameters.AddWithValue("@id_equipo",  equipo.id_equipo);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
+
+            return existe;
+        }
+
+        public bool EquipoConMantenimientoEquipo(int equipoId)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "EquipoConMantenimientoEquipo";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_equipo", equipoId);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
+
+            return existe;
+        }
+        public bool EquipoConProyectodetalle(int equipoId)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "EquipoConProyectoDetalle";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_equipo", equipoId);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
+
+            return existe;
+        }
     }
-
 }
-

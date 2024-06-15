@@ -10,24 +10,27 @@ namespace Entidades
 
     {
 
-        public string id_Personal_proyecto { get; set; }
+        public int id_Personal_proyecto { get; set; }
+        public string codigo { get; set; }
 
-        public string id_proyecto { get; set; }
+        public int id_proyecto { get; set; }
 
-        public string id_cliente { get; set; }
+        public int id_cliente { get; set; }
 
-        public string id_responsable { get; set; }
+        public int id_responsable { get; set; }
 
-        public string id_personal { get; set; }
+        public int id_personal { get; set; }
 
         //Constructor sin parametros
         public Personal_Proyecto() { }
         //Constructor con parametros
-        public Personal_Proyecto(string idPersonalProyecto, string idProyecto, string idCliente, string idResponsable, string idPersonal)
+        public Personal_Proyecto(int idPersonalProyecto,string codigo, int idProyecto, int idCliente, int idResponsable, int idPersonal)
 
         {
 
             this.id_Personal_proyecto = idPersonalProyecto;
+
+            this.codigo = codigo;
 
             this.id_proyecto = idProyecto;
 

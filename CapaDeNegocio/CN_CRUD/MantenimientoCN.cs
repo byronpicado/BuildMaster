@@ -1,37 +1,85 @@
 ﻿using CapaDeDatos.CRUD;
 using Entidades;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CapaDeNegocio.CN_CRUD
 {
     public class MantenimientoCN
     {
-        private MantenimientoCD mantenimientoCD = new MantenimientoCD();
+        // Instancia de la capa de datos para Mantenimiento
+        private readonly MantenimientoCD mantenimientoCD = new MantenimientoCD();
+
+        // Método para obtener todos los mantenimientos
         public DataTable ObtenerMantenimiento()
         {
-            DataTable tabla = new DataTable();
-            tabla = mantenimientoCD.ObtenerMantenimiento();
-            return tabla;
+            return mantenimientoCD.ObtenerMantenimiento();
         }
-        //pasar a capa de datos
+
+        // Método para insertar un nuevo mantenimiento
         public bool Insertar(Mantenimiento mantenimiento)
         {
+            ValidarMantenimiento(mantenimiento);
+            ValidarAntesDeCrear(mantenimiento);
             return mantenimientoCD.Insertar(mantenimiento);
         }
+
+        // Método para editar un mantenimiento existente
         public bool Editar(Mantenimiento mantenimiento)
         {
+            ValidarMantenimiento(mantenimiento);
+            ValidarAntesDeEditar(mantenimiento);
             return mantenimientoCD.Editar(mantenimiento);
         }
 
-        public bool Eliminar(int mantenimientoId)
+        // Método para eliminar un mantenimiento por ID
+        public bool Eliminar(int idMantenimiento)
         {
-            return mantenimientoCD.Eliminar(mantenimientoId);
-            return false;
+            ValidarAntesDeEliminar(idMantenimiento);
+            return mantenimientoCD.Eliminar(idMantenimiento);
+        }
+
+        // Método de validación de los datos del mantenimiento
+        public void ValidarMantenimiento(Mantenimiento mantenimiento)
+        {
+            if (string.IsNullOrWhiteSpace(mantenimiento.codigo))
+                throw new ArgumentException("El campo Código no puede estar vacío o contener solo espacios en blanco");
+
+            if (string.IsNullOrWhiteSpace(mantenimiento.descripcion))
+                throw new ArgumentException("El campo Descripción no puede estar vacío o contener solo espacios en blanco");
+
+            if (mantenimiento.codigo.Length > 50)
+                throw new ArgumentException("El campo Código no puede contener más de 50 caracteres");
+
+            if (mantenimiento.descripcion.Length > 200)
+                throw new ArgumentException("El campo Descripción no puede contener más de 200 caracteres");
+
+            if (mantenimiento.fecha_mantenimiento == default(DateTime))
+                throw new ArgumentException("El campo Fecha de Mantenimiento no puede ser una fecha por defecto");
+        }
+
+        // Método para validar antes de crear un nuevo mantenimiento
+        public void ValidarAntesDeCrear(Mantenimiento mantenimiento)
+        {
+            if (mantenimientoCD.ExisteMantenimiento(mantenimiento))
+                throw new InvalidOperationException("Ya existe un mantenimiento con el código proporcionado");
+        }
+
+        // Método para validar antes de editar un mantenimiento
+        public void ValidarAntesDeEditar(Mantenimiento mantenimiento)
+        {
+            if (string.IsNullOrWhiteSpace(mantenimiento.codigo))
+                throw new ArgumentException("El campo Código no puede estar vacío o contener solo espacios en blanco");
+
+            if (string.IsNullOrWhiteSpace(mantenimiento.descripcion))
+                throw new ArgumentException("El campo Descripción no puede estar vacío o contener solo espacios en blanco");
+        }
+
+        // Método para validar antes de eliminar un mantenimiento
+        public void ValidarAntesDeEliminar(int idMantenimiento)
+        {
+            if (mantenimientoCD.MantenimientoConMantenimientoEquipo(idMantenimiento))
+                throw new InvalidOperationException("El mantenimiento a eliminar está relacionado con proyectos");
         }
     }
 }

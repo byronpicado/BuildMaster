@@ -10,111 +10,137 @@ using System.Threading.Tasks;
 namespace CapaDeDatos.CRUD
 {
     public class ProgresoCD
-    {
-        //Cadena de Conexion
+    
+    {       //Cadena de Conexion
+        // Cadena de Conexion
         private ConexionCD Conexion = new ConexionCD();
 
-        //Variables 
-        SqlDataReader LectorDatos;
-        DataTable Tabla = new DataTable();
-        SqlCommand Comando = new SqlCommand();
+        // Variables a Utilizar
+        private SqlDataReader LectorDatos;
+        private DataTable Tabla = new DataTable();
 
-        //obtenemos todos lo registro de la tabla progreso
         public DataTable ObtenerProgreso()
         {
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "SELECT * FROM Progreso";
-                Comando.CommandType = CommandType.Text;
-                LectorDatos = Comando.ExecuteReader();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ObtenerProgreso";
+                comando.CommandType = CommandType.StoredProcedure;
+                LectorDatos = comando.ExecuteReader();
                 Tabla.Load(LectorDatos);
-                LectorDatos.Close();
                 Conexion.CerrarConexion();
-               
             }
-            catch (Exception ex)
-            {
-                string excepxion = ex.Message;
-            }
+
             return Tabla;
         }
 
         public bool Insertar(Progreso progreso)
         {
             bool agregado = false;
-            try
-
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "Insert INTO Progreso (id_progreso,descripcion,fecha_registro) VALUES (@id_progreso,@descripcion,@fecha_registro)";
-                Comando.CommandType = CommandType.Text;
-
-                Comando.Parameters.AddWithValue("@id_progreso", progreso.id_progreso);
-                Comando.Parameters.AddWithValue("@descripcion", progreso.descripcion);
-                Comando.Parameters.AddWithValue("@fecha_registro", progreso.fecha_registro);
-                
-
-
-
-              agregado =Comando.ExecuteNonQuery()>0;
-                Comando.Parameters.Clear();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "InsertarProgreso";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", progreso.codigo);
+                comando.Parameters.AddWithValue("@descripcion", progreso.descripcion);
+                comando.Parameters.AddWithValue("@fecha_registro", progreso.fecha_registro);
+                agregado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return agregado;
-            }
-            catch (Exception ex)
-            {
-                String msj = ex.ToString();
-                return false;
             }
 
+            return agregado;
         }
-        //para editar un registro en la tabla Progreso
+
         public bool Editar(Progreso progreso)
         {
             bool editado = false;
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "UPDATE progreso SET descripcion=@descripcion,fecha_registro=@fecha_registro WHERE id_progreso = @id_progreso";
-                Comando.CommandType = CommandType.Text;
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ActualizarProgreso";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_progreso", progreso.id_progreso);
+                comando.Parameters.AddWithValue("@codigo", progreso.codigo);
+                comando.Parameters.AddWithValue("@descripcion", progreso.descripcion);
+                comando.Parameters.AddWithValue("@fecha_registro", progreso.fecha_registro);
 
-                Comando.Parameters.AddWithValue("@id_progreso", progreso.id_progreso);
-                Comando.Parameters.AddWithValue("@descripcion", progreso.descripcion);
-                Comando.Parameters.AddWithValue("@fecha_registro", progreso.fecha_registro);
-                editado = Comando.ExecuteNonQuery() > 0;
-                Comando.Parameters.Clear();
+                editado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return editado;
             }
-            catch (Exception ex)
-            {
-                String msj = ex.ToString();
-                return false;
-            }
+
+            return editado;
         }
+
         public bool Eliminar(int progresoId)
         {
             bool eliminado = false;
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "DELETE FROM Progreso WHERE id_progreso = @id_progreso";
-                Comando.Parameters.AddWithValue("@id_progreso", progresoId);
-                eliminado = Comando.ExecuteNonQuery() > 0;
-                Comando.Parameters.Clear();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "EliminarProgreso";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_progreso", progresoId);
+                eliminado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return eliminado;
-            }
-            catch (Exception ex)
-            {
-                string msj = ex.ToString();
-                return false;
             }
 
+            return eliminado;
         }
 
+        public bool ExisteProgreso(Progreso progreso)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ExisteProgreso";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", progreso.codigo);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
 
+            return existe;
+        }
+
+        public bool ExisteOtroProgreso(Progreso progreso)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ExisteOtroProgreso";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", progreso.codigo);
+                comando.Parameters.AddWithValue("@id_progreso", progreso.id_progreso);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
+
+            return existe;
+        }
+
+        public bool ProgresoConProyectoDetalle(int progresoId)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ProgresoConProyectoDetalle";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_progreso", progresoId);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
+
+            return existe;
+        }
     }
-
 }

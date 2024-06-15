@@ -50,7 +50,7 @@ namespace CapaDeDatos.CRUD
                 Comando.CommandText = "Insert INTO Proyecto(id_proyecto,nombre,descripcion,fecha_inicio,fecha_fin,Estado) VALUES (@id_proyecto,@nombre,@descripcion,@fecha_inicio,@fecha_fin,@Estado)";
                 Comando.CommandType = CommandType.Text;
 
-                Comando.Parameters.AddWithValue("@id_proyecto", proyecto.id_proyecto);
+                //Comando.Parameters.AddWithValue("@id_proyecto", proyecto.id_proyecto);
     
                 Comando.Parameters.AddWithValue("@nombre", proyecto.nombre);
                 Comando.Parameters.AddWithValue("@descripcion", proyecto.descripcion);

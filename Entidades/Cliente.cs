@@ -9,7 +9,8 @@ namespace Entidades
     public class Cliente
 
     {
-        public string Id_cliente { get; set; }
+       public int id_cliente {  get; set; }
+        public string codigo { get; set; }  
 
         public string nombre1 { get; set; }
 
@@ -29,11 +30,13 @@ namespace Entidades
 
         //Construtor con parametros 
 
-        public Cliente(string idCliente, string nombre1, string nombre2, string apellidoPaterno, string apellidoMaterno, string telefono, string correo)
+        public Cliente(int id_cliente,string codigo, string nombre1, string nombre2, string apellidoPaterno, string apellidoMaterno, string telefono, string correo)
 
         {
 
-            this.Id_cliente= idCliente;
+            this.id_cliente = id_cliente;
+
+            this.codigo =codigo;
 
             this.nombre1 = nombre1;
 

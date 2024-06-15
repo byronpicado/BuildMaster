@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
-using CapaDeDatos.CRUD;
 using CapaDeNegocio.CN_CRUD;
 using Entidades;
 using Entidades.Entidades;
@@ -10,7 +9,6 @@ namespace CapaDePresentacion.Catálogos
 {
     public partial class FrmCliente : Form
     {
-        // Variables
         private ClienteCN clienteCN;
         private Cliente cliente;
         private bool editar = false;
@@ -19,73 +17,85 @@ namespace CapaDePresentacion.Catálogos
         public FrmCliente()
         {
             InitializeComponent();
+            clienteCN = new ClienteCN();
         }
 
         private void FrmCliente_Load(object sender, EventArgs e)
         {
-
             MostrarClientes();
         }
 
-        // Obtener las clientes desde la Capa de Negocio y la vamos a enviar al DGV
         private void MostrarClientes()
         {
-            clienteCN = new ClienteCN();
-            DGVCliente.DataSource = clienteCN.ObtenerCliente();
-            //  DGVCliente.Columns["id_cliente"].Visible = false;
+            try
+            {
+                clienteCN = new ClienteCN();
+                DGVCliente.DataSource = clienteCN.ObtenerClientes();
+                DGVCliente.Columns["id_cliente"].Visible = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
-        // Limpiar los controles de texto
         private void LimpiarDatos()
         {
-            TxtIdCliente.Text = "";
-            TxtNombre1.Text = "";
-            TxtNombre2.Text = "";
-            TxtApellidoPaterno.Text = "";
-            TxtApellidoMaterno.Text = "";
-            TxtTelefono.Text = "";
-            TxtCorreo.Text = "";
-            TxtIdCliente.Focus();
+            TxtCodigo.Clear();
+            TxtNombre1.Clear();
+            TxtNombre2.Clear();
+            TxtApellidoPaterno.Clear();
+            TxtApellidoMaterno.Clear();
+            TxtTelefono.Clear();
+            TxtCorreo.Clear();
+            TxtCodigo.Focus();
+       
+            
         }
 
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-                // Si es nuevo
-                if (editar == false)
+                if (ValidarInputs())
                 {
-                    cliente = new Cliente(TxtIdCliente.Text, TxtNombre1.Text, TxtNombre2.Text, TxtApellidoPaterno.Text, TxtApellidoMaterno.Text, TxtTelefono.Text, TxtCorreo.Text);
+                    cliente = new Cliente(clienteid, TxtCodigo.Text, TxtNombre1.Text, TxtNombre2.Text, TxtApellidoPaterno.Text, TxtApellidoMaterno.Text, TxtTelefono.Text, TxtCorreo.Text);
 
-                    // clienteCN.ValidarAntesDeCrear(cliente);
-
-                    if (clienteCN.Insertar(cliente))
+                    if (!editar)
                     {
-                        LimpiarDatos();
-                        MostrarClientes();
+                        clienteCN.ValidarAntesDeCrear(cliente);
+                        if (clienteCN.Insertar(cliente))
+                        {
+                            LimpiarDatos();
+                            MostrarClientes();
+                            MessageBox.Show("Cliente agregado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("El registro no se insertó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                     else
-                        MessageBox.Show("El registro no se insertó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else // Es uno existente
-                {
-                    editar = false;
-                    cliente = new Cliente(TxtIdCliente.Text, TxtNombre1.Text, TxtNombre2.Text, TxtApellidoPaterno.Text, TxtApellidoMaterno.Text, TxtTelefono.Text, TxtCorreo.Text);
-
-                    // clienteCN.ValidarAntesDeEditar(cliente);
-
-                    if (clienteCN.Editar(cliente))
                     {
-                        LimpiarDatos();
-                        MostrarClientes();
+                        clienteCN.ValidarAntesDeEditar(cliente);
+                        if (clienteCN.Editar(cliente))
+                        {
+                            LimpiarDatos();
+                            MostrarClientes();
+                            MessageBox.Show("Cliente actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("El registro no se editó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
-                    else
-                        MessageBox.Show("El registro no se editó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                LogError(ex);
+                MessageBox.Show("Ocurrió un error al guardar los datos del cliente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -96,26 +106,25 @@ namespace CapaDePresentacion.Catálogos
                 if (DGVCliente.SelectedRows.Count > 0)
                 {
                     editar = true;
-                    TxtIdCliente.Text = DGVCliente.CurrentRow.Cells["id_cliente"].Value.ToString();
-                    TxtNombre1.Text = DGVCliente.CurrentRow.Cells["Nombre1"].Value.ToString();
-                    TxtNombre2.Text = DGVCliente.CurrentRow.Cells["Nombre2"].Value.ToString();
+                    TxtCodigo.Text = DGVCliente.CurrentRow.Cells["codigo"].Value.ToString();
+                    TxtNombre1.Text = DGVCliente.CurrentRow.Cells["nombre1"].Value.ToString();
+                    TxtNombre2.Text = DGVCliente.CurrentRow.Cells["nombre2"].Value.ToString();
                     TxtApellidoPaterno.Text = DGVCliente.CurrentRow.Cells["apellidoPaterno"].Value.ToString();
                     TxtApellidoMaterno.Text = DGVCliente.CurrentRow.Cells["apellidoMaterno"].Value.ToString();
                     TxtTelefono.Text = DGVCliente.CurrentRow.Cells["telefono"].Value.ToString();
                     TxtCorreo.Text = DGVCliente.CurrentRow.Cells["correo"].Value.ToString();
-
                     clienteid = int.Parse(DGVCliente.CurrentRow.Cells["id_cliente"].Value.ToString());
-
                 }
                 else
-                    MessageBox.Show("Debe seleccionar una fila de la lista", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                {
+                    MessageBox.Show("Debe seleccionar una fila de la lista.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                LogError(ex);
+                MessageBox.Show("Ocurrió un error al intentar editar el cliente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-
         }
 
         private void BtnEliminar_Click(object sender, EventArgs e)
@@ -124,30 +133,84 @@ namespace CapaDePresentacion.Catálogos
             {
                 if (DGVCliente.SelectedRows.Count > 0)
                 {
-                    int clienteid = int.Parse(DGVCliente.CurrentRow.Cells["id_cliente"].Value.ToString());
-                   // clienteCN.ValidarAntesDeEliminar(clienteid);
-
-                    // Llamada al método Eliminar en ClienteCN
-                    if (clienteCN.Eliminar(clienteid))
+                    if (MessageBox.Show("¿Está seguro que desea eliminar este cliente?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        LimpiarDatos();
-                        MostrarClientes();
-                        MessageBox.Show("El registro se eliminó correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show("El registro no se eliminó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        int clienteid = int.Parse(DGVCliente.CurrentRow.Cells["id_cliente"].Value.ToString());
+                        clienteCN.ValidarAntesDeEliminar(clienteid);
+                        if (clienteCN.Eliminar(clienteid))
+                        {
+                            LimpiarDatos();
+                            MostrarClientes();
+                            MessageBox.Show("el Cliente eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("El cliente no se eliminó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Debe seleccionar una fila de la lista", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Debe seleccionar una fila de la lista.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ocurrió un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LogError(ex);
+                MessageBox.Show("Ocurrió un error al eliminar el cliente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void BtnLimpiar_Click(object sender, EventArgs e)
+        {
+            if (DGVCliente.SelectedRows.Count > 0)
+            {
+                DGVCliente.ClearSelection();
+            }
+            else
+            {
+                LimpiarDatos();
+            }
+        }
+
+        private bool ValidarInputs()
+        {
+            if (string.IsNullOrWhiteSpace(TxtCodigo.Text) ||
+                string.IsNullOrWhiteSpace(TxtNombre1.Text) ||
+                string.IsNullOrWhiteSpace(TxtApellidoPaterno.Text) ||
+                string.IsNullOrWhiteSpace(TxtTelefono.Text) ||
+                string.IsNullOrWhiteSpace(TxtCorreo.Text))
+            {
+                MessageBox.Show("Todos los campos marcados con * son obligatorios.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            if (!IsValidEmail(TxtCorreo.Text))
+            {
+                MessageBox.Show("El formato del correo es incorrecto.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private void LogError(Exception ex)
+        {
+            // Log the exception (e.g., write to a log file or database)
+            Console.WriteLine(ex.ToString());
         }
     }
 }

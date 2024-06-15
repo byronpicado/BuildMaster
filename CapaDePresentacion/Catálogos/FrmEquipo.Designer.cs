@@ -28,20 +28,26 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmEquipo));
             this.label1 = new System.Windows.Forms.Label();
             this.DGVEquipo = new System.Windows.Forms.DataGridView();
             this.panelEquipo = new System.Windows.Forms.Panel();
+            this.BtnLimpiar = new System.Windows.Forms.Button();
             this.DTPFecha_Adquisicion = new System.Windows.Forms.DateTimePicker();
             this.BtnEliminar = new System.Windows.Forms.Button();
             this.BtnEditar = new System.Windows.Forms.Button();
             this.BtnGuardar = new System.Windows.Forms.Button();
             this.TxtMarca = new System.Windows.Forms.TextBox();
             this.TxtTipo = new System.Windows.Forms.TextBox();
-            this.TxtIdEquipo = new System.Windows.Forms.TextBox();
+            this.TxtCodigo = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.TxtBuscar = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.BtnRefrescar = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVEquipo)).BeginInit();
             this.panelEquipo.SuspendLayout();
             this.SuspendLayout();
@@ -49,10 +55,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(379, 0);
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(190, 24);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(252, 32);
+            this.label1.Size = new System.Drawing.Size(391, 51);
             this.label1.TabIndex = 0;
             this.label1.Text = "Catálogo de Equipo";
             // 
@@ -60,8 +66,11 @@
             // 
             this.DGVEquipo.AllowUserToAddRows = false;
             this.DGVEquipo.AllowUserToDeleteRows = false;
+            this.DGVEquipo.BackgroundColor = System.Drawing.SystemColors.MenuHighlight;
+            this.DGVEquipo.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.DGVEquipo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVEquipo.Location = new System.Drawing.Point(155, 262);
+            this.DGVEquipo.GridColor = System.Drawing.SystemColors.MenuHighlight;
+            this.DGVEquipo.Location = new System.Drawing.Point(156, 299);
             this.DGVEquipo.Name = "DGVEquipo";
             this.DGVEquipo.ReadOnly = true;
             this.DGVEquipo.RowHeadersWidth = 62;
@@ -69,39 +78,51 @@
             this.DGVEquipo.Size = new System.Drawing.Size(690, 373);
             this.DGVEquipo.TabIndex = 19;
             this.DGVEquipo.Tag = "";
+            this.DGVEquipo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DGVEquipo_CellContentClick);
             // 
             // panelEquipo
             // 
             this.panelEquipo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(122)))), ((int)(((byte)(191)))));
             this.panelEquipo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelEquipo.Controls.Add(this.BtnLimpiar);
             this.panelEquipo.Controls.Add(this.DTPFecha_Adquisicion);
             this.panelEquipo.Controls.Add(this.BtnEliminar);
             this.panelEquipo.Controls.Add(this.BtnEditar);
             this.panelEquipo.Controls.Add(this.BtnGuardar);
             this.panelEquipo.Controls.Add(this.TxtMarca);
             this.panelEquipo.Controls.Add(this.TxtTipo);
-            this.panelEquipo.Controls.Add(this.TxtIdEquipo);
+            this.panelEquipo.Controls.Add(this.TxtCodigo);
             this.panelEquipo.Controls.Add(this.label5);
             this.panelEquipo.Controls.Add(this.label4);
             this.panelEquipo.Controls.Add(this.label3);
             this.panelEquipo.Controls.Add(this.label2);
-            this.panelEquipo.Location = new System.Drawing.Point(12, 47);
+            this.panelEquipo.Location = new System.Drawing.Point(12, 102);
             this.panelEquipo.Name = "panelEquipo";
-            this.panelEquipo.Size = new System.Drawing.Size(954, 190);
+            this.panelEquipo.Size = new System.Drawing.Size(963, 179);
             this.panelEquipo.TabIndex = 18;
+            // 
+            // BtnLimpiar
+            // 
+            this.BtnLimpiar.Location = new System.Drawing.Point(852, 120);
+            this.BtnLimpiar.Name = "BtnLimpiar";
+            this.BtnLimpiar.Size = new System.Drawing.Size(75, 30);
+            this.BtnLimpiar.TabIndex = 18;
+            this.BtnLimpiar.Text = "Limpiar";
+            this.BtnLimpiar.UseVisualStyleBackColor = true;
+            this.BtnLimpiar.Click += new System.EventHandler(this.BtnLimpiar_Click_1);
             // 
             // DTPFecha_Adquisicion
             // 
             this.DTPFecha_Adquisicion.CalendarFont = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DTPFecha_Adquisicion.Location = new System.Drawing.Point(638, 41);
+            this.DTPFecha_Adquisicion.Location = new System.Drawing.Point(638, 42);
             this.DTPFecha_Adquisicion.Name = "DTPFecha_Adquisicion";
-            this.DTPFecha_Adquisicion.Size = new System.Drawing.Size(292, 26);
+            this.DTPFecha_Adquisicion.Size = new System.Drawing.Size(315, 26);
             this.DTPFecha_Adquisicion.TabIndex = 17;
             // 
             // BtnEliminar
             // 
             this.BtnEliminar.BackColor = System.Drawing.Color.Red;
-            this.BtnEliminar.Location = new System.Drawing.Point(700, 120);
+            this.BtnEliminar.Location = new System.Drawing.Point(601, 120);
             this.BtnEliminar.Name = "BtnEliminar";
             this.BtnEliminar.Size = new System.Drawing.Size(85, 30);
             this.BtnEliminar.TabIndex = 16;
@@ -112,7 +133,7 @@
             // BtnEditar
             // 
             this.BtnEditar.BackColor = System.Drawing.Color.DarkOrange;
-            this.BtnEditar.Location = new System.Drawing.Point(405, 120);
+            this.BtnEditar.Location = new System.Drawing.Point(358, 120);
             this.BtnEditar.Name = "BtnEditar";
             this.BtnEditar.Size = new System.Drawing.Size(75, 30);
             this.BtnEditar.TabIndex = 15;
@@ -146,58 +167,107 @@
             this.TxtTipo.Size = new System.Drawing.Size(168, 26);
             this.TxtTipo.TabIndex = 8;
             // 
-            // TxtIdEquipo
+            // TxtCodigo
             // 
-            this.TxtIdEquipo.Location = new System.Drawing.Point(46, 42);
-            this.TxtIdEquipo.Name = "TxtIdEquipo";
-            this.TxtIdEquipo.Size = new System.Drawing.Size(100, 26);
-            this.TxtIdEquipo.TabIndex = 7;
+            this.TxtCodigo.Location = new System.Drawing.Point(46, 42);
+            this.TxtCodigo.Name = "TxtCodigo";
+            this.TxtCodigo.Size = new System.Drawing.Size(100, 26);
+            this.TxtCodigo.TabIndex = 7;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(634, 18);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(139, 20);
+            this.label5.Size = new System.Drawing.Size(145, 20);
             this.label5.TabIndex = 3;
-            this.label5.Text = "Fecha Adquisición";
+            this.label5.Text = "*Fecha Adquisición";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(410, 18);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 20);
+            this.label4.Size = new System.Drawing.Size(59, 20);
             this.label4.TabIndex = 2;
-            this.label4.Text = "Marca";
+            this.label4.Text = "*Marca";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(195, 18);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(39, 20);
+            this.label3.Size = new System.Drawing.Size(45, 20);
             this.label3.TabIndex = 1;
-            this.label3.Text = "Tipo";
+            this.label3.Text = "*Tipo";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(42, 18);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(27, 20);
+            this.label2.Size = new System.Drawing.Size(65, 20);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Id ";
+            this.label2.Text = "*Código";
+            // 
+            // TxtBuscar
+            // 
+            this.TxtBuscar.Location = new System.Drawing.Point(660, 24);
+            this.TxtBuscar.Name = "TxtBuscar";
+            this.TxtBuscar.Size = new System.Drawing.Size(315, 26);
+            this.TxtBuscar.TabIndex = 20;
+            // 
+            // button1
+            // 
+            this.button1.AutoSize = true;
+            this.button1.BackColor = System.Drawing.Color.Blue;
+            this.button1.ImageKey = "(ninguno)";
+            this.button1.Location = new System.Drawing.Point(660, 56);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(94, 31);
+            this.button1.TabIndex = 19;
+            this.button1.Text = "Buscar";
+            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // BtnRefrescar
+            // 
+            this.BtnRefrescar.AutoSize = true;
+            this.BtnRefrescar.BackColor = System.Drawing.Color.Lime;
+            this.BtnRefrescar.Image = ((System.Drawing.Image)(resources.GetObject("BtnRefrescar.Image")));
+            this.BtnRefrescar.Location = new System.Drawing.Point(809, 56);
+            this.BtnRefrescar.Name = "BtnRefrescar";
+            this.BtnRefrescar.Size = new System.Drawing.Size(109, 31);
+            this.BtnRefrescar.TabIndex = 22;
+            this.BtnRefrescar.Text = "Refrescar";
+            this.BtnRefrescar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnRefrescar.UseVisualStyleBackColor = false;
+            this.BtnRefrescar.Click += new System.EventHandler(this.BtnRefrescar_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(656, 1);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(140, 20);
+            this.label6.TabIndex = 23;
+            this.label6.Text = "Buscar por Código";
             // 
             // FrmEquipo
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(978, 684);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.BtnRefrescar);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.TxtBuscar);
             this.Controls.Add(this.DGVEquipo);
             this.Controls.Add(this.panelEquipo);
             this.Controls.Add(this.label1);
             this.Name = "FrmEquipo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Formulario Equipo";
             this.Load += new System.EventHandler(this.FrmEquipo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVEquipo)).EndInit();
@@ -213,16 +283,21 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView DGVEquipo;
         private System.Windows.Forms.Panel panelEquipo;
-        private System.Windows.Forms.Button BtnEliminar;
         private System.Windows.Forms.Button BtnEditar;
         private System.Windows.Forms.Button BtnGuardar;
         private System.Windows.Forms.TextBox TxtMarca;
         private System.Windows.Forms.TextBox TxtTipo;
-        private System.Windows.Forms.TextBox TxtIdEquipo;
+        private System.Windows.Forms.TextBox TxtCodigo;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker DTPFecha_Adquisicion;
+        private System.Windows.Forms.Button BtnEliminar;
+        private System.Windows.Forms.Button BtnLimpiar;
+        private System.Windows.Forms.TextBox TxtBuscar;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button BtnRefrescar;
+        private System.Windows.Forms.Label label6;
     }
 }

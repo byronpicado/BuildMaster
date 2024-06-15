@@ -9,8 +9,8 @@ namespace Entidades
     public class Habilidad
 
     {
-
-        public string id_habilidad { get; set; }
+        public int id_habilidad { get; set; }
+        public string codigo { get; set; }
 
         public string descripcion { get; set; }
         
@@ -19,12 +19,12 @@ namespace Entidades
 
 
         //Constructor con parametros
-        public Habilidad(string idHabilidad, string descripcion)
+        public Habilidad(string codigo,int id_habilidad, string descripcion)
 
         {
 
-            this.id_habilidad = idHabilidad;
-
+            this.codigo = codigo;
+            this.id_habilidad= id_habilidad;
             this.descripcion = descripcion;
 
         }

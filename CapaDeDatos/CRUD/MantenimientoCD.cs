@@ -1,7 +1,9 @@
 ﻿using System;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 using Entidades;
+using Entidades.Entidades;
 
 namespace CapaDeDatos.CRUD
 {
@@ -10,135 +12,133 @@ namespace CapaDeDatos.CRUD
         // Cadena de Conexion
         private ConexionCD Conexion = new ConexionCD();
 
-        // Variables 
-        SqlDataReader LectorDatos;
-        DataTable Tabla = new DataTable();
-        SqlCommand Comando = new SqlCommand();
+        // Variables a Utilizar
+        private SqlDataReader LectorDatos;
+        private DataTable Tabla = new DataTable();
 
-        // Obtenemos todos los registros de la tabla mantenimiento
         public DataTable ObtenerMantenimiento()
         {
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "SELECT * FROM Mantenimiento";
-                Comando.CommandType = CommandType.Text;
-                LectorDatos = Comando.ExecuteReader();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ObtenerMantenimientos";
+                comando.CommandType = CommandType.StoredProcedure;
+                LectorDatos = comando.ExecuteReader();
                 Tabla.Load(LectorDatos);
-                LectorDatos.Close();
                 Conexion.CerrarConexion();
             }
-            catch (Exception ex)
-            {
-                string excepcion = ex.Message;
-                // Manejar o registrar el error adecuadamente
-            }
-            finally
-            {
-                if (LectorDatos != null && !LectorDatos.IsClosed)
-                {
-                    LectorDatos.Close();
-                }
-                if (Comando.Connection != null && Comando.Connection.State == ConnectionState.Open)
-                {
-                    Conexion.CerrarConexion();
-                }
-            }
+
             return Tabla;
         }
 
         public bool Insertar(Mantenimiento mantenimiento)
         {
             bool agregado = false;
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "INSERT INTO Mantenimiento (id_mantenimiento, fecha_mantenimiento, descripcion) VALUES (@id_mantenimiento, @fecha_mantenimiento, @descripcion)";
-                Comando.CommandType = CommandType.Text;
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "InsertarMantenimiento";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", mantenimiento.codigo);
+                comando.Parameters.AddWithValue("@fecha_mantenimiento", mantenimiento.fecha_mantenimiento);
+                comando.Parameters.AddWithValue("@descripcion", mantenimiento.descripcion);
 
-                Comando.Parameters.AddWithValue("@id_mantenimiento", mantenimiento.id_mantenimiento);
-                Comando.Parameters.AddWithValue("@fecha_mantenimiento", mantenimiento.fecha_mantenimiento);
-                Comando.Parameters.AddWithValue("@descripcion", mantenimiento.descripcion);
-
-                agregado = Comando.ExecuteNonQuery() > 0;
-                Comando.Parameters.Clear();
+                agregado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
                 Conexion.CerrarConexion();
             }
-            catch (Exception ex)
-            {
-                string msj = ex.ToString();
-                // Manejar o registrar el error adecuadamente
-            }
-            finally
-            {
-                if (Comando.Connection != null && Comando.Connection.State == ConnectionState.Open)
-                {
-                    Conexion.CerrarConexion();
-                }
-            }
+
             return agregado;
         }
 
-        // Para editar un registro en la tabla Mantenimiento
         public bool Editar(Mantenimiento mantenimiento)
         {
             bool editado = false;
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "UPDATE Mantenimiento SET fecha_mantenimiento = @fecha_mantenimiento, descripcion = @descripcion WHERE id_mantenimiento = @id_mantenimiento";
-                Comando.CommandType = CommandType.Text;
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ActualizarMantenimiento";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_mantenimiento", mantenimiento.id_mantenimiento);
+                comando.Parameters.AddWithValue("@codigo", mantenimiento.codigo);
+                comando.Parameters.AddWithValue("@fecha_mantenimiento", mantenimiento.fecha_mantenimiento);
+                comando.Parameters.AddWithValue("@descripcion", mantenimiento.descripcion);
 
-                Comando.Parameters.AddWithValue("@id_mantenimiento", mantenimiento.id_mantenimiento);
-                Comando.Parameters.AddWithValue("@fecha_mantenimiento", mantenimiento.fecha_mantenimiento);
-                Comando.Parameters.AddWithValue("@descripcion", mantenimiento.descripcion);
-
-                editado = Comando.ExecuteNonQuery() > 0;
-                Comando.Parameters.Clear();
+                editado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
                 Conexion.CerrarConexion();
             }
-            catch (Exception ex)
-            {
-                string msj = ex.ToString();
-                // Manejar o registrar el error adecuadamente
-            }
-            finally
-            {
-                if (Comando.Connection != null && Comando.Connection.State == ConnectionState.Open)
-                {
-                    Conexion.CerrarConexion();
-                }
-            }
+
             return editado;
         }
 
         public bool Eliminar(int mantenimientoId)
         {
             bool eliminado = false;
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "DELETE FROM Mantenimiento WHERE id_mantenimiento = @id_mantenimiento";
-                Comando.CommandType = CommandType.Text;
-                Comando.Parameters.AddWithValue("@id_mantenimiento", mantenimientoId);
-
-                eliminado = Comando.ExecuteNonQuery() > 0;
-                Comando.Parameters.Clear();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "EliminarMantenimiento";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_mantenimiento", mantenimientoId);
+                eliminado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
                 Conexion.CerrarConexion();
             }
-            catch (Exception ex)
-            {
-                string msj = ex.ToString();
-                // Manejar o registrar el error adecuadamente
-            }
-            finally
-            {
-                if (Comando.Connection != null && Comando.Connection.State == ConnectionState.Open)
-                {
-                    Conexion.CerrarConexion();
-                }
-            }
+
             return eliminado;
         }
+
+        public bool ExisteMantenimiento(Mantenimiento mantenimiento)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ExisteMantenimiento";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", mantenimiento.codigo);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
+
+            return existe;
+        }
+
+        public bool ExisteOtroMantenimiento(Mantenimiento mantenimiento)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ExisteOtroMantenimiento";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", mantenimiento.codigo);
+                comando.Parameters.AddWithValue("@id_equipo", mantenimiento.id_mantenimiento);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
+
+            return existe;
+        }
+
+        public bool MantenimientoConMantenimientoEquipo(int mantenimientoId)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "MantenimientoConMantenimientoEquipo";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_mantenimiento", mantenimientoId);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
+
+            return existe;
+        }
     }
-}
+    }

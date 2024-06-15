@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CapaDeDatos
 {
-    internal class ConexionCD
+    public class ConexionCD
     {
    
             private SqlConnection Conexion = new SqlConnection("Data Source =DESKTOP-CAKRKLJ\\SQLEXPRESS; Database = BuildMasterDB;Integrated Security=True");

@@ -30,6 +30,7 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.panelResponsable = new System.Windows.Forms.Panel();
+            this.BtnLimpiar = new System.Windows.Forms.Button();
             this.BtnEliminar = new System.Windows.Forms.Button();
             this.BtnEditar = new System.Windows.Forms.Button();
             this.BtnGuardar = new System.Windows.Forms.Button();
@@ -38,13 +39,13 @@
             this.TxtApellidoPaterno = new System.Windows.Forms.TextBox();
             this.TxtNombre2 = new System.Windows.Forms.TextBox();
             this.TxtNombre1 = new System.Windows.Forms.TextBox();
-            this.TxtIdResponsable = new System.Windows.Forms.TextBox();
+            this.TxtCodigo = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.Cédula = new System.Windows.Forms.Label();
             this.DGVResponsable = new System.Windows.Forms.DataGridView();
             this.panelResponsable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVResponsable)).BeginInit();
@@ -64,6 +65,7 @@
             // 
             this.panelResponsable.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(122)))), ((int)(((byte)(191)))));
             this.panelResponsable.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelResponsable.Controls.Add(this.BtnLimpiar);
             this.panelResponsable.Controls.Add(this.BtnEliminar);
             this.panelResponsable.Controls.Add(this.BtnEditar);
             this.panelResponsable.Controls.Add(this.BtnGuardar);
@@ -72,22 +74,32 @@
             this.panelResponsable.Controls.Add(this.TxtApellidoPaterno);
             this.panelResponsable.Controls.Add(this.TxtNombre2);
             this.panelResponsable.Controls.Add(this.TxtNombre1);
-            this.panelResponsable.Controls.Add(this.TxtIdResponsable);
+            this.panelResponsable.Controls.Add(this.TxtCodigo);
             this.panelResponsable.Controls.Add(this.label7);
             this.panelResponsable.Controls.Add(this.label6);
             this.panelResponsable.Controls.Add(this.label5);
             this.panelResponsable.Controls.Add(this.label4);
             this.panelResponsable.Controls.Add(this.label3);
-            this.panelResponsable.Controls.Add(this.label2);
+            this.panelResponsable.Controls.Add(this.Cédula);
             this.panelResponsable.Location = new System.Drawing.Point(22, 82);
             this.panelResponsable.Name = "panelResponsable";
             this.panelResponsable.Size = new System.Drawing.Size(935, 255);
             this.panelResponsable.TabIndex = 18;
             // 
+            // BtnLimpiar
+            // 
+            this.BtnLimpiar.Location = new System.Drawing.Point(811, 207);
+            this.BtnLimpiar.Name = "BtnLimpiar";
+            this.BtnLimpiar.Size = new System.Drawing.Size(75, 29);
+            this.BtnLimpiar.TabIndex = 17;
+            this.BtnLimpiar.Text = "Limpiar";
+            this.BtnLimpiar.UseVisualStyleBackColor = true;
+            this.BtnLimpiar.Click += new System.EventHandler(this.BtnLimpiar_Click_1);
+            // 
             // BtnEliminar
             // 
             this.BtnEliminar.BackColor = System.Drawing.Color.Red;
-            this.BtnEliminar.Location = new System.Drawing.Point(691, 207);
+            this.BtnEliminar.Location = new System.Drawing.Point(534, 207);
             this.BtnEliminar.Name = "BtnEliminar";
             this.BtnEliminar.Size = new System.Drawing.Size(85, 30);
             this.BtnEliminar.TabIndex = 16;
@@ -98,7 +110,7 @@
             // BtnEditar
             // 
             this.BtnEditar.BackColor = System.Drawing.Color.DarkOrange;
-            this.BtnEditar.Location = new System.Drawing.Point(396, 207);
+            this.BtnEditar.Location = new System.Drawing.Point(298, 207);
             this.BtnEditar.Name = "BtnEditar";
             this.BtnEditar.Size = new System.Drawing.Size(75, 30);
             this.BtnEditar.TabIndex = 15;
@@ -110,7 +122,7 @@
             // 
             this.BtnGuardar.AutoSize = true;
             this.BtnGuardar.BackColor = System.Drawing.Color.Lime;
-            this.BtnGuardar.Location = new System.Drawing.Point(71, 207);
+            this.BtnGuardar.Location = new System.Drawing.Point(46, 207);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(85, 30);
             this.BtnGuardar.TabIndex = 14;
@@ -153,12 +165,12 @@
             this.TxtNombre1.Size = new System.Drawing.Size(187, 26);
             this.TxtNombre1.TabIndex = 8;
             // 
-            // TxtIdResponsable
+            // TxtCodigo
             // 
-            this.TxtIdResponsable.Location = new System.Drawing.Point(46, 42);
-            this.TxtIdResponsable.Name = "TxtIdResponsable";
-            this.TxtIdResponsable.Size = new System.Drawing.Size(124, 26);
-            this.TxtIdResponsable.TabIndex = 7;
+            this.TxtCodigo.Location = new System.Drawing.Point(46, 42);
+            this.TxtCodigo.Name = "TxtCodigo";
+            this.TxtCodigo.Size = new System.Drawing.Size(124, 26);
+            this.TxtCodigo.TabIndex = 7;
             // 
             // label7
             // 
@@ -205,21 +217,23 @@
             this.label3.TabIndex = 1;
             this.label3.Text = "Primer nombre";
             // 
-            // label2
+            // Cédula
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(42, 18);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(27, 20);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Id ";
+            this.Cédula.AutoSize = true;
+            this.Cédula.Location = new System.Drawing.Point(42, 18);
+            this.Cédula.Name = "Cédula";
+            this.Cédula.Size = new System.Drawing.Size(65, 20);
+            this.Cédula.TabIndex = 0;
+            this.Cédula.Text = "*Cédula";
             // 
             // DGVResponsable
             // 
             this.DGVResponsable.AllowUserToAddRows = false;
             this.DGVResponsable.AllowUserToDeleteRows = false;
             this.DGVResponsable.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.DGVResponsable.BackgroundColor = System.Drawing.SystemColors.MenuHighlight;
             this.DGVResponsable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVResponsable.GridColor = System.Drawing.SystemColors.MenuHighlight;
             this.DGVResponsable.Location = new System.Drawing.Point(22, 362);
             this.DGVResponsable.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.DGVResponsable.Name = "DGVResponsable";
@@ -233,11 +247,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(978, 684);
             this.Controls.Add(this.DGVResponsable);
             this.Controls.Add(this.panelResponsable);
             this.Controls.Add(this.label1);
             this.Name = "FrmResponsable";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Formulario Responsable";
             this.Load += new System.EventHandler(this.FrmResponsable_Load);
             this.panelResponsable.ResumeLayout(false);
@@ -260,13 +276,14 @@
         private System.Windows.Forms.TextBox TxtApellidoPaterno;
         private System.Windows.Forms.TextBox TxtNombre2;
         private System.Windows.Forms.TextBox TxtNombre1;
-        private System.Windows.Forms.TextBox TxtIdResponsable;
+        private System.Windows.Forms.TextBox TxtCodigo;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label Cédula;
         private System.Windows.Forms.DataGridView DGVResponsable;
+        private System.Windows.Forms.Button BtnLimpiar;
     }
 }

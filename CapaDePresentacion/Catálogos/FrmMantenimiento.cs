@@ -1,4 +1,4 @@
-﻿using CapaDeDatos.CRUD;
+﻿
 using CapaDeNegocio.CN_CRUD;
 using Entidades;
 using Entidades.Entidades;
@@ -8,6 +8,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -24,6 +25,7 @@ namespace CapaDePresentacion.Catálogos
         public FrmMantenimiento()
         {
             InitializeComponent();
+            mantenimientoCN = new MantenimientoCN();
         }
 
         private void FrmMantenimiento_Load(object sender, EventArgs e)
@@ -33,64 +35,73 @@ namespace CapaDePresentacion.Catálogos
         // Obtener las clientes desde la Capa de Negocio y la vamos a enviar al DGV
         private void MostrarMantenimiento()
         {
-            mantenimientoCN = new MantenimientoCN();
-            DGVMantenimiento.DataSource = mantenimientoCN.ObtenerMantenimiento();
-
+            try
+            {
+                mantenimientoCN = new MantenimientoCN();
+                DGVMantenimiento.DataSource = mantenimientoCN.ObtenerMantenimiento();
+                DGVMantenimiento.Columns["id_mantenimiento"].Visible = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         //Limpiar los controles de texto
         private void LimpiarDatos()
         {
-            TxtId_habilidad.Text = "";
-            TxtDescripcion.Text = "";
-            DTPFechaMantenimiento.Text = "";
-            TxtId_habilidad.Focus();
+            TxtCodigo.Clear();
+            TxtDescripcion.Clear();
+            DTPFechaMantenimiento.Value = DateTime.Now;
+            TxtCodigo.Focus();
         }
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-                // Obtener la fecha del DateTimePicker
-                DateTime fechaMantenimiento = DTPFechaMantenimiento.Value;
-
-                // Si es nuevo
-                if (editar == false)
+                if (ValidarInputs())
                 {
-                    mantenimiento = new Mantenimiento(TxtId_habilidad.Text, fechaMantenimiento, TxtDescripcion.Text);
-
-                    if (mantenimientoCN.Insertar(mantenimiento))
+                    mantenimiento = new Mantenimiento(mantenimientoid, TxtCodigo.Text, DTPFechaMantenimiento.Value, TxtDescripcion.Text);
+                    if (!editar)
                     {
-                        LimpiarDatos();
-                        MostrarMantenimiento();
+                        mantenimientoCN.ValidarAntesDeCrear(mantenimiento);
+                        if (mantenimientoCN.Insertar(mantenimiento))
+                        {
+                            LimpiarDatos();
+                            MostrarMantenimiento();
+                            MessageBox.Show("Mantenimiento agregado correctamente", "´Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("el registro no se insertó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("El registro no se insertó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        mantenimientoCN.ValidarAntesDeEditar(mantenimiento);
+                        if (mantenimientoCN.Editar(mantenimiento))
+                        {
+                            LimpiarDatos();
+                            MostrarMantenimiento();
+                            MessageBox.Show("Mantenimiento actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("El registro no se editó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
-                else // Es uno existente
+            }
+
+                catch(Exception ex ) 
                 {
-                    editar = false;
-                    mantenimiento = new Mantenimiento(TxtId_habilidad.Text,fechaMantenimiento, TxtDescripcion.Text);
+                    LogError(ex);
+                    MessageBox.Show("Ocurrió un error al guardar los datos del mantenimiento", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                    if (mantenimientoCN.Editar(mantenimiento))
-                    {
-                        LimpiarDatos();
-                        MostrarMantenimiento();
-                    }
-                    else
-                    {
-                        MessageBox.Show("El registro no se editó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-    
 
+            }
         private void BtnEditar_Click(object sender, EventArgs e)
         {
             try
@@ -99,18 +110,19 @@ namespace CapaDePresentacion.Catálogos
                 if (DGVMantenimiento.SelectedRows.Count > 0)
                 {
                     editar = true;
-                    TxtId_habilidad.Text = DGVMantenimiento.CurrentRow.Cells["id_mantenimiento"].Value.ToString();
+                    TxtCodigo.Text = DGVMantenimiento.CurrentRow.Cells["codigo"].Value.ToString();
                     DTPFechaMantenimiento.Text = DGVMantenimiento.CurrentRow.Cells["fecha_mantenimiento"].Value.ToString();
                     TxtDescripcion.Text = DGVMantenimiento.CurrentRow.Cells["descripcion"].Value.ToString();
                     mantenimientoid = int.Parse(DGVMantenimiento.CurrentRow.Cells["id_mantenimiento"].Value.ToString());
 
-    }
+                }
                 else
-                    MessageBox.Show("Debe seleccionar una fila de la lista", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Debe seleccionar una fila de la lista", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                LogError(ex);
+                MessageBox.Show("Ocurrió un error al intentar editar el mantenimiento.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
 
@@ -122,19 +134,20 @@ namespace CapaDePresentacion.Catálogos
             {
                 if (DGVMantenimiento.SelectedRows.Count > 0)
                 {
-                    int mantenimientoid = int.Parse(DGVMantenimiento.CurrentRow.Cells["id_mantenimiento"].Value.ToString());
-                    // clienteCN.ValidarAntesDeEliminar(clienteid);
-
-                    // Llamada al método Eliminar en ClienteCN
-                    if (mantenimientoCN.Eliminar(mantenimientoid))
+                    if (MessageBox.Show("¿Está seguro que desea eliminar este mantenimiento?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        LimpiarDatos();
-                        MostrarMantenimiento();
-                        MessageBox.Show("El registro se eliminó correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show("El registro no se eliminó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        int mantenimientoid = int.Parse(DGVMantenimiento.CurrentRow.Cells["id_mantenimiento"].Value.ToString());
+                        mantenimientoCN.ValidarAntesDeEliminar(mantenimientoid);
+                        if (mantenimientoCN.Eliminar(mantenimientoid))
+                        {
+                            LimpiarDatos();
+                            MostrarMantenimiento();
+                            MessageBox.Show("Mantenimiento eliminado correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("El mantenimiento no se eliminó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
                 else
@@ -147,6 +160,33 @@ namespace CapaDePresentacion.Catálogos
                 MessageBox.Show("Ocurrió un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void BtnLimpiar_Click(object sender, EventArgs e)
+        {
+            if (DGVMantenimiento.SelectedRows.Count > 0)
+            {
+                DGVMantenimiento.ClearSelection();
+            }
+            else
+            {
+                LimpiarDatos();
+            }
+        }
+        private bool ValidarInputs()
+        {
+            if (string.IsNullOrWhiteSpace(TxtCodigo.Text) ||
+                string.IsNullOrWhiteSpace(TxtDescripcion.Text))
+            {
+                MessageBox.Show("Todos los campos marcados con * son obligatorios.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+            return true;
+        }
+    
+        
+        private void LogError(Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
     }
 }
-

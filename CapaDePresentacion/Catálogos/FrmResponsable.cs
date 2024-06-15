@@ -1,6 +1,6 @@
 ﻿using System;
+using System;
 using System.Windows.Forms;
-using CapaDeDatos.CRUD;
 using CapaDeNegocio.CN_CRUD;
 using Entidades;
 
@@ -9,13 +9,15 @@ namespace CapaDePresentacion.Catálogos
     public partial class FrmResponsable : Form
     {
         // Variables
-        private ResponsableCN _responsableCN;
-        private Responsable _responsable;
-        private bool _editar = false;
+        private ResponsableCN responsableCN;
+        private Responsable responsable;
+        private bool editar = false;
+        private int responsableId;
 
         public FrmResponsable()
         {
             InitializeComponent();
+            responsableCN = new ResponsableCN();
         }
 
         private void FrmResponsable_Load(object sender, EventArgs e)
@@ -26,45 +28,46 @@ namespace CapaDePresentacion.Catálogos
         // Obtener los responsables desde la Capa de Negocio y enviar al DataGridView
         private void MostrarResponsables()
         {
-            _responsableCN = new ResponsableCN();
-            DGVResponsable.DataSource = _responsableCN.ObtenerResponsable();
-            //DGVCliente.Columns["id"].Visible = false;
+            try
+            {
+                responsableCN = new ResponsableCN();
+                DGVResponsable.DataSource = responsableCN.ObtenerResponsable();
+                DGVResponsable.Columns["id_responsable"].Visible = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         // Limpiar los controles de texto
         private void LimpiarDatos()
         {
-            TxtIdResponsable.Clear();
+            TxtCodigo.Clear();
             TxtNombre1.Clear();
             TxtNombre2.Clear();
             TxtApellidoPaterno.Clear();
             TxtApellidoMaterno.Clear();
             TxtCargo.Clear();
+            TxtCodigo.Focus();
         }
 
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(TxtIdResponsable.Text) ||
-                    string.IsNullOrWhiteSpace(TxtNombre1.Text) ||
-                    string.IsNullOrWhiteSpace(TxtApellidoPaterno.Text) ||
-                    string.IsNullOrWhiteSpace(TxtApellidoMaterno.Text) ||
-                    string.IsNullOrWhiteSpace(TxtCargo.Text))
+                if (ValidarInputs())
                 {
-                    MessageBox.Show("Todos los campos deben ser llenados", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+                    responsable = new Responsable(responsableId, TxtCodigo.Text, TxtNombre1.Text, TxtNombre2.Text, TxtApellidoPaterno.Text, TxtApellidoMaterno.Text, TxtCargo.Text);
 
-                _responsable = new Responsable(TxtIdResponsable.Text, TxtNombre1.Text, TxtNombre2.Text, TxtApellidoPaterno.Text, TxtApellidoMaterno.Text, TxtCargo.Text);
-
-                if (_editar)
-                {
-                    EditarResponsable();
-                }
-                else
-                {
-                    InsertarResponsable();
+                    if (!editar)
+                    {
+                        InsertarResponsable();
+                    }
+                    else
+                    {
+                        EditarResponsable();
+                    }
                 }
             }
             catch (Exception ex)
@@ -77,11 +80,11 @@ namespace CapaDePresentacion.Catálogos
         {
             try
             {
-                if (_responsableCN.Insertar(_responsable))
+                if (responsableCN.Insertar(responsable))
                 {
                     LimpiarDatos();
                     MostrarResponsables();
-                    MessageBox.Show("El registro se insertó correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Responsable agregado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -98,12 +101,12 @@ namespace CapaDePresentacion.Catálogos
         {
             try
             {
-                _editar = false;
-                if (_responsableCN.Editar(_responsable))
+                editar = false;
+                if (responsableCN.Editar(responsable))
                 {
                     LimpiarDatos();
                     MostrarResponsables();
-                    MessageBox.Show("El registro se editó correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Responsable actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
@@ -118,27 +121,23 @@ namespace CapaDePresentacion.Catálogos
 
         private void BtnEditar_Click(object sender, EventArgs e)
         {
-            if (DGVResponsable.SelectedRows.Count > 0)
-            {
-                _editar = true;
-                CargarDatosParaEditar();
-            }
-            else
-            {
-                MessageBox.Show("Debe seleccionar una fila de la lista", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-        private void CargarDatosParaEditar()
-        {
             try
             {
-                TxtIdResponsable.Text = DGVResponsable.CurrentRow.Cells["id_responsable"].Value.ToString();
-                TxtNombre1.Text = DGVResponsable.CurrentRow.Cells["Nombre1"].Value.ToString();
-                TxtNombre2.Text = DGVResponsable.CurrentRow.Cells["Nombre2"].Value.ToString();
-                TxtApellidoPaterno.Text = DGVResponsable.CurrentRow.Cells["apellidoPaterno"].Value.ToString();
-                TxtApellidoMaterno.Text = DGVResponsable.CurrentRow.Cells["apellidoMaterno"].Value.ToString();
-                TxtCargo.Text = DGVResponsable.CurrentRow.Cells["cargo"].Value.ToString();
+                if (DGVResponsable.SelectedRows.Count > 0)
+                {
+                    editar = true;
+                    responsableId = int.Parse(DGVResponsable.CurrentRow.Cells["id_responsable"].Value.ToString());
+                    TxtCodigo.Text = DGVResponsable.CurrentRow.Cells["codigo"].Value.ToString();
+                    TxtNombre1.Text = DGVResponsable.CurrentRow.Cells["Nombre1"].Value.ToString();
+                    TxtNombre2.Text = DGVResponsable.CurrentRow.Cells["Nombre2"].Value.ToString();
+                    TxtApellidoPaterno.Text = DGVResponsable.CurrentRow.Cells["apellidoPaterno"].Value.ToString();
+                    TxtApellidoMaterno.Text = DGVResponsable.CurrentRow.Cells["apellidoMaterno"].Value.ToString();
+                    TxtCargo.Text = DGVResponsable.CurrentRow.Cells["cargo"].Value.ToString();
+                }
+                else
+                {
+                    MessageBox.Show("Debe seleccionar una fila de la lista", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
             catch (Exception ex)
             {
@@ -148,13 +147,23 @@ namespace CapaDePresentacion.Catálogos
 
         private void BtnEliminar_Click(object sender, EventArgs e)
         {
-            if (DGVResponsable.SelectedRows.Count > 0)
+            try
             {
-                EliminarResponsable();
+                if (DGVResponsable.SelectedRows.Count > 0)
+                {
+                    if (MessageBox.Show("¿Está seguro que desea eliminar este responsable?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        EliminarResponsable();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Debe seleccionar una fila de la lista", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Debe seleccionar una fila de la lista", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Ocurrió un error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -163,7 +172,7 @@ namespace CapaDePresentacion.Catálogos
             try
             {
                 int responsableId = int.Parse(DGVResponsable.CurrentRow.Cells["id_responsable"].Value.ToString());
-                if (_responsableCN.Eliminar(responsableId))
+                if (responsableCN.Eliminar(responsableId))
                 {
                     LimpiarDatos();
                     MostrarResponsables();
@@ -177,6 +186,45 @@ namespace CapaDePresentacion.Catálogos
             catch (Exception ex)
             {
                 MessageBox.Show($"Ocurrió un error: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private bool ValidarInputs()
+        {
+            if (string.IsNullOrWhiteSpace(TxtCodigo.Text) ||
+                string.IsNullOrWhiteSpace(TxtNombre1.Text) ||
+                string.IsNullOrWhiteSpace(TxtApellidoPaterno.Text) ||
+                string.IsNullOrWhiteSpace(TxtApellidoMaterno.Text) ||
+                string.IsNullOrWhiteSpace(TxtCargo.Text))
+            {
+                MessageBox.Show("Todos los campos marcados con * son obligatorios", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            if (!EsNumerico(TxtCodigo.Text))
+            {
+                MessageBox.Show("El campo Cédula solo debe contener números", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                TxtCodigo.Focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool EsNumerico(string input)
+        {
+            return int.TryParse(input, out _);
+        }
+
+        private void BtnLimpiar_Click_1(object sender, EventArgs e)
+        {
+            if (DGVResponsable.SelectedRows.Count > 0)
+            {
+                DGVResponsable.ClearSelection();
+            }
+            else
+            {
+                LimpiarDatos();
             }
         }
     }

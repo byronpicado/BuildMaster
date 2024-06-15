@@ -9,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace CapaDeDatos.CRUD
 {
-    public
         
-        class RecursoCD
+      public   class RecursoCD
     {
         //Cadena de Conexion
         private ConexionCD Conexion = new ConexionCD();

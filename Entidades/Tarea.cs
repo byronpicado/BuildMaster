@@ -10,8 +10,9 @@ namespace Entidades
 
     {
 
-        public string id_tarea { get; set; }
+        public int id_tarea { get; set; }
 
+        public string codigo { get; set; }
         public string descripcion { get; set; }
 
         public DateTime fecha_inicio { get; set; }
@@ -25,11 +26,12 @@ namespace Entidades
         public Tarea() { }
         //Constructor con parametros 
 
-        public Tarea(string idTarea, string descripcion, DateTime fechaInicio, DateTime? fechaFin, string estado)
+        public Tarea(int idTarea,string codigo, string descripcion, DateTime fechaInicio, DateTime? fechaFin, string estado)
 
         {
 
             this.id_tarea = idTarea;
+            this.codigo = codigo;
 
             this.descripcion = descripcion;
 

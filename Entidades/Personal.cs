@@ -10,8 +10,9 @@ namespace Entidades
 
     {
 
-        public string id_personal { get; set; }
-
+        public int id_personal { get; set; }
+        
+        public string codigo { get; set; }
         public string nombre1 { get; set; }
 
         public string nombre2 { get; set; }
@@ -27,11 +28,12 @@ namespace Entidades
         //Constructor sin parametros
         public Personal() { }
         //Constructor con parametros
-        public Personal(string idPersonal, string nombre1, string nombre2, string apellidoPaterno, string apellidoMaterno, string cargo, DateTime fechaContratacion)
+        public Personal(int idPersonal,string codigo, string nombre1, string nombre2, string apellidoPaterno, string apellidoMaterno, string cargo, DateTime fechaContratacion)
 
         {
 
             this.id_personal = idPersonal;
+            this.codigo = codigo;
 
             this.nombre1 = nombre1;
 

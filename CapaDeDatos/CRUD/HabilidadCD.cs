@@ -1,116 +1,142 @@
-﻿using Entidades;
+﻿using System;
 using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Data.SqlClient;
+using Entidades;
+using Entidades.Entidades;
 
 namespace CapaDeDatos.CRUD
 {
     public class HabilidadCD
     {
-
-        //Cadena de Conexion
+        // Cadena de Conexion
         private ConexionCD Conexion = new ConexionCD();
 
-        //Variables 
-        SqlDataReader LectorDatos;
-        DataTable Tabla = new DataTable();
-        SqlCommand Comando = new SqlCommand();
+        // Variables a Utilizar
+        private SqlDataReader LectorDatos;
+        private DataTable Tabla = new DataTable();
 
-        //obtenemos todos lo registro de la tabla habilidad
         public DataTable ObtenerHabilidad()
         {
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "SELECT * FROM Habilidad";
-                Comando.CommandType = CommandType.Text;
-                LectorDatos = Comando.ExecuteReader();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ObtenerHabilidades";
+                comando.CommandType = CommandType.StoredProcedure;
+                LectorDatos = comando.ExecuteReader();
                 Tabla.Load(LectorDatos);
-                LectorDatos.Close();
                 Conexion.CerrarConexion();
-              
             }
-            catch (Exception ex)
-            {
-                string excepxion = ex.Message;
-            }
+
             return Tabla;
         }
 
         public bool Insertar(Habilidad habilidad)
         {
             bool agregado = false;
-            try
-
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "Insert INTO Habilidad (id_habilidad,descripcion) VALUES (@id_habilidad,@descripcion)";
-                Comando.CommandType = CommandType.Text;
-
-                Comando.Parameters.AddWithValue("@id_habilidad", habilidad.id_habilidad);
-                Comando.Parameters.AddWithValue("@descripcion", habilidad.descripcion);
-                
-
-               agregado= Comando.ExecuteNonQuery()>0;
-                Comando.Parameters.Clear();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "InsertarHabilidad";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", habilidad.codigo);
+                comando.Parameters.AddWithValue("@descripcion", habilidad.descripcion);
+                agregado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return agregado;
-            }
-            catch (Exception ex)
-            {
-                String msj = ex.ToString();
-                return false;
             }
 
+            return agregado;
         }
-        //para editar un registro en la tabla Habilidad
+
         public bool Editar(Habilidad habilidad)
         {
             bool editado = false;
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "UPDATE habilidad SET descripcion=@descripcion WHERE id_habilidad=@id_habilidad";
-                Comando.CommandType = CommandType.Text;
-                Comando.Parameters.AddWithValue("@id_habilidad", habilidad.id_habilidad);
-                Comando.Parameters.AddWithValue("@descripcion", habilidad.descripcion);
-                editado = Comando.ExecuteNonQuery() > 0;
-                Comando.Parameters.Clear();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ActualizarHabilidad";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_habilidad", habilidad.id_habilidad);
+                comando.Parameters.AddWithValue("@codigo", habilidad.codigo);
+                comando.Parameters.AddWithValue("@descripcion", habilidad.descripcion);
+                editado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return editado;
             }
-            catch (Exception ex)
-            {
-                String msj = ex.ToString();
-                return false;
-            }
+
+            return editado;
         }
+
         public bool Eliminar(int habilidadId)
         {
             bool eliminado = false;
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "DELETE FROM Habilidad WHERE id_habilidad = @id_habilidad";
-                Comando.Parameters.AddWithValue("@id_habilidad", habilidadId);
-                eliminado = Comando.ExecuteNonQuery() > 0;
-                Comando.Parameters.Clear();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "EliminarHabilidad";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_habilidad", habilidadId);
+                eliminado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return eliminado;
-            }
-            catch (Exception ex)
-            {
-                string msj = ex.ToString();
-                return false;
             }
 
+            return eliminado;
         }
 
+        public bool ExisteHabilidad(Habilidad habilidad)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ExisteHabilidad";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", habilidad.codigo);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
 
+            return existe;
+        }
+
+        public bool ExisteOtraHabilidad(Habilidad habilidad)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ExisteOtraHabilidad";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", habilidad.codigo);
+                comando.Parameters.AddWithValue("@id_habilidad", habilidad.id_habilidad);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
+
+            return existe;
+        }
+
+        public bool HabilidadConHabilidad_Personal(int habilidadId)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "HabilidadConHabilidad_Personal";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_habilidad", habilidadId);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
+
+            return existe;
+        
+        }
     }
-
 }
+

@@ -1,4 +1,4 @@
-﻿using CapaDeDatos.CRUD;
+﻿
 using CapaDeNegocio.CN_CRUD;
 using Entidades;
 using System;
@@ -49,67 +49,7 @@ namespace CapaDePresentacion.Catálogos
 
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                // Si es nuevo
-                if (!editar)
-                {
-                    decimal costo;
-                    if (decimal.TryParse(TxtCosto.Text, out costo))
-                    {
-                        // El valor de TxtCosto se pudo convertir correctamente a decimal
-                        recurso = new Recurso(TxtIdRecurso.Text, TxtTipo.Text, TxtDescripcion.Text, costo);
-
-                        // Intentamos insertar el recurso
-                        if (recursoCN.Insertar(recurso))
-                        {
-                            LimpiarDatos();
-                            MostrarRecurso();
-                            MessageBox.Show("El registro se insertó correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                        {
-                            MessageBox.Show("El registro no se insertó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-                    else
-                    {
-                        // El valor de TxtCosto no es un número decimal válido
-                        MessageBox.Show("Por favor, ingrese un valor numérico válido para el costo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else // Es uno existente
-                {
-                    editar = false;
-                    decimal costo;
-                    if (decimal.TryParse(TxtCosto.Text, out costo))
-                    {
-                        // El valor de TxtCosto se pudo convertir correctamente a decimal
-                        recurso = new Recurso(TxtIdRecurso.Text, TxtTipo.Text, TxtDescripcion.Text, costo);
-
-                        // Intentamos editar el recurso
-                        if (recursoCN.Editar(recurso))
-                        {
-                            LimpiarDatos();
-                            MostrarRecurso();
-                            MessageBox.Show("El registro se editó correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        else
-                        {
-                            MessageBox.Show("El registro no se editó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-                    else
-                    {
-                        // El valor de TxtCosto no es un número decimal válido
-                        MessageBox.Show("Por favor, ingrese un valor numérico válido para el costo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error al guardar el recurso: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+         
         }
 
 

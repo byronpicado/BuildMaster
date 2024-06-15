@@ -10,7 +10,8 @@ namespace Entidades
 
     {
 
-        public string id_responsable { get; set; }
+        public int id_responsable { get; set; }
+        public string codigo { get; set; }
 
         public string nombre1 { get; set; }
 
@@ -25,11 +26,12 @@ namespace Entidades
         //Cosntructor sin parametros
         public Responsable() { }
         //Constructor con parametros
-        public Responsable(string idResponsable, string nombre1, string nombre2, string apellidoPaterno, string apellidoMaterno, string cargo)
+        public Responsable(int idResponsable,string codigo, string nombre1, string nombre2, string apellidoPaterno, string apellidoMaterno, string cargo)
 
         {
 
             this.id_responsable = idResponsable;
+            this.codigo = codigo;   
 
             this.nombre1 = nombre1;
 

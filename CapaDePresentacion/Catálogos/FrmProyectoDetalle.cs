@@ -1,4 +1,4 @@
-﻿using CapaDeDatos.CRUD;
+﻿
 using CapaDeNegocio.CN_CRUD;
 using Entidades;
 using System;
@@ -48,47 +48,8 @@ namespace CapaDePresentacion.Catálogos
 
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
-            try
-            {
-                // Obtener la fecha del DateTimePicker
-                DateTime fechaRegistro = DTPFechaRegistro.Value;
-      
-
-                // Si es nuevo
-                if (editar == false)
-                {
-                    proyectoDetalle = new ProyectoDetalle(TxtIdProyectoDetalle.Text, TxtDescripcion.Text,fechaRegistro);
-
-                    if (proyectoDetalleCN.Insertar(proyectoDetalle))
-                    {
-                        LimpiarDatos();
-                        MostrarProyectoDetalle();
-                    }
-                    else
-                    {
-                        MessageBox.Show("El registro no se insertó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else // Es uno existente
-                {
-                    editar = false;
-                    proyectoDetalle = new ProyectoDetalle(TxtIdProyectoDetalle.Text, TxtDescripcion.Text, fechaRegistro);
-
-                    if (proyectoDetalleCN.Editar(proyectoDetalle))
-                    {
-                        LimpiarDatos();
-                        MostrarProyectoDetalle();
-                    }
-                    else
-                    {
-                        MessageBox.Show("El registro no se editó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+       
+                        
         }
 
 

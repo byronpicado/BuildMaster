@@ -95,5 +95,90 @@ namespace CapaDePresentacion
             Frm.ShowDialog();
             Frm.Dispose();
         }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void btnMenu_Click(object sender, EventArgs e)
+        {
+            if (MenuVertical.Width == 250)
+            {
+                MenuVertical.Width = 70;
+            }
+            else
+                MenuVertical.Width = 250;
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            if (MenuVertical.Width == 250)
+            {
+                MenuVertical.Width = 118;
+            }
+            else
+                MenuVertical.Width = 250;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            var Frm = new Catálogos.FrmPersonal();
+            Frm.ShowDialog();
+            Frm.Dispose();
+        }
+
+        private void BtnCliente_Click(object sender, EventArgs e)
+        {
+            var Frm = new Catálogos.FrmCliente();
+            Frm.ShowDialog();
+            Frm.Dispose();
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            ;
+        }
+
+        private void timer1_Tick_1(object sender, EventArgs e)
+        {
+            lblhora.Text = DateTime.Now.ToString("hh:mm:ss ");
+            lblFecha.Text = DateTime.Now.ToLongDateString();
+        }
+
+        private void BtnEquipo_Click(object sender, EventArgs e)
+        {
+            var Frm = new Catálogos.FrmEquipo();
+            Frm.ShowDialog();
+            Frm.Dispose();
+        }
+
+        private void BtnHabilidad_Click(object sender, EventArgs e)
+        {
+            var Frm = new Catálogos.FrmHabilidad();
+            Frm.ShowDialog();
+            Frm.Dispose();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            var Frm = new Catálogos.FrmMantenimiento();
+            Frm.ShowDialog();
+            Frm.Dispose();
+        }
+
+        private void BtnProgreso_Click(object sender, EventArgs e)
+        {
+            var Frm = new Catálogos.FrmProgreso();
+            Frm.ShowDialog();
+            Frm.Dispose();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var Frm = new Catálogos.FrmResponsable();
+            Frm.ShowDialog();
+            Frm.Dispose();
+        }
     }
 }

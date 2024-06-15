@@ -29,16 +29,17 @@
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
-            this.DGVCliente = new System.Windows.Forms.DataGridView();
+            this.DGVHabilidad = new System.Windows.Forms.DataGridView();
             this.panelHabilidad = new System.Windows.Forms.Panel();
+            this.BtnLimpiar = new System.Windows.Forms.Button();
+            this.TxtCodigo = new System.Windows.Forms.TextBox();
             this.BtnEliminar = new System.Windows.Forms.Button();
             this.BtnEditar = new System.Windows.Forms.Button();
             this.BtnGuardar = new System.Windows.Forms.Button();
             this.TxtDescripcion = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.TxtId_habilidad = new System.Windows.Forms.TextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.DGVCliente)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVHabilidad)).BeginInit();
             this.panelHabilidad.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,25 +53,28 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Catálogo de Habilidad";
             // 
-            // DGVCliente
+            // DGVHabilidad
             // 
-            this.DGVCliente.AllowUserToAddRows = false;
-            this.DGVCliente.AllowUserToDeleteRows = false;
-            this.DGVCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVCliente.Location = new System.Drawing.Point(22, 342);
-            this.DGVCliente.Name = "DGVCliente";
-            this.DGVCliente.ReadOnly = true;
-            this.DGVCliente.RowHeadersWidth = 62;
-            this.DGVCliente.RowTemplate.Height = 28;
-            this.DGVCliente.Size = new System.Drawing.Size(935, 318);
-            this.DGVCliente.TabIndex = 19;
-            this.DGVCliente.Tag = "";
+            this.DGVHabilidad.AllowUserToAddRows = false;
+            this.DGVHabilidad.AllowUserToDeleteRows = false;
+            this.DGVHabilidad.BackgroundColor = System.Drawing.SystemColors.MenuHighlight;
+            this.DGVHabilidad.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVHabilidad.GridColor = System.Drawing.SystemColors.MenuHighlight;
+            this.DGVHabilidad.Location = new System.Drawing.Point(22, 342);
+            this.DGVHabilidad.Name = "DGVHabilidad";
+            this.DGVHabilidad.ReadOnly = true;
+            this.DGVHabilidad.RowHeadersWidth = 62;
+            this.DGVHabilidad.RowTemplate.Height = 28;
+            this.DGVHabilidad.Size = new System.Drawing.Size(935, 318);
+            this.DGVHabilidad.TabIndex = 19;
+            this.DGVHabilidad.Tag = "";
             // 
             // panelHabilidad
             // 
             this.panelHabilidad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(122)))), ((int)(((byte)(191)))));
             this.panelHabilidad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panelHabilidad.Controls.Add(this.TxtId_habilidad);
+            this.panelHabilidad.Controls.Add(this.BtnLimpiar);
+            this.panelHabilidad.Controls.Add(this.TxtCodigo);
             this.panelHabilidad.Controls.Add(this.BtnEliminar);
             this.panelHabilidad.Controls.Add(this.BtnEditar);
             this.panelHabilidad.Controls.Add(this.BtnGuardar);
@@ -82,10 +86,29 @@
             this.panelHabilidad.Size = new System.Drawing.Size(935, 255);
             this.panelHabilidad.TabIndex = 18;
             // 
+            // BtnLimpiar
+            // 
+            this.BtnLimpiar.Location = new System.Drawing.Point(832, 156);
+            this.BtnLimpiar.Name = "BtnLimpiar";
+            this.BtnLimpiar.Size = new System.Drawing.Size(75, 34);
+            this.BtnLimpiar.TabIndex = 18;
+            this.BtnLimpiar.Text = "Limpiar";
+            this.BtnLimpiar.UseVisualStyleBackColor = true;
+            this.BtnLimpiar.Click += new System.EventHandler(this.BtnLimpiar_Click);
+            // 
+            // TxtCodigo
+            // 
+            this.TxtCodigo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.TxtCodigo.Location = new System.Drawing.Point(82, 46);
+            this.TxtCodigo.Name = "TxtCodigo";
+            this.TxtCodigo.Size = new System.Drawing.Size(100, 26);
+            this.TxtCodigo.TabIndex = 17;
+            this.TxtCodigo.Text = " ";
+            // 
             // BtnEliminar
             // 
             this.BtnEliminar.BackColor = System.Drawing.Color.Red;
-            this.BtnEliminar.Location = new System.Drawing.Point(709, 161);
+            this.BtnEliminar.Location = new System.Drawing.Point(526, 160);
             this.BtnEliminar.Name = "BtnEliminar";
             this.BtnEliminar.Size = new System.Drawing.Size(85, 30);
             this.BtnEliminar.TabIndex = 16;
@@ -96,7 +119,7 @@
             // BtnEditar
             // 
             this.BtnEditar.BackColor = System.Drawing.Color.DarkOrange;
-            this.BtnEditar.Location = new System.Drawing.Point(415, 161);
+            this.BtnEditar.Location = new System.Drawing.Point(304, 160);
             this.BtnEditar.Name = "BtnEditar";
             this.BtnEditar.Size = new System.Drawing.Size(75, 30);
             this.BtnEditar.TabIndex = 15;
@@ -108,7 +131,7 @@
             // 
             this.BtnGuardar.AutoSize = true;
             this.BtnGuardar.BackColor = System.Drawing.Color.Lime;
-            this.BtnGuardar.Location = new System.Drawing.Point(151, 161);
+            this.BtnGuardar.Location = new System.Drawing.Point(73, 161);
             this.BtnGuardar.Name = "BtnGuardar";
             this.BtnGuardar.Size = new System.Drawing.Size(85, 30);
             this.BtnGuardar.TabIndex = 14;
@@ -137,29 +160,24 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(78, 23);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(27, 20);
+            this.label2.Size = new System.Drawing.Size(63, 20);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Id ";
-            // 
-            // TxtId_habilidad
-            // 
-            this.TxtId_habilidad.Location = new System.Drawing.Point(82, 46);
-            this.TxtId_habilidad.Name = "TxtId_habilidad";
-            this.TxtId_habilidad.Size = new System.Drawing.Size(100, 26);
-            this.TxtId_habilidad.TabIndex = 17;
+            this.label2.Text = " Código";
             // 
             // FrmHabilidad
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(978, 684);
-            this.Controls.Add(this.DGVCliente);
+            this.Controls.Add(this.DGVHabilidad);
             this.Controls.Add(this.panelHabilidad);
             this.Controls.Add(this.label1);
             this.Name = "FrmHabilidad";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Formulario Habilidad";
             this.Load += new System.EventHandler(this.FrmHabilidad_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.DGVCliente)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.DGVHabilidad)).EndInit();
             this.panelHabilidad.ResumeLayout(false);
             this.panelHabilidad.PerformLayout();
             this.ResumeLayout(false);
@@ -170,7 +188,7 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView DGVCliente;
+        private System.Windows.Forms.DataGridView DGVHabilidad;
         private System.Windows.Forms.Panel panelHabilidad;
         private System.Windows.Forms.Button BtnEditar;
         private System.Windows.Forms.Button BtnGuardar;
@@ -178,6 +196,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button BtnEliminar;
-        private System.Windows.Forms.TextBox TxtId_habilidad;
+        private System.Windows.Forms.TextBox TxtCodigo;
+        private System.Windows.Forms.Button BtnLimpiar;
     }
 }

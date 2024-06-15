@@ -11,116 +11,144 @@ namespace CapaDeDatos.CRUD
 {
     public class PersonalCD
     {       //Cadena de Conexion
+        // Cadena de Conexion
         private ConexionCD Conexion = new ConexionCD();
 
-        //Variables 
-        SqlDataReader LectorDatos;
-        DataTable Tabla = new DataTable();
-        SqlCommand Comando = new SqlCommand();
+        // Variables a Utilizar
+        private SqlDataReader LectorDatos;
+        private DataTable Tabla = new DataTable();
 
-        //obtenemos todos lo registro de la tabla Personal
         public DataTable ObtenerPersonal()
         {
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "SELECT * FROM Personal";
-                Comando.CommandType = CommandType.Text;
-                LectorDatos = Comando.ExecuteReader();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ObtenerPersonal";
+                comando.CommandType = CommandType.StoredProcedure;
+                LectorDatos = comando.ExecuteReader();
                 Tabla.Load(LectorDatos);
-                LectorDatos.Close();
                 Conexion.CerrarConexion();
-              
             }
-            catch (Exception ex)
-            {
-                string excepxion = ex.Message;
-            }
+
             return Tabla;
         }
 
         public bool Insertar(Personal personal)
         {
             bool agregado = false;
-            try
-
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "Insert INTO Personal (id_personal,nombre1,nombre2,apellidoPaterno,apellidoMaterno,cargo,fecha_contratacion) VALUES (@id_personal,@nombre1,@nombre2,@apellidoPaterno,@apellidoMaterno,@cargo,@fecha_contratacion)";
-                Comando.CommandType = CommandType.Text;
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "InsertarPersonal";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", personal.codigo);
+                comando.Parameters.AddWithValue("@nombre1", personal.nombre1);
+                comando.Parameters.AddWithValue("@nombre2", personal.nombre2);
+                comando.Parameters.AddWithValue("@apellidoPaterno", personal.apellidoPaterno);
+                comando.Parameters.AddWithValue("@apellidoMaterno", personal.apellidoMaterno);
+                comando.Parameters.AddWithValue("@cargo", personal.cargo);
+                comando.Parameters.AddWithValue("@fecha_contratacion", personal.fecha_contratacion);
 
-                Comando.Parameters.AddWithValue("@id_personal", personal.id_personal);
-                Comando.Parameters.AddWithValue("@nombre1", personal.nombre1);
-                Comando.Parameters.AddWithValue("@nombre2", personal.nombre2);
-                Comando.Parameters.AddWithValue("@apellidoPaterno", personal.apellidoPaterno);
-                Comando.Parameters.AddWithValue("@apellidoMaterno", personal.apellidoMaterno);
-                Comando.Parameters.AddWithValue("@cargo", personal.cargo);
-                Comando.Parameters.AddWithValue("@fecha_contratacion", personal.fecha_contratacion);
-
-
-              agregado=  Comando.ExecuteNonQuery()>0;
-                Comando.Parameters.Clear();
+                agregado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return agregado;
-            }
-            catch (Exception ex)
-            {
-                String msj = ex.ToString();
-                return false;
             }
 
+            return agregado;
         }
-        //para editar un registro en la tabla Personal
+
         public bool Editar(Personal personal)
         {
             bool editado = false;
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "UPDATE personal SET nombre1=@nombre1,nombre2=@nombre2,apellidoPaterno=@apellidoPaterno,apellidoMaterno=@apellidoMaterno,cargo=@cargo,fecha_contratacion=@fecha_contratacion WHERE id_personal = @id_personal";
-                Comando.CommandType = CommandType.Text;
-                Comando.Parameters.AddWithValue("@id_personal", personal.id_personal);
-                Comando.Parameters.AddWithValue("@nombre1", personal.nombre1);
-                Comando.Parameters.AddWithValue("@nombre2", personal.nombre2);
-                Comando.Parameters.AddWithValue("@apellidoPaterno", personal.apellidoPaterno);
-                Comando.Parameters.AddWithValue("@apellidoMaterno", personal.apellidoMaterno);
-                Comando.Parameters.AddWithValue("@cargo", personal.cargo);
-                Comando.Parameters.AddWithValue("@fecha_contratacion", personal.fecha_contratacion);
-                editado = Comando.ExecuteNonQuery() > 0;
-                Comando.Parameters.Clear();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ActualizarPersonal";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("id_personal", personal.id_personal);
+                comando.Parameters.AddWithValue("@codigo", personal.codigo);
+                comando.Parameters.AddWithValue("@nombre1", personal.nombre1);
+                comando.Parameters.AddWithValue("@nombre2", personal.nombre2);
+                comando.Parameters.AddWithValue("@apellidoPaterno", personal.apellidoPaterno);
+                comando.Parameters.AddWithValue("@apellidoMaterno", personal.apellidoMaterno);
+                comando.Parameters.AddWithValue("@cargo", personal.cargo);
+                comando.Parameters.AddWithValue("@fecha_contratacion", personal.fecha_contratacion);
+
+                editado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return editado;
             }
-            catch (Exception ex)
-            {
-                String msj = ex.ToString();
-                return false;
-            }
+
+            return editado;
         }
+
         public bool Eliminar(int personalId)
         {
             bool eliminado = false;
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "DELETE FROM Personal WHERE id_personal = @id_personal";
-                Comando.Parameters.AddWithValue("@id_personal", personalId);
-                eliminado = Comando.ExecuteNonQuery() > 0;
-                Comando.Parameters.Clear();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "EliminarPersonal";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_personal", personalId);
+                eliminado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return eliminado;
-            }
-            catch (Exception ex)
-            {
-                string msj = ex.ToString();
-                return false;
             }
 
+            return eliminado;
         }
 
+        public bool ExistePersonal(Personal personal)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ExistePersonal";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", personal.codigo);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
 
+            return existe;
+        }
+
+        public bool ExisteOtroPersonal(Personal personal)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion(); 
+                comando.CommandText = "ExisteOtroPersonal";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", personal.codigo);
+                comando.Parameters.AddWithValue("@id_personal", personal.id_personal);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
+
+            return existe;
+        }
+
+        public bool PersonalConPersonal_Proyecto(int personalId)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "PersonalConPersonal_Proyecto";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_personal", personalId);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
+
+            return existe;
+        }
     }
-
 }
-
-

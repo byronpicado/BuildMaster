@@ -10,7 +10,8 @@ namespace Entidades
 
     {
 
-        public string id_mantenimiento { get; set; }
+        public int id_mantenimiento { get; set; }
+        public string codigo { get; set; }
 
         public DateTime fecha_mantenimiento { get; set; }
 
@@ -19,11 +20,12 @@ namespace Entidades
         //Constructor sin parametros
         public Mantenimiento() { }
         //Constructor con parametros
-        public Mantenimiento(string idMantenimiento, DateTime fechaMantenimiento, string descripcion)
+        public Mantenimiento(int id_mantenimiento, string codigo,DateTime fechaMantenimiento, string descripcion)
 
         {
 
-            this.id_mantenimiento = idMantenimiento;
+            this.id_mantenimiento = id_mantenimiento;
+            this.codigo = codigo;
 
             this.fecha_mantenimiento = fechaMantenimiento;
 

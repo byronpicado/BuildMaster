@@ -12,7 +12,8 @@ namespace Entidades
 
         {
 
-            public string id_equipo { get; set; }
+            public int id_equipo { get; set; }
+            public string codigo { get; set; }  
 
             public string tipo { get; set; }
 
@@ -23,11 +24,12 @@ namespace Entidades
             //Constructor sin parametros
             public Equipo() { }
             //Construcotr con parametros
-            public Equipo(string idEquipo, string tipo, string marca, DateTime fechaAdquisicion)
+            public Equipo(int idEquipo, string codigo ,string tipo, string marca, DateTime fechaAdquisicion)
 
             {
 
                 this.id_equipo = idEquipo;
+                this.codigo = codigo;
 
                 this.tipo = tipo;
 

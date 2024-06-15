@@ -10,9 +10,12 @@ namespace Entidades
 
     {
 
-        public string id_proyecto { get; set; }
+        public int id_proyecto { get; set; }
 
-    
+        public string codigo { get; set; }
+        
+        public int id_cliente {  get; set; }
+        public int id_responsable { get; set; }
 
         public string nombre { get; set; }
 
@@ -29,11 +32,16 @@ namespace Entidades
 
 
         //Constructor con parametros
-        public Proyecto(string idProyecto, string nombre, string descripcion, DateTime fechaInicio, DateTime fechaFin, string estado)
+        public Proyecto(int idProyecto,string codigo,int id_cliente,int id_responsable, string nombre, string descripcion, DateTime fechaInicio, DateTime fechaFin, string estado)
 
         {
 
             id_proyecto = idProyecto;
+
+            this.codigo = codigo;
+            this.id_cliente = id_cliente;
+            this.id_responsable= id_responsable;
+            
 
             this.nombre = nombre;
 

@@ -10,7 +10,8 @@ namespace Entidades
 
     {
 
-        public string id_progreso { get; set; }
+        public int id_progreso { get; set; }
+        public string codigo { get; set; }  
 
         public string descripcion { get; set; }
 
@@ -19,11 +20,12 @@ namespace Entidades
         //Constructor sin parametros
         public Progreso() { }
         //Constructor con parametros
-        public Progreso(string idProgreso, string descripcion, DateTime fechaRegistro)
+        public Progreso(int idProgreso,string codigo, string descripcion, DateTime fechaRegistro)
 
         {
 
             this.id_progreso = idProgreso;
+            this.codigo = codigo;
 
             this.descripcion = descripcion;
 

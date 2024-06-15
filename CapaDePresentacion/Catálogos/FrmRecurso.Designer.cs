@@ -50,7 +50,9 @@
             // 
             this.DGVRecurso.AllowUserToAddRows = false;
             this.DGVRecurso.AllowUserToDeleteRows = false;
+            this.DGVRecurso.BackgroundColor = System.Drawing.SystemColors.MenuHighlight;
             this.DGVRecurso.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVRecurso.GridColor = System.Drawing.SystemColors.MenuHighlight;
             this.DGVRecurso.Location = new System.Drawing.Point(22, 356);
             this.DGVRecurso.Name = "DGVRecurso";
             this.DGVRecurso.ReadOnly = true;
@@ -189,6 +191,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(978, 684);
             this.Controls.Add(this.DGVRecurso);
             this.Controls.Add(this.panelRecurso);

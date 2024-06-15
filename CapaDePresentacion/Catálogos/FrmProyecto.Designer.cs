@@ -235,6 +235,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(978, 684);
             this.Controls.Add(this.DGVProyecto);
             this.Controls.Add(this.panelProyecto);

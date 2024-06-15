@@ -1,4 +1,4 @@
-﻿using CapaDeDatos.CRUD;
+﻿
 using CapaDeNegocio.CN_CRUD;
 using Entidades;
 using System;
@@ -51,47 +51,7 @@ namespace CapaDePresentacion.Catálogos
 
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
-            // Obtener la fecha del DateTimePicker
-            DateTime fechaInicio = DTPFechaInicio.Value;
-            DateTime fechaFin = DTPFechaFin.Value;
-
-            try
-            {
-                // Si es nuevo
-                if (editar == false)
-                {
-                    tarea = new Tarea(TxtIdTarea.Text, TxtDescripcion.Text, fechaInicio, fechaFin, TxtEstado.Text);
-
-                    // clienteCN.ValidarAntesDeCrear(cliente);
-
-                    if (tareaCN.Insertar(tarea))
-                    {
-                        LimpiarDatos();
-                        MostrarTareas();
-                    }
-                    else
-                        MessageBox.Show("El registro no se insertó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else // Es uno existente
-                {
-                    editar = false;
-                    tarea = new Tarea(TxtIdTarea.Text, TxtDescripcion.Text, fechaInicio, fechaFin, TxtEstado.Text);
-
-                    // clienteCN.ValidarAntesDeEditar(cliente);
-
-                    if (tareaCN.Editar(tarea))
-                    {
-                        LimpiarDatos();
-                        MostrarTareas();
-                    }
-                    else
-                        MessageBox.Show("El registro no se editó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+     
         }
 
         private void BtnEditar_Click(object sender, EventArgs e)

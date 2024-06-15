@@ -10,7 +10,8 @@ namespace Entidades
 
     {
 
-        public string id_recurso { get; set; }
+        public int id_recurso { get; set; }
+        public string codigo { get; set; }    
 
         public string tipo { get; set; }
 
@@ -21,11 +22,12 @@ namespace Entidades
         //Constructor sin parametros
         public Recurso() { }
         //Constructor con parametros
-        public Recurso(string idRecurso, string tipo, string descripcion, decimal costo)
+        public Recurso(int idRecurso, string codigo,string tipo, string descripcion, decimal costo)
 
         {
 
             this.id_recurso = idRecurso;
+            this.codigo = codigo;
 
             this.tipo = tipo;
 
