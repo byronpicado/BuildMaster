@@ -38,12 +38,13 @@
             this.BtnGuardar = new System.Windows.Forms.Button();
             this.TxtEstado = new System.Windows.Forms.TextBox();
             this.TxtDescripcion = new System.Windows.Forms.TextBox();
-            this.TxtIdTarea = new System.Windows.Forms.TextBox();
+            this.TxtCodigo = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.BtnLimpiar = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.DGVTarea)).BeginInit();
             this.panelTarea.SuspendLayout();
             this.SuspendLayout();
@@ -51,10 +52,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(396, 9);
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(326, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(228, 32);
+            this.label1.Size = new System.Drawing.Size(364, 51);
             this.label1.TabIndex = 0;
             this.label1.Text = "Catálogo de Tarea";
             // 
@@ -62,7 +63,9 @@
             // 
             this.DGVTarea.AllowUserToAddRows = false;
             this.DGVTarea.AllowUserToDeleteRows = false;
+            this.DGVTarea.BackgroundColor = System.Drawing.SystemColors.MenuHighlight;
             this.DGVTarea.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVTarea.GridColor = System.Drawing.SystemColors.Highlight;
             this.DGVTarea.Location = new System.Drawing.Point(22, 354);
             this.DGVTarea.Name = "DGVTarea";
             this.DGVTarea.ReadOnly = true;
@@ -74,8 +77,9 @@
             // 
             // panelTarea
             // 
-            this.panelTarea.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(122)))), ((int)(((byte)(191)))));
+            this.panelTarea.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.panelTarea.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelTarea.Controls.Add(this.BtnLimpiar);
             this.panelTarea.Controls.Add(this.DTPFechaFin);
             this.panelTarea.Controls.Add(this.DTPFechaInicio);
             this.panelTarea.Controls.Add(this.BtnEliminar);
@@ -83,7 +87,7 @@
             this.panelTarea.Controls.Add(this.BtnGuardar);
             this.panelTarea.Controls.Add(this.TxtEstado);
             this.panelTarea.Controls.Add(this.TxtDescripcion);
-            this.panelTarea.Controls.Add(this.TxtIdTarea);
+            this.panelTarea.Controls.Add(this.TxtCodigo);
             this.panelTarea.Controls.Add(this.label7);
             this.panelTarea.Controls.Add(this.label6);
             this.panelTarea.Controls.Add(this.label5);
@@ -111,7 +115,7 @@
             // BtnEliminar
             // 
             this.BtnEliminar.BackColor = System.Drawing.Color.Red;
-            this.BtnEliminar.Location = new System.Drawing.Point(691, 207);
+            this.BtnEliminar.Location = new System.Drawing.Point(596, 207);
             this.BtnEliminar.Name = "BtnEliminar";
             this.BtnEliminar.Size = new System.Drawing.Size(85, 30);
             this.BtnEliminar.TabIndex = 16;
@@ -156,12 +160,12 @@
             this.TxtDescripcion.Size = new System.Drawing.Size(713, 26);
             this.TxtDescripcion.TabIndex = 8;
             // 
-            // TxtIdTarea
+            // TxtCodigo
             // 
-            this.TxtIdTarea.Location = new System.Drawing.Point(46, 42);
-            this.TxtIdTarea.Name = "TxtIdTarea";
-            this.TxtIdTarea.Size = new System.Drawing.Size(127, 26);
-            this.TxtIdTarea.TabIndex = 7;
+            this.TxtCodigo.Location = new System.Drawing.Point(46, 42);
+            this.TxtCodigo.Name = "TxtCodigo";
+            this.TxtCodigo.Size = new System.Drawing.Size(127, 26);
+            this.TxtCodigo.TabIndex = 7;
             // 
             // label7
             // 
@@ -204,9 +208,24 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(42, 18);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(27, 20);
+            this.label2.Size = new System.Drawing.Size(59, 20);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Id ";
+            this.label2.Text = "Código";
+            // 
+            // BtnLimpiar
+            // 
+            this.BtnLimpiar.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BtnLimpiar.IconChar = FontAwesome.Sharp.IconChar.Broom;
+            this.BtnLimpiar.IconColor = System.Drawing.Color.Black;
+            this.BtnLimpiar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.BtnLimpiar.Location = new System.Drawing.Point(727, 199);
+            this.BtnLimpiar.Name = "BtnLimpiar";
+            this.BtnLimpiar.Size = new System.Drawing.Size(185, 47);
+            this.BtnLimpiar.TabIndex = 19;
+            this.BtnLimpiar.Text = "Limpiar";
+            this.BtnLimpiar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnLimpiar.UseVisualStyleBackColor = true;
+            this.BtnLimpiar.Click += new System.EventHandler(this.BtnLimpiar_Click);
             // 
             // FrmTarea
             // 
@@ -217,6 +236,7 @@
             this.Controls.Add(this.DGVTarea);
             this.Controls.Add(this.panelTarea);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmTarea";
             this.Text = "Formulario Tarea";
             this.Load += new System.EventHandler(this.FrmTarea_Load);
@@ -238,7 +258,7 @@
         private System.Windows.Forms.Button BtnGuardar;
         private System.Windows.Forms.TextBox TxtEstado;
         private System.Windows.Forms.TextBox TxtDescripcion;
-        private System.Windows.Forms.TextBox TxtIdTarea;
+        private System.Windows.Forms.TextBox TxtCodigo;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
@@ -246,5 +266,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker DTPFechaFin;
         private System.Windows.Forms.DateTimePicker DTPFechaInicio;
+        private FontAwesome.Sharp.IconButton BtnLimpiar;
     }
 }

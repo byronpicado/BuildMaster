@@ -1,11 +1,7 @@
 ﻿using Entidades;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System;
 
 namespace CapaDeDatos.CRUD
 {
@@ -14,106 +10,216 @@ namespace CapaDeDatos.CRUD
         // Cadena de Conexión
         private ConexionCD Conexion = new ConexionCD();
 
-        // Variables 
-        SqlDataReader LectorDatos;
-        DataTable Tabla = new DataTable();
-        SqlCommand Comando = new SqlCommand();
+        // Variables a Utilizar
+        private SqlDataReader LectorDatos;
+        private DataTable Tabla = new DataTable();
 
-        // Obtener todos los registros de la tabla Tarea
         public DataTable ObtenerTarea()
         {
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "SELECT * FROM Tarea";
-                Comando.CommandType = CommandType.Text;
-                LectorDatos = Comando.ExecuteReader();
-              
-                Tabla.Load(LectorDatos);
-                Conexion.CerrarConexion();
+                try
+                {
+                    comando.Connection = Conexion.AbrirConexion();
+                    comando.CommandText = "ObtenerTareas";
+                    comando.CommandType = CommandType.StoredProcedure;
+                    LectorDatos = comando.ExecuteReader();
+                    Tabla.Load(LectorDatos);
+                }
+                catch (Exception ex)
+                {
+                    // Manejo de excepciones
+                    throw new Exception("Error al obtener tareas: " + ex.Message);
+                }
+                finally
+                {
+                    if (LectorDatos != null && !LectorDatos.IsClosed)
+                    {
+                        LectorDatos.Close();
+                    }
+                    Conexion.CerrarConexion();
+                }
             }
-            catch (Exception ex)
-            {
-                string excepxion = ex.Message;
-            }
+
             return Tabla;
         }
 
-        // Insertar un registro en la tabla Tarea
         public bool Insertar(Tarea tarea)
         {
             bool agregado = false;
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "INSERT INTO Tarea (id_tarea, descripcion, fecha_inicio, fecha_fin, estado) VALUES (@id_tarea, @descripcion, @fecha_inicio, @fecha_fin, @estado)";
-                Comando.CommandType = CommandType.Text;
-
-                Comando.Parameters.AddWithValue("@id_tarea", tarea.id_tarea);
-                Comando.Parameters.AddWithValue("@descripcion", tarea.descripcion);
-                Comando.Parameters.AddWithValue("@fecha_inicio", tarea.fecha_inicio);
-                Comando.Parameters.AddWithValue("@fecha_fin", tarea.fecha_fin);
-                Comando.Parameters.AddWithValue("@estado", tarea.estado);
-
-                agregado = Comando.ExecuteNonQuery() > 0;
-                Comando.Parameters.Clear();
-                Conexion.CerrarConexion();
-                return agregado;
+                try
+                {
+                    comando.Connection = Conexion.AbrirConexion();
+                    comando.CommandText = "InsertarTarea";
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@codigo", tarea.codigo);
+                    comando.Parameters.AddWithValue("@descripcion", tarea.descripcion);
+                    comando.Parameters.AddWithValue("@fecha_inicio", tarea.fecha_inicio);
+                    comando.Parameters.AddWithValue("@fecha_fin", tarea.fecha_fin);
+                    comando.Parameters.AddWithValue("@estado", tarea.estado);
+                    agregado = comando.ExecuteNonQuery() > 0;
+                }
+                catch (Exception ex)
+                {
+                    // Manejo de excepciones
+                    throw new Exception("Error al insertar la tarea: " + ex.Message);
+                }
+                finally
+                {
+                    comando.Parameters.Clear();
+                    Conexion.CerrarConexion();
+                }
             }
-            catch (Exception ex)
-            {
-                String msj = ex.ToString();
-                return false;
-            }
+
+            return agregado;
         }
 
-        // Editar un registro en la tabla Tarea
         public bool Editar(Tarea tarea)
         {
             bool editado = false;
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "UPDATE Tarea SET descripcion = @descripcion, fecha_inicio = @fecha_inicio, fecha_fin = @fecha_fin, estado = @estado WHERE id_tarea = @id_tarea";
-                Comando.CommandType = CommandType.Text;
-
-                Comando.Parameters.AddWithValue("@id_tarea", tarea.id_tarea);
-                Comando.Parameters.AddWithValue("@descripcion", tarea.descripcion);
-                Comando.Parameters.AddWithValue("@fecha_inicio", tarea.fecha_inicio);
-                Comando.Parameters.AddWithValue("@fecha_fin", tarea.fecha_fin);
-                Comando.Parameters.AddWithValue("@estado", tarea.estado);
-
-                editado = Comando.ExecuteNonQuery() > 0;
-                Comando.Parameters.Clear();
-                Conexion.CerrarConexion();
-                return editado;
+                try
+                {
+                    comando.Connection = Conexion.AbrirConexion();
+                    comando.CommandText = "ActualizarTarea";
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@id_tarea", tarea.id_tarea);
+                    comando.Parameters.AddWithValue("@codigo", tarea.codigo);
+                    comando.Parameters.AddWithValue("@descripcion", tarea.descripcion);
+                    comando.Parameters.AddWithValue("@fecha_inicio", tarea.fecha_inicio);
+                    comando.Parameters.AddWithValue("@fecha_fin", tarea.fecha_fin);
+                    comando.Parameters.AddWithValue("@estado", tarea.estado);
+                    editado = comando.ExecuteNonQuery() > 0;
+                }
+                catch (Exception ex)
+                {
+                    // Manejo de excepciones
+                    throw new Exception("Error al editar la tarea: " + ex.Message);
+                }
+                finally
+                {
+                    comando.Parameters.Clear();
+                    Conexion.CerrarConexion();
+                }
             }
-            catch (Exception ex)
-            {
-                String msj = ex.ToString();
-                return false;
-            }
+
+            return editado;
         }
 
-        // Eliminar un registro de la tabla Tarea
         public bool Eliminar(int tareaId)
         {
             bool eliminado = false;
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "DELETE FROM Tarea WHERE id_tarea = @id_tarea";
-                Comando.Parameters.AddWithValue("@id_tarea", tareaId);
-                eliminado = Comando.ExecuteNonQuery() > 0;
-                Comando.Parameters.Clear();
-                Conexion.CerrarConexion();
-                return eliminado;
+                try
+                {
+                    comando.Connection = Conexion.AbrirConexion();
+                    comando.CommandText = "EliminarTarea";
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@id_tarea", tareaId);
+                    eliminado = comando.ExecuteNonQuery() > 0;
+                }
+                catch (Exception ex)
+                {
+                    // Manejo de excepciones
+                    throw new Exception("Error al eliminar la tarea: " + ex.Message);
+                }
+                finally
+                {
+                    comando.Parameters.Clear();
+                    Conexion.CerrarConexion();
+                }
             }
-            catch (Exception ex)
+
+            return eliminado;
+        }
+
+        public bool ExisteTarea(Tarea tarea)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
             {
-                string msj = ex.ToString();
-                return false;
+                try
+                {
+                    comando.Connection = Conexion.AbrirConexion();
+                    comando.CommandText = "ExisteTarea";
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@codigo", tarea.codigo);
+                    existe = (int)comando.ExecuteScalar() > 0;
+                }
+                catch (Exception ex)
+                {
+                    // Manejo de excepciones
+                    throw new Exception("Error al verificar la existencia de la tarea: " + ex.Message);
+                }
+                finally
+                {
+                    comando.Parameters.Clear();
+                    Conexion.CerrarConexion();
+                }
             }
+
+            return existe;
+        }
+
+        public bool ExisteOtraTarea(Tarea tarea)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                try
+                {
+                    comando.Connection = Conexion.AbrirConexion();
+                    comando.CommandText = "ExisteOtraTarea";
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@codigo", tarea.codigo);
+                    comando.Parameters.AddWithValue("@id_tarea", tarea.id_tarea);
+                    existe = (int)comando.ExecuteScalar() > 0;
+                }
+                catch (Exception ex)
+                {
+                    // Manejo de excepciones
+                    throw new Exception("Error al verificar la existencia de otra tarea: " + ex.Message);
+                }
+                finally
+                {
+                    comando.Parameters.Clear();
+                    Conexion.CerrarConexion();
+                }
+            }
+
+            return existe;
+        }
+
+        public bool TareaConProyectoDetalle(int tareaId)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                try
+                {
+                    comando.Connection = Conexion.AbrirConexion();
+                    comando.CommandText = "TareaConProyectoDetalle";
+                    comando.CommandType = CommandType.StoredProcedure;
+                    comando.Parameters.AddWithValue("@id_tarea", tareaId);
+                    existe = (int)comando.ExecuteScalar() > 0;
+                }
+                catch (Exception ex)
+                {
+                    // Manejo de excepciones
+                    throw new Exception("Error al verificar si la tarea está en un proyecto: " + ex.Message);
+                }
+                finally
+                {
+                    comando.Parameters.Clear();
+                    Conexion.CerrarConexion();
+                }
+            }
+
+            return existe;
         }
     }
 }

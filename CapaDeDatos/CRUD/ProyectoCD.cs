@@ -11,117 +11,139 @@ namespace CapaDeDatos.CRUD
 {
     public class ProyectoCD
     {
-        //Cadena de Conexion
+        // Cadena de Conexion
         private ConexionCD Conexion = new ConexionCD();
 
-        //Variables 
-        SqlDataReader LectorDatos;
-        DataTable Tabla = new DataTable();
-        SqlCommand Comando = new SqlCommand();
+        // Variables a Utilizar
+        private SqlDataReader LectorDatos;
+        private DataTable Tabla = new DataTable();
 
-        //obtenemos todos lo registro de la tabla proyecto
-        public DataTable ObtenerProyecto()
+        public DataTable ObtenerProyectos()
         {
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "SELECT * FROM Proyecto";
-                Comando.CommandType = CommandType.Text;
-                LectorDatos = Comando.ExecuteReader();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ObtenerProyectos"; 
+                comando.CommandType = CommandType.StoredProcedure;
+                LectorDatos = comando.ExecuteReader();
                 Tabla.Load(LectorDatos);
-                LectorDatos.Close();
                 Conexion.CerrarConexion();
-              
             }
-            catch (Exception ex)
-            {
-                string excepxion = ex.Message;
-            }
+
             return Tabla;
         }
 
         public bool Insertar(Proyecto proyecto)
         {
             bool agregado = false;
-            try
-
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "Insert INTO Proyecto(id_proyecto,nombre,descripcion,fecha_inicio,fecha_fin,Estado) VALUES (@id_proyecto,@nombre,@descripcion,@fecha_inicio,@fecha_fin,@Estado)";
-                Comando.CommandType = CommandType.Text;
-
-                //Comando.Parameters.AddWithValue("@id_proyecto", proyecto.id_proyecto);
-    
-                Comando.Parameters.AddWithValue("@nombre", proyecto.nombre);
-                Comando.Parameters.AddWithValue("@descripcion", proyecto.descripcion);
-                Comando.Parameters.AddWithValue("@fecha_inicio", proyecto.fecha_inicio);
-                Comando.Parameters.AddWithValue("@fecha_fin", proyecto.fecha_fin);
-                Comando.Parameters.AddWithValue("@Estado", proyecto.Estado);
-
-
-
-
-           agregado=Comando.ExecuteNonQuery()>0;
-                Comando.Parameters.Clear();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "InsertarProyecto"; 
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", proyecto.codigo);
+               
+                comando.Parameters.AddWithValue("@descripcion", proyecto.descripcion);
+                comando.Parameters.AddWithValue("@fecha_inicio", proyecto.fecha_inicio);
+                comando.Parameters.AddWithValue("@fecha_fin", proyecto.fecha_fin);
+                comando.Parameters.AddWithValue("@estado", proyecto.Estado);
+                agregado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return agregado;
-            }
-            catch (Exception ex)
-            {
-                String msj = ex.ToString();
-                return false;
             }
 
+            return agregado;
         }
-        //para editar un registro en la tabla Proyecto
+
         public bool Editar(Proyecto proyecto)
         {
             bool editado = false;
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "UPDATE proyecto SET nombre=@nombre,descripcion=@descripcion,fecha_inicio=@fecha_inicio,fecha_fin=@fecha_fin,Estado=@Estado WHERE id_proyecto=@id_proyecto";
-                Comando.CommandType = CommandType.Text;
-                Comando.Parameters.AddWithValue("@id_proyecto", proyecto.id_proyecto);
-        
-                Comando.Parameters.AddWithValue("@nombre", proyecto.nombre);
-                Comando.Parameters.AddWithValue("@descripcion", proyecto.descripcion);
-                Comando.Parameters.AddWithValue("@fecha_inicio", proyecto.fecha_inicio);
-                Comando.Parameters.AddWithValue("@fecha_fin", proyecto.fecha_fin);
-                Comando.Parameters.AddWithValue("@Estado", proyecto.Estado);
-                editado = Comando.ExecuteNonQuery() > 0;
-                Comando.Parameters.Clear();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ActualizarProyecto"; 
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_proyecto", proyecto.id_proyecto);
+                comando.Parameters.AddWithValue("@codigo", proyecto.codigo);
+                comando.Parameters.AddWithValue("@descripcion", proyecto.descripcion);
+                comando.Parameters.AddWithValue("@fecha_inicio", proyecto.fecha_inicio);
+                comando.Parameters.AddWithValue("@fecha_fin", proyecto.fecha_fin);
+                comando.Parameters.AddWithValue("@estado", proyecto.Estado);
+                editado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return editado;
             }
-            catch (Exception ex)
-            {
-                String msj = ex.ToString();
-                return false;
-            }
+
+            return editado;
         }
+
         public bool Eliminar(int proyectoId)
         {
             bool eliminado = false;
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "DELETE FROM Proyecto WHERE id_proyecto = @id_proyecto";
-                Comando.Parameters.AddWithValue("@id_proyecto", proyectoId);
-                eliminado = Comando.ExecuteNonQuery() > 0;
-                Comando.Parameters.Clear();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "EliminarProyecto";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_proyecto", proyectoId);
+                eliminado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return eliminado;
-            }
-            catch (Exception ex)
-            {
-                string msj = ex.ToString();
-                return false;
             }
 
+            return eliminado;
         }
 
+        public bool ExisteProyecto(Proyecto proyecto)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ExisteProyecto"; 
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", proyecto.codigo);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
 
+            return existe;
+        }
+
+        public bool ExisteOtroProyecto(Proyecto proyecto)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ExisteOtroProyecto"; 
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", proyecto.codigo);
+                comando.Parameters.AddWithValue("@id_proyecto", proyecto.id_proyecto);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
+
+            return existe;
+        }
+
+        public bool ProyectoConProyectoDetalle(int proyectoId)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ProyectoConProyectoDetalle"; 
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_proyecto", proyectoId);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
+
+            return existe;
+        }
     }
-
 }

@@ -56,7 +56,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(190, 24);
+            this.label1.Location = new System.Drawing.Point(50, 24);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(391, 51);
             this.label1.TabIndex = 0;
@@ -82,7 +82,7 @@
             // 
             // panelEquipo
             // 
-            this.panelEquipo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(122)))), ((int)(((byte)(191)))));
+            this.panelEquipo.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.panelEquipo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelEquipo.Controls.Add(this.BtnLimpiar);
             this.panelEquipo.Controls.Add(this.DTPFecha_Adquisicion);
@@ -103,9 +103,9 @@
             // 
             // BtnLimpiar
             // 
-            this.BtnLimpiar.Location = new System.Drawing.Point(852, 120);
+            this.BtnLimpiar.Location = new System.Drawing.Point(833, 120);
             this.BtnLimpiar.Name = "BtnLimpiar";
-            this.BtnLimpiar.Size = new System.Drawing.Size(75, 30);
+            this.BtnLimpiar.Size = new System.Drawing.Size(94, 30);
             this.BtnLimpiar.TabIndex = 18;
             this.BtnLimpiar.Text = "Limpiar";
             this.BtnLimpiar.UseVisualStyleBackColor = true;
@@ -124,7 +124,7 @@
             this.BtnEliminar.BackColor = System.Drawing.Color.Red;
             this.BtnEliminar.Location = new System.Drawing.Point(601, 120);
             this.BtnEliminar.Name = "BtnEliminar";
-            this.BtnEliminar.Size = new System.Drawing.Size(85, 30);
+            this.BtnEliminar.Size = new System.Drawing.Size(145, 30);
             this.BtnEliminar.TabIndex = 16;
             this.BtnEliminar.Text = "Eliminar";
             this.BtnEliminar.UseVisualStyleBackColor = false;
@@ -135,7 +135,7 @@
             this.BtnEditar.BackColor = System.Drawing.Color.DarkOrange;
             this.BtnEditar.Location = new System.Drawing.Point(358, 120);
             this.BtnEditar.Name = "BtnEditar";
-            this.BtnEditar.Size = new System.Drawing.Size(75, 30);
+            this.BtnEditar.Size = new System.Drawing.Size(129, 30);
             this.BtnEditar.TabIndex = 15;
             this.BtnEditar.Text = "Editar";
             this.BtnEditar.UseVisualStyleBackColor = false;
@@ -147,7 +147,7 @@
             this.BtnGuardar.BackColor = System.Drawing.Color.Lime;
             this.BtnGuardar.Location = new System.Drawing.Point(80, 120);
             this.BtnGuardar.Name = "BtnGuardar";
-            this.BtnGuardar.Size = new System.Drawing.Size(85, 30);
+            this.BtnGuardar.Size = new System.Drawing.Size(146, 30);
             this.BtnGuardar.TabIndex = 14;
             this.BtnGuardar.Text = "Guardar";
             this.BtnGuardar.UseVisualStyleBackColor = false;
@@ -256,7 +256,8 @@
             // 
             // FrmEquipo
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(978, 684);
             this.Controls.Add(this.label6);
@@ -266,6 +267,7 @@
             this.Controls.Add(this.DGVEquipo);
             this.Controls.Add(this.panelEquipo);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmEquipo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Formulario Equipo";

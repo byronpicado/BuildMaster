@@ -72,9 +72,7 @@ namespace CapaDePresentacion
 
         private void proyectoDetalleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var Frm = new Catálogos.FrmProyectoDetalle();
-            Frm.ShowDialog();
-            Frm.Dispose();
+  
         }
 
         private void recursoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -103,19 +101,14 @@ namespace CapaDePresentacion
 
         private void btnMenu_Click(object sender, EventArgs e)
         {
-            if (MenuVertical.Width == 250)
-            {
-                MenuVertical.Width = 70;
-            }
-            else
-                MenuVertical.Width = 250;
+ 
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             if (MenuVertical.Width == 250)
             {
-                MenuVertical.Width = 118;
+                MenuVertical.Width = 80;
             }
             else
                 MenuVertical.Width = 250;
@@ -177,6 +170,76 @@ namespace CapaDePresentacion
         private void button1_Click(object sender, EventArgs e)
         {
             var Frm = new Catálogos.FrmResponsable();
+            Frm.ShowDialog();
+            Frm.Dispose();
+        }
+
+        private void iconButtonCliente_Click(object sender, EventArgs e)
+        {
+            var Frm = new Catálogos.FrmCliente();
+            Frm.ShowDialog();
+            Frm.Dispose();
+        }
+
+        private void iconButtonEquipo_Click(object sender, EventArgs e)
+        {
+            var Frm = new Catálogos.FrmEquipo();
+            Frm.ShowDialog();
+            Frm.Dispose();
+        }
+
+        private void iconButtonHabilidad_Click(object sender, EventArgs e)
+        {
+            var Frm = new Catálogos.FrmHabilidad();
+            Frm.ShowDialog();
+            Frm.Dispose();
+        }
+
+        private void iconButtonMantenimiento_Click(object sender, EventArgs e)
+        {
+            var Frm = new Catálogos.FrmMantenimiento();
+            Frm.ShowDialog();
+            Frm.Dispose();
+        }
+
+        private void iconButtonPersonal_Click(object sender, EventArgs e)
+        {
+            var Frm = new Catálogos.FrmPersonal();
+            Frm.ShowDialog();
+            Frm.Dispose();
+        }
+
+        private void iconButtonProgreso_Click(object sender, EventArgs e)
+        {
+            var Frm = new Catálogos.FrmProgreso();
+            Frm.ShowDialog();
+            Frm.Dispose();
+        }
+
+        private void iconButtonResponsable_Click(object sender, EventArgs e)
+        {
+            var Frm = new Catálogos.FrmResponsable();
+            Frm.ShowDialog();
+            Frm.Dispose();
+        }
+
+        private void iconButtonProyecto_Click(object sender, EventArgs e)
+        {
+            var Frm = new Catálogos.FrmProyecto();
+            Frm.ShowDialog();
+            Frm.Dispose();
+        }
+
+        private void iconButtonTarea_Click(object sender, EventArgs e)
+        {
+            var Frm = new Catálogos.FrmTarea();
+            Frm.ShowDialog();
+            Frm.Dispose();
+        }
+
+        private void iconButtonRecurso_Click(object sender, EventArgs e)
+        {
+            var Frm = new Catálogos.FrmRecurso();
             Frm.ShowDialog();
             Frm.Dispose();
         }

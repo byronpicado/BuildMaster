@@ -1,21 +1,14 @@
-﻿
+﻿using System;
+using System.Data;
+using System.Windows.Forms;
 using CapaDeNegocio.CN_CRUD;
 using Entidades;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using Entidades.Entidades;
 
 namespace CapaDePresentacion.Catálogos
 {
     public partial class FrmTarea : Form
     {
-        // Variables
         private TareaCN tareaCN;
         private Tarea tarea;
         private bool editar = false;
@@ -24,34 +17,81 @@ namespace CapaDePresentacion.Catálogos
         public FrmTarea()
         {
             InitializeComponent();
+            tareaCN = new TareaCN();
         }
 
         private void FrmTarea_Load(object sender, EventArgs e)
         {
-            // Inicializar DataGridView llamando al método de carga de datos
             MostrarTareas();
         }
 
-        // Método para cargar los datos en el DataGridView
         private void MostrarTareas()
         {
-            tareaCN = new TareaCN();
-            DGVTarea.DataSource = tareaCN.ObtenerTarea();
+            try
+            {
+                tareaCN = new TareaCN();
+                DGVTarea.DataSource = tareaCN.ObtenerTarea();
+                DGVTarea.Columns["id_tarea"].Visible = false;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
-        // Limpiar los controles de texto
         private void LimpiarDatos()
         {
-            TxtIdTarea.Text = "";
-            TxtDescripcion.Text = "";
-            DTPFechaInicio.Text = "";
-            DTPFechaFin.Text = "";
-            TxtEstado.Text = "";
+            TxtCodigo.Clear();
+            TxtDescripcion.Clear();
+            DTPFechaInicio.Value = DateTime.Now;
+            DTPFechaFin.Value = DateTime.Now;
+            TxtEstado.Clear();
+            TxtCodigo.Focus();
         }
 
         private void BtnGuardar_Click(object sender, EventArgs e)
         {
-     
+            try
+            {
+                if (ValidarInputs())
+                {
+                    tarea = new Tarea(tareaid,TxtCodigo.Text, TxtDescripcion.Text, DTPFechaInicio.Value, DTPFechaFin.Value, TxtEstado.Text);
+
+                    if (!editar)
+                    {
+                        tareaCN.ValidarAntesDeCrear(tarea);
+                        if (tareaCN.Insertar(tarea))
+                        {
+                            LimpiarDatos();
+                            MostrarTareas();
+                            MessageBox.Show("Tarea agregada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("El registro no se insertó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        tareaCN.ValidarAntesDeEliminar(tareaid);
+                        if (tareaCN.Editar(tarea))
+                        {
+                            LimpiarDatos();
+                            MostrarTareas();
+                            MessageBox.Show("Tarea actualizada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("El registro no se editó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogError(ex);
+                MessageBox.Show("Ocurrió un error al guardar los datos de la tarea.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void BtnEditar_Click(object sender, EventArgs e)
@@ -61,21 +101,45 @@ namespace CapaDePresentacion.Catálogos
                 if (DGVTarea.SelectedRows.Count > 0)
                 {
                     editar = true;
-                    DataGridViewRow selectedRow = DGVTarea.SelectedRows[0];
+                    TxtCodigo.Text = DGVTarea.CurrentRow.Cells["codigo"].Value.ToString();
+                    TxtDescripcion.Text = DGVTarea.CurrentRow.Cells["descripcion"].Value.ToString();
+                    DTPFechaInicio.Value = Convert.ToDateTime(DGVTarea.CurrentRow.Cells["fecha_inicio"].Value);
+                    DTPFechaFin.Value = Convert.ToDateTime(DGVTarea.CurrentRow.Cells["fecha_fin"].Value);
+                    TxtEstado.Text = DGVTarea.CurrentRow.Cells["estado"].Value.ToString();
+                    tareaid = int.Parse(DGVTarea.CurrentRow.Cells["id_tarea"].Value.ToString());
+                }
+                else
+                {
+                    MessageBox.Show("Debe seleccionar una fila de la lista.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                LogError(ex);
+                MessageBox.Show("Ocurrió un error al intentar editar la tarea.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
-                    if (selectedRow != null)
+        private void BtnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (DGVTarea.SelectedRows.Count > 0)
+                {
+                    if (MessageBox.Show("¿Está seguro que desea eliminar esta tarea?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        TxtIdTarea.Text = selectedRow.Cells["id_tarea"].Value?.ToString();
-                        TxtDescripcion.Text = selectedRow.Cells["descripcion"].Value?.ToString();
-                        DTPFechaInicio.Value = Convert.ToDateTime(selectedRow.Cells["fecha_inicio"].Value);
-                        DTPFechaFin.Value = Convert.ToDateTime(selectedRow.Cells["fecha_fin"].Value);
-                        TxtEstado.Text = selectedRow.Cells["estado"].Value?.ToString();
-
-                        tareaid = Convert.ToInt32(selectedRow.Cells["id_tarea"].Value);
-                    }
-                    else
-                    {
-                        MessageBox.Show("No se ha seleccionado ninguna fila.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        int tareaid = int.Parse(DGVTarea.CurrentRow.Cells["id_tarea"].Value.ToString());
+                        tareaCN.ValidarAntesDeEliminar(tareaid);
+                        if (tareaCN.Eliminar(tareaid))
+                        {
+                            LimpiarDatos();
+                            MostrarTareas();
+                            MessageBox.Show("Tarea eliminada correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("La tarea no se eliminó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
                 else
@@ -85,42 +149,39 @@ namespace CapaDePresentacion.Catálogos
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al cargar los datos de la fila seleccionada: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                LogError(ex);
+                MessageBox.Show("Ocurrió un error al eliminar la tarea.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-
-        private void BtnEliminar_Click(object sender, EventArgs e)
+        private void BtnLimpiar_Click(object sender, EventArgs e)
         {
-            try
+            if (DGVTarea.SelectedRows.Count > 0)
             {
-                if (DGVTarea.SelectedRows.Count > 0)
-                {
-                    int tareaid = int.Parse(DGVTarea.CurrentRow.Cells["id_tarea"].Value.ToString());
-                    // clienteCN.ValidarAntesDeEliminar(clienteid);
+                DGVTarea.ClearSelection();
+            }
+            else
+            {
+                LimpiarDatos();
+            }
+        }
 
-                    // Llamada al método Eliminar en ClienteCN
-                    if (tareaCN.Eliminar(tareaid))
-                    {
-                        LimpiarDatos();
-                        MostrarTareas();
-                        MessageBox.Show("El registro se eliminó correctamente", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show("El registro no se eliminó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Debe seleccionar una fila de la lista", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            catch (Exception ex)
+        private bool ValidarInputs()
+        {
+            if (string.IsNullOrWhiteSpace(TxtDescripcion.Text) ||
+                string.IsNullOrWhiteSpace(TxtEstado.Text))
             {
-                MessageBox.Show("Ocurrió un error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Todos los campos marcados con * son obligatorios.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
             }
+
+            return true;
+        }
+
+        private void LogError(Exception ex)
+        {
+            // Log the exception (e.g., write to a log file or database)
+            Console.WriteLine(ex.ToString());
         }
     }
 }
-

@@ -9,114 +9,143 @@ using System.Threading.Tasks;
 
 namespace CapaDeDatos.CRUD
 {
-        
-      public   class RecursoCD
+    public class RecursoCD
     {
-        //Cadena de Conexion
+        // Cadena de Conexión
         private ConexionCD Conexion = new ConexionCD();
 
-        //Variables 
-        SqlDataReader LectorDatos;
-        DataTable Tabla = new DataTable();
-        SqlCommand Comando = new SqlCommand();
+        // Variables a Utilizar
+        private SqlDataReader LectorDatos;
+        private DataTable Tabla = new DataTable();
 
-        //obtenemos todos lo registro de la tabla recurso
+        // Obtener todos los registros de la tabla Recurso
         public DataTable ObtenerRecurso()
         {
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "SELECT * FROM Recurso";
-                Comando.CommandType = CommandType.Text;
-                LectorDatos = Comando.ExecuteReader();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ObtenerRecursos"; // Asumiendo que tienes un procedimiento almacenado llamado ObtenerRecursos
+                comando.CommandType = CommandType.StoredProcedure;
+                LectorDatos = comando.ExecuteReader();
                 Tabla.Load(LectorDatos);
-                LectorDatos.Close();
                 Conexion.CerrarConexion();
-             
             }
-            catch (Exception ex)
-            {
-                string excepxion = ex.Message;
-            }
+
             return Tabla;
         }
 
+        // Insertar un registro en la tabla Recurso
         public bool Insertar(Recurso recurso)
         {
             bool agregado = false;
-            try
-
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "Insert INTO Recuro (id_recurso,tipo,descripcion,costo) VALUES (@id_recurso,@tipo,@descripcion,@costo)";
-                Comando.CommandType = CommandType.Text;
-
-                Comando.Parameters.AddWithValue("@id_recurso", recurso.id_recurso);
-                Comando.Parameters.AddWithValue("@tipo", recurso.tipo);
-                Comando.Parameters.AddWithValue("@descripcion", recurso.descripcion);
-                Comando.Parameters.AddWithValue("@costo", recurso.costo);
-
-
-
-
-             agregado=Comando.ExecuteNonQuery()>0;
-                Comando.Parameters.Clear();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "InsertarRecurso"; // Asumiendo que tienes un procedimiento almacenado llamado InsertarRecurso
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("codigo", recurso.codigo);
+                comando.Parameters.AddWithValue("@tipo", recurso.tipo);
+                comando.Parameters.AddWithValue("@descripcion", recurso.descripcion);
+                comando.Parameters.AddWithValue("@costo", recurso.costo);
+                agregado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return agregado;
-            }
-            catch (Exception ex)
-            {
-                String msj = ex.ToString();
-                return false;
             }
 
+            return agregado;
         }
-        //para editar un registro en la tabla Recurso
+
+        // Editar un registro en la tabla Recurso
         public bool Editar(Recurso recurso)
         {
             bool editado = false;
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "UPDATE recurso SET tipo=@tipo,descripcion=@descripcion,costo=@costo WHERE id_recurso=@id_recurso ";
-                Comando.CommandType = CommandType.Text;
-                Comando.Parameters.AddWithValue("@id_recurso", recurso.id_recurso);
-                Comando.Parameters.AddWithValue("@tipo", recurso.tipo);
-                Comando.Parameters.AddWithValue("@descripcion", recurso.descripcion);
-                Comando.Parameters.AddWithValue("@costo", recurso.costo);
-                editado = Comando.ExecuteNonQuery() > 0;
-                Comando.Parameters.Clear();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ActualizarRecurso"; // Asumiendo que tienes un procedimiento almacenado llamado ActualizarRecurso
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_recurso", recurso.id_recurso);
+                comando.Parameters.AddWithValue("@codigo", recurso.codigo);
+                comando.Parameters.AddWithValue("@tipo", recurso.tipo);
+                comando.Parameters.AddWithValue("@descripcion", recurso.descripcion);
+                comando.Parameters.AddWithValue("@costo", recurso.costo);
+                editado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return editado;
             }
-            catch (Exception ex)
-            {
-                String msj = ex.ToString();
-                return false;
-            }
+
+            return editado;
         }
+
+        // Eliminar un registro de la tabla Recurso
         public bool Eliminar(int recursoId)
         {
             bool eliminado = false;
-            try
+            using (SqlCommand comando = new SqlCommand())
             {
-                Comando.Connection = Conexion.AbrirConexion();
-                Comando.CommandText = "DELETE FROM Recurso WHERE id_recurso = @id_recurso";
-                Comando.Parameters.AddWithValue("@id_recurso", recursoId);
-                eliminado = Comando.ExecuteNonQuery() > 0;
-                Comando.Parameters.Clear();
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "EliminarRecurso"; // Asumiendo que tienes un procedimiento almacenado llamado EliminarRecurso
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_recurso", recursoId);
+                eliminado = comando.ExecuteNonQuery() > 0;
+                comando.Parameters.Clear();
                 Conexion.CerrarConexion();
-                return eliminado;
-            }
-            catch (Exception ex)
-            {
-                string msj = ex.ToString();
-                return false;
             }
 
+            return eliminado;
         }
 
+        public bool ExisteRecurso(Recurso recurso)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ExisteRecurso";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", recurso.codigo);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
 
+            return existe;
+        }
+
+        public bool ExisteOtroRecurso(Recurso recurso)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "ExisteOtroRecurso";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@codigo", recurso.codigo);
+                comando.Parameters.AddWithValue("@id_recurso", recurso.id_recurso);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
+
+            return existe;
+        }
+
+        public bool RecursoConProyectoDetalle(int recursoId)
+        {
+            bool existe = false;
+            using (SqlCommand comando = new SqlCommand())
+            {
+                comando.Connection = Conexion.AbrirConexion();
+                comando.CommandText = "RecursoConProyectoDetalle";
+                comando.CommandType = CommandType.StoredProcedure;
+                comando.Parameters.AddWithValue("@id_recurso", recursoId);
+                existe = (int)comando.ExecuteScalar() > 0;
+                comando.Parameters.Clear();
+                Conexion.CerrarConexion();
+            }
+
+            return existe;
+        }
     }
-
 }
+    

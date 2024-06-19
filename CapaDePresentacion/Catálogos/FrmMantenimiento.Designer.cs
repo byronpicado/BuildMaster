@@ -48,10 +48,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(302, 9);
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(250, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(345, 32);
+            this.label1.Size = new System.Drawing.Size(542, 51);
             this.label1.TabIndex = 1;
             this.label1.Text = "Catálogo de Mantenimiento";
             // 
@@ -62,7 +62,7 @@
             this.DGVMantenimiento.BackgroundColor = System.Drawing.SystemColors.MenuHighlight;
             this.DGVMantenimiento.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVMantenimiento.GridColor = System.Drawing.SystemColors.MenuHighlight;
-            this.DGVMantenimiento.Location = new System.Drawing.Point(22, 319);
+            this.DGVMantenimiento.Location = new System.Drawing.Point(22, 354);
             this.DGVMantenimiento.Name = "DGVMantenimiento";
             this.DGVMantenimiento.ReadOnly = true;
             this.DGVMantenimiento.RowHeadersWidth = 62;
@@ -73,7 +73,7 @@
             // 
             // panelHabilidad
             // 
-            this.panelHabilidad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(122)))), ((int)(((byte)(191)))));
+            this.panelHabilidad.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.panelHabilidad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelHabilidad.Controls.Add(this.BtnLimpiar);
             this.panelHabilidad.Controls.Add(this.label4);
@@ -85,7 +85,7 @@
             this.panelHabilidad.Controls.Add(this.TxtDescripcion);
             this.panelHabilidad.Controls.Add(this.label3);
             this.panelHabilidad.Controls.Add(this.label2);
-            this.panelHabilidad.Location = new System.Drawing.Point(22, 47);
+            this.panelHabilidad.Location = new System.Drawing.Point(22, 82);
             this.panelHabilidad.Name = "panelHabilidad";
             this.panelHabilidad.Size = new System.Drawing.Size(935, 255);
             this.panelHabilidad.TabIndex = 20;
@@ -191,6 +191,7 @@
             this.Controls.Add(this.DGVMantenimiento);
             this.Controls.Add(this.panelHabilidad);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmMantenimiento";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FrmMantenimiento";

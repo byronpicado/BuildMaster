@@ -30,13 +30,14 @@
         {
             this.DGVRecurso = new System.Windows.Forms.DataGridView();
             this.panelRecurso = new System.Windows.Forms.Panel();
+            this.BtnLimpiar = new System.Windows.Forms.Button();
             this.BtnEliminar = new System.Windows.Forms.Button();
             this.BtnEditar = new System.Windows.Forms.Button();
             this.BtnGuardar = new System.Windows.Forms.Button();
             this.TxtCosto = new System.Windows.Forms.TextBox();
             this.TxtDescripcion = new System.Windows.Forms.TextBox();
             this.TxtTipo = new System.Windows.Forms.TextBox();
-            this.TxtIdRecurso = new System.Windows.Forms.TextBox();
+            this.TxtCodigo = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -64,15 +65,16 @@
             // 
             // panelRecurso
             // 
-            this.panelRecurso.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(122)))), ((int)(((byte)(191)))));
+            this.panelRecurso.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.panelRecurso.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelRecurso.Controls.Add(this.BtnLimpiar);
             this.panelRecurso.Controls.Add(this.BtnEliminar);
             this.panelRecurso.Controls.Add(this.BtnEditar);
             this.panelRecurso.Controls.Add(this.BtnGuardar);
             this.panelRecurso.Controls.Add(this.TxtCosto);
             this.panelRecurso.Controls.Add(this.TxtDescripcion);
             this.panelRecurso.Controls.Add(this.TxtTipo);
-            this.panelRecurso.Controls.Add(this.TxtIdRecurso);
+            this.panelRecurso.Controls.Add(this.TxtCodigo);
             this.panelRecurso.Controls.Add(this.label5);
             this.panelRecurso.Controls.Add(this.label4);
             this.panelRecurso.Controls.Add(this.label3);
@@ -81,6 +83,16 @@
             this.panelRecurso.Name = "panelRecurso";
             this.panelRecurso.Size = new System.Drawing.Size(935, 255);
             this.panelRecurso.TabIndex = 21;
+            // 
+            // BtnLimpiar
+            // 
+            this.BtnLimpiar.Location = new System.Drawing.Point(840, 207);
+            this.BtnLimpiar.Name = "BtnLimpiar";
+            this.BtnLimpiar.Size = new System.Drawing.Size(75, 31);
+            this.BtnLimpiar.TabIndex = 17;
+            this.BtnLimpiar.Text = "Limpiar";
+            this.BtnLimpiar.UseVisualStyleBackColor = true;
+            this.BtnLimpiar.Click += new System.EventHandler(this.BtnLimpiar_Click);
             // 
             // BtnEliminar
             // 
@@ -91,6 +103,7 @@
             this.BtnEliminar.TabIndex = 16;
             this.BtnEliminar.Text = "Eliminar";
             this.BtnEliminar.UseVisualStyleBackColor = false;
+            this.BtnEliminar.Click += new System.EventHandler(this.BtnEliminar_Click_1);
             // 
             // BtnEditar
             // 
@@ -101,6 +114,7 @@
             this.BtnEditar.TabIndex = 15;
             this.BtnEditar.Text = "Editar";
             this.BtnEditar.UseVisualStyleBackColor = false;
+            this.BtnEditar.Click += new System.EventHandler(this.BtnEditar_Click_1);
             // 
             // BtnGuardar
             // 
@@ -112,6 +126,7 @@
             this.BtnGuardar.TabIndex = 14;
             this.BtnGuardar.Text = "Guardar";
             this.BtnGuardar.UseVisualStyleBackColor = false;
+            this.BtnGuardar.Click += new System.EventHandler(this.BtnGuardar_Click_1);
             // 
             // TxtCosto
             // 
@@ -134,12 +149,12 @@
             this.TxtTipo.Size = new System.Drawing.Size(289, 26);
             this.TxtTipo.TabIndex = 8;
             // 
-            // TxtIdRecurso
+            // TxtCodigo
             // 
-            this.TxtIdRecurso.Location = new System.Drawing.Point(46, 42);
-            this.TxtIdRecurso.Name = "TxtIdRecurso";
-            this.TxtIdRecurso.Size = new System.Drawing.Size(132, 26);
-            this.TxtIdRecurso.TabIndex = 7;
+            this.TxtCodigo.Location = new System.Drawing.Point(46, 42);
+            this.TxtCodigo.Name = "TxtCodigo";
+            this.TxtCodigo.Size = new System.Drawing.Size(132, 26);
+            this.TxtCodigo.TabIndex = 7;
             // 
             // label5
             // 
@@ -173,17 +188,17 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(42, 18);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(27, 20);
+            this.label2.Size = new System.Drawing.Size(59, 20);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Id ";
+            this.label2.Text = "Codigo";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(369, 11);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(260, 32);
+            this.label1.Size = new System.Drawing.Size(411, 51);
             this.label1.TabIndex = 20;
             this.label1.Text = "Catálogo de Recurso";
             // 
@@ -196,6 +211,7 @@
             this.Controls.Add(this.DGVRecurso);
             this.Controls.Add(this.panelRecurso);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmRecurso";
             this.Text = "FrmRecurso";
             this.Load += new System.EventHandler(this.FrmRecurso_Load);
@@ -217,11 +233,12 @@
         private System.Windows.Forms.TextBox TxtCosto;
         private System.Windows.Forms.TextBox TxtDescripcion;
         private System.Windows.Forms.TextBox TxtTipo;
-        private System.Windows.Forms.TextBox TxtIdRecurso;
+        private System.Windows.Forms.TextBox TxtCodigo;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button BtnLimpiar;
     }
 }

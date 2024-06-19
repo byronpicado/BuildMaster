@@ -46,10 +46,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(363, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(285, 32);
+            this.label1.Size = new System.Drawing.Size(360, 41);
             this.label1.TabIndex = 0;
             this.label1.Text = "Catálogo de Habilidad";
             // 
@@ -71,7 +71,7 @@
             // 
             // panelHabilidad
             // 
-            this.panelHabilidad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(122)))), ((int)(((byte)(191)))));
+            this.panelHabilidad.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.panelHabilidad.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelHabilidad.Controls.Add(this.BtnLimpiar);
             this.panelHabilidad.Controls.Add(this.TxtCodigo);
@@ -88,9 +88,9 @@
             // 
             // BtnLimpiar
             // 
-            this.BtnLimpiar.Location = new System.Drawing.Point(832, 156);
+            this.BtnLimpiar.Location = new System.Drawing.Point(774, 156);
             this.BtnLimpiar.Name = "BtnLimpiar";
-            this.BtnLimpiar.Size = new System.Drawing.Size(75, 34);
+            this.BtnLimpiar.Size = new System.Drawing.Size(133, 34);
             this.BtnLimpiar.TabIndex = 18;
             this.BtnLimpiar.Text = "Limpiar";
             this.BtnLimpiar.UseVisualStyleBackColor = true;
@@ -110,7 +110,7 @@
             this.BtnEliminar.BackColor = System.Drawing.Color.Red;
             this.BtnEliminar.Location = new System.Drawing.Point(526, 160);
             this.BtnEliminar.Name = "BtnEliminar";
-            this.BtnEliminar.Size = new System.Drawing.Size(85, 30);
+            this.BtnEliminar.Size = new System.Drawing.Size(174, 38);
             this.BtnEliminar.TabIndex = 16;
             this.BtnEliminar.Text = "Eliminar";
             this.BtnEliminar.UseVisualStyleBackColor = false;
@@ -121,7 +121,7 @@
             this.BtnEditar.BackColor = System.Drawing.Color.DarkOrange;
             this.BtnEditar.Location = new System.Drawing.Point(304, 160);
             this.BtnEditar.Name = "BtnEditar";
-            this.BtnEditar.Size = new System.Drawing.Size(75, 30);
+            this.BtnEditar.Size = new System.Drawing.Size(168, 38);
             this.BtnEditar.TabIndex = 15;
             this.BtnEditar.Text = "Editar";
             this.BtnEditar.UseVisualStyleBackColor = false;
@@ -133,7 +133,7 @@
             this.BtnGuardar.BackColor = System.Drawing.Color.Lime;
             this.BtnGuardar.Location = new System.Drawing.Point(73, 161);
             this.BtnGuardar.Name = "BtnGuardar";
-            this.BtnGuardar.Size = new System.Drawing.Size(85, 30);
+            this.BtnGuardar.Size = new System.Drawing.Size(152, 37);
             this.BtnGuardar.TabIndex = 14;
             this.BtnGuardar.Text = "Guardar";
             this.BtnGuardar.UseVisualStyleBackColor = false;
@@ -173,6 +173,7 @@
             this.Controls.Add(this.DGVHabilidad);
             this.Controls.Add(this.panelHabilidad);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmHabilidad";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Formulario Habilidad";

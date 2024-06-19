@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.panelCliente = new System.Windows.Forms.Panel();
             this.BtnLimpiar = new System.Windows.Forms.Button();
@@ -58,7 +58,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(394, 9);
+            this.label1.Location = new System.Drawing.Point(303, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(391, 51);
             this.label1.TabIndex = 0;
@@ -66,7 +66,7 @@
             // 
             // panelCliente
             // 
-            this.panelCliente.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(122)))), ((int)(((byte)(191)))));
+            this.panelCliente.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.panelCliente.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelCliente.Controls.Add(this.BtnLimpiar);
             this.panelCliente.Controls.Add(this.BtnEliminar);
@@ -93,9 +93,9 @@
             // 
             // BtnLimpiar
             // 
-            this.BtnLimpiar.Location = new System.Drawing.Point(829, 207);
+            this.BtnLimpiar.Location = new System.Drawing.Point(792, 192);
             this.BtnLimpiar.Name = "BtnLimpiar";
-            this.BtnLimpiar.Size = new System.Drawing.Size(75, 30);
+            this.BtnLimpiar.Size = new System.Drawing.Size(112, 45);
             this.BtnLimpiar.TabIndex = 17;
             this.BtnLimpiar.Text = "Limpiar";
             this.BtnLimpiar.UseVisualStyleBackColor = true;
@@ -104,9 +104,9 @@
             // BtnEliminar
             // 
             this.BtnEliminar.BackColor = System.Drawing.Color.Red;
-            this.BtnEliminar.Location = new System.Drawing.Point(550, 207);
+            this.BtnEliminar.Location = new System.Drawing.Point(550, 192);
             this.BtnEliminar.Name = "BtnEliminar";
-            this.BtnEliminar.Size = new System.Drawing.Size(85, 30);
+            this.BtnEliminar.Size = new System.Drawing.Size(122, 45);
             this.BtnEliminar.TabIndex = 16;
             this.BtnEliminar.Text = "Eliminar";
             this.BtnEliminar.UseVisualStyleBackColor = false;
@@ -115,9 +115,9 @@
             // BtnEditar
             // 
             this.BtnEditar.BackColor = System.Drawing.Color.DarkOrange;
-            this.BtnEditar.Location = new System.Drawing.Point(341, 207);
+            this.BtnEditar.Location = new System.Drawing.Point(290, 192);
             this.BtnEditar.Name = "BtnEditar";
-            this.BtnEditar.Size = new System.Drawing.Size(75, 30);
+            this.BtnEditar.Size = new System.Drawing.Size(126, 45);
             this.BtnEditar.TabIndex = 15;
             this.BtnEditar.Text = "Editar";
             this.BtnEditar.UseVisualStyleBackColor = false;
@@ -127,9 +127,9 @@
             // 
             this.BtnGuardar.AutoSize = true;
             this.BtnGuardar.BackColor = System.Drawing.Color.Lime;
-            this.BtnGuardar.Location = new System.Drawing.Point(71, 207);
+            this.BtnGuardar.Location = new System.Drawing.Point(71, 192);
             this.BtnGuardar.Name = "BtnGuardar";
-            this.BtnGuardar.Size = new System.Drawing.Size(85, 30);
+            this.BtnGuardar.Size = new System.Drawing.Size(127, 45);
             this.BtnGuardar.TabIndex = 14;
             this.BtnGuardar.Text = "Guardar";
             this.BtnGuardar.UseVisualStyleBackColor = false;
@@ -258,9 +258,9 @@
             // 
             this.DGVCliente.AllowUserToAddRows = false;
             this.DGVCliente.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.DGVCliente.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.DGVCliente.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.DGVCliente.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVCliente.BackgroundColor = System.Drawing.SystemColors.MenuHighlight;
             this.DGVCliente.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -277,7 +277,8 @@
             // 
             // FrmCliente
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
             this.ClientSize = new System.Drawing.Size(978, 834);
@@ -285,7 +286,7 @@
             this.Controls.Add(this.panelCliente);
             this.Controls.Add(this.label1);
             this.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmCliente";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "FrmCliente";

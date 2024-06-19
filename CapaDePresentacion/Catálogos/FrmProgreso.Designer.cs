@@ -48,10 +48,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(356, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(268, 32);
+            this.label1.Size = new System.Drawing.Size(424, 51);
             this.label1.TabIndex = 0;
             this.label1.Text = "Catálogo de Progreso";
             // 
@@ -73,7 +73,7 @@
             // 
             // panelProgreso
             // 
-            this.panelProgreso.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(122)))), ((int)(((byte)(191)))));
+            this.panelProgreso.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.panelProgreso.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelProgreso.Controls.Add(this.BtnProgreso);
             this.panelProgreso.Controls.Add(this.DTPFechaRegistro);
@@ -192,6 +192,7 @@
             this.Controls.Add(this.DGVProgreso);
             this.Controls.Add(this.panelProgreso);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmProgreso";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Formulario Progreso";

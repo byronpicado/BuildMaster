@@ -54,16 +54,16 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(329, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(313, 32);
+            this.label1.Size = new System.Drawing.Size(490, 51);
             this.label1.TabIndex = 0;
             this.label1.Text = "Catálogo de Responsable";
             // 
             // panelResponsable
             // 
-            this.panelResponsable.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(122)))), ((int)(((byte)(191)))));
+            this.panelResponsable.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.panelResponsable.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelResponsable.Controls.Add(this.BtnLimpiar);
             this.panelResponsable.Controls.Add(this.BtnEliminar);
@@ -252,6 +252,7 @@
             this.Controls.Add(this.DGVResponsable);
             this.Controls.Add(this.panelResponsable);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmResponsable";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Formulario Responsable";

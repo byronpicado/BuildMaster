@@ -56,10 +56,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(347, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(268, 32);
+            this.label1.Size = new System.Drawing.Size(419, 51);
             this.label1.TabIndex = 0;
             this.label1.Text = "Catálogo de Personal";
             // 
@@ -81,7 +81,7 @@
             // 
             // panelPersonal
             // 
-            this.panelPersonal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(122)))), ((int)(((byte)(191)))));
+            this.panelPersonal.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.panelPersonal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelPersonal.Controls.Add(this.BtnLimpiar);
             this.panelPersonal.Controls.Add(this.DTPFechaContratacion);
@@ -272,6 +272,7 @@
             this.Controls.Add(this.DGVPersonal);
             this.Controls.Add(this.panelPersonal);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmPersonal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Formulario Personal";

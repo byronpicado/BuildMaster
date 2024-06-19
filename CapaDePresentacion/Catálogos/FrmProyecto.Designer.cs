@@ -31,6 +31,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.DGVProyecto = new System.Windows.Forms.DataGridView();
             this.panelProyecto = new System.Windows.Forms.Panel();
+            this.buttonLimpiar = new System.Windows.Forms.Button();
             this.DTPFechaFin = new System.Windows.Forms.DateTimePicker();
             this.DTPFechaInicio = new System.Windows.Forms.DateTimePicker();
             this.BtnEliminar = new System.Windows.Forms.Button();
@@ -38,13 +39,11 @@
             this.BtnGuardar = new System.Windows.Forms.Button();
             this.TxtEstado = new System.Windows.Forms.TextBox();
             this.TxtDescripcion = new System.Windows.Forms.TextBox();
-            this.TxtNombre = new System.Windows.Forms.TextBox();
-            this.TxtIdProyecto = new System.Windows.Forms.TextBox();
+            this.TxtCodigo = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProyecto)).BeginInit();
             this.panelProyecto.SuspendLayout();
@@ -53,10 +52,10 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Times New Roman", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(379, 9);
+            this.label1.Font = new System.Drawing.Font("Times New Roman", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(295, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(267, 32);
+            this.label1.Size = new System.Drawing.Size(423, 51);
             this.label1.TabIndex = 0;
             this.label1.Text = "Catálogo de Proyecto";
             // 
@@ -64,20 +63,23 @@
             // 
             this.DGVProyecto.AllowUserToAddRows = false;
             this.DGVProyecto.AllowUserToDeleteRows = false;
+            this.DGVProyecto.BackgroundColor = System.Drawing.SystemColors.MenuHighlight;
             this.DGVProyecto.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGVProyecto.Location = new System.Drawing.Point(22, 425);
+            this.DGVProyecto.GridColor = System.Drawing.SystemColors.MenuHighlight;
+            this.DGVProyecto.Location = new System.Drawing.Point(22, 437);
             this.DGVProyecto.Name = "DGVProyecto";
             this.DGVProyecto.ReadOnly = true;
             this.DGVProyecto.RowHeadersWidth = 62;
             this.DGVProyecto.RowTemplate.Height = 28;
-            this.DGVProyecto.Size = new System.Drawing.Size(935, 247);
+            this.DGVProyecto.Size = new System.Drawing.Size(935, 295);
             this.DGVProyecto.TabIndex = 19;
             this.DGVProyecto.Tag = "";
             // 
             // panelProyecto
             // 
-            this.panelProyecto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(122)))), ((int)(((byte)(191)))));
+            this.panelProyecto.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.panelProyecto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelProyecto.Controls.Add(this.buttonLimpiar);
             this.panelProyecto.Controls.Add(this.DTPFechaFin);
             this.panelProyecto.Controls.Add(this.DTPFechaInicio);
             this.panelProyecto.Controls.Add(this.BtnEliminar);
@@ -85,18 +87,26 @@
             this.panelProyecto.Controls.Add(this.BtnGuardar);
             this.panelProyecto.Controls.Add(this.TxtEstado);
             this.panelProyecto.Controls.Add(this.TxtDescripcion);
-            this.panelProyecto.Controls.Add(this.TxtNombre);
-            this.panelProyecto.Controls.Add(this.TxtIdProyecto);
+            this.panelProyecto.Controls.Add(this.TxtCodigo);
             this.panelProyecto.Controls.Add(this.label7);
             this.panelProyecto.Controls.Add(this.label6);
             this.panelProyecto.Controls.Add(this.label5);
             this.panelProyecto.Controls.Add(this.label4);
-            this.panelProyecto.Controls.Add(this.label3);
             this.panelProyecto.Controls.Add(this.label2);
-            this.panelProyecto.Location = new System.Drawing.Point(22, 63);
+            this.panelProyecto.Location = new System.Drawing.Point(22, 78);
             this.panelProyecto.Name = "panelProyecto";
-            this.panelProyecto.Size = new System.Drawing.Size(935, 330);
+            this.panelProyecto.Size = new System.Drawing.Size(935, 341);
             this.panelProyecto.TabIndex = 18;
+            // 
+            // buttonLimpiar
+            // 
+            this.buttonLimpiar.Location = new System.Drawing.Point(840, 289);
+            this.buttonLimpiar.Name = "buttonLimpiar";
+            this.buttonLimpiar.Size = new System.Drawing.Size(75, 29);
+            this.buttonLimpiar.TabIndex = 19;
+            this.buttonLimpiar.Text = "Limpiar";
+            this.buttonLimpiar.UseVisualStyleBackColor = true;
+            this.buttonLimpiar.Click += new System.EventHandler(this.buttonLimpiar_Click);
             // 
             // DTPFechaFin
             // 
@@ -161,21 +171,13 @@
             this.TxtDescripcion.Size = new System.Drawing.Size(871, 26);
             this.TxtDescripcion.TabIndex = 9;
             // 
-            // TxtNombre
+            // TxtCodigo
             // 
-            this.TxtNombre.Location = new System.Drawing.Point(264, 42);
-            this.TxtNombre.Multiline = true;
-            this.TxtNombre.Name = "TxtNombre";
-            this.TxtNombre.Size = new System.Drawing.Size(653, 26);
-            this.TxtNombre.TabIndex = 8;
-            // 
-            // TxtIdProyecto
-            // 
-            this.TxtIdProyecto.Location = new System.Drawing.Point(46, 42);
-            this.TxtIdProyecto.Multiline = true;
-            this.TxtIdProyecto.Name = "TxtIdProyecto";
-            this.TxtIdProyecto.Size = new System.Drawing.Size(198, 26);
-            this.TxtIdProyecto.TabIndex = 7;
+            this.TxtCodigo.Location = new System.Drawing.Point(46, 42);
+            this.TxtCodigo.Multiline = true;
+            this.TxtCodigo.Name = "TxtCodigo";
+            this.TxtCodigo.Size = new System.Drawing.Size(198, 26);
+            this.TxtCodigo.TabIndex = 7;
             // 
             // label7
             // 
@@ -213,33 +215,25 @@
             this.label4.TabIndex = 2;
             this.label4.Text = "Descripción";
             // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(260, 19);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(65, 20);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Nombre";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(42, 18);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(27, 20);
+            this.label2.Size = new System.Drawing.Size(59, 20);
             this.label2.TabIndex = 0;
-            this.label2.Text = "Id ";
+            this.label2.Text = "Código";
             // 
             // FrmProyecto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(978, 684);
+            this.ClientSize = new System.Drawing.Size(987, 744);
             this.Controls.Add(this.DGVProyecto);
             this.Controls.Add(this.panelProyecto);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmProyecto";
             this.Text = "Formulario Proyecto";
             this.Load += new System.EventHandler(this.FrmProyecto_Load);
@@ -261,15 +255,14 @@
         private System.Windows.Forms.Button BtnGuardar;
         private System.Windows.Forms.TextBox TxtEstado;
         private System.Windows.Forms.TextBox TxtDescripcion;
-        private System.Windows.Forms.TextBox TxtNombre;
-        private System.Windows.Forms.TextBox TxtIdProyecto;
+        private System.Windows.Forms.TextBox TxtCodigo;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DateTimePicker DTPFechaFin;
         private System.Windows.Forms.DateTimePicker DTPFechaInicio;
+        private System.Windows.Forms.Button buttonLimpiar;
     }
 }

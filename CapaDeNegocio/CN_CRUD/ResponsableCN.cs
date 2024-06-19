@@ -49,21 +49,21 @@ namespace CapaDeNegocio.CN_CRUD
                 throw new ArgumentException("El campo Cargo no puede estar vacío o contener solo espacios en blanco");
         }
             // Método para validar antes de crear un nuevo registro de personal
-            private void ValidarAntesDeCrear(Responsable responsable)
+            public void ValidarAntesDeCrear(Responsable responsable)
             {
                 if (responsableCD.ExisteResponsable(responsable))
                     throw new InvalidOperationException("Ya existe un registro con el mismo Código.");
             }
 
             // Método para validar antes de editar un registro de personal
-            private void ValidarAntesDeEditar(Responsable responsable)
+            public void ValidarAntesDeEditar(Responsable responsable)
             {
                 if (responsableCD.ExisteOtroResponsable(responsable))
                     throw new InvalidOperationException("El código del Responsable ya está en uso por otro registro.");
             }
 
             // Método para validar antes de eliminar un registro de personal
-            private void ValidarAntesDeEliminar(int responsableId)
+            public void ValidarAntesDeEliminar(int responsableId)
             {
                 if (responsableCD.ResponsableConProyecto(responsableId))
                     throw new InvalidOperationException("El Responsable a eliminar está relacionado con proyecto.");
