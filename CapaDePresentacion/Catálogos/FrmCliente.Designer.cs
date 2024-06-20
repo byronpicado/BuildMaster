@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCliente));
             this.label1 = new System.Windows.Forms.Label();
             this.panelCliente = new System.Windows.Forms.Panel();
             this.BtnLimpiar = new System.Windows.Forms.Button();
@@ -50,6 +51,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.DGVCliente = new System.Windows.Forms.DataGridView();
+            this.iconButtonBuscar = new FontAwesome.Sharp.IconButton();
+            this.label9 = new System.Windows.Forms.Label();
+            this.BtnRefrescar = new System.Windows.Forms.Button();
+            this.TxtBuscar = new System.Windows.Forms.TextBox();
             this.panelCliente.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVCliente)).BeginInit();
             this.SuspendLayout();
@@ -58,7 +63,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(303, 9);
+            this.label1.Location = new System.Drawing.Point(21, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(391, 51);
             this.label1.TabIndex = 0;
@@ -86,7 +91,7 @@
             this.panelCliente.Controls.Add(this.label4);
             this.panelCliente.Controls.Add(this.label3);
             this.panelCliente.Controls.Add(this.label2);
-            this.panelCliente.Location = new System.Drawing.Point(21, 82);
+            this.panelCliente.Location = new System.Drawing.Point(21, 151);
             this.panelCliente.Name = "panelCliente";
             this.panelCliente.Size = new System.Drawing.Size(935, 255);
             this.panelCliente.TabIndex = 18;
@@ -258,16 +263,16 @@
             // 
             this.DGVCliente.AllowUserToAddRows = false;
             this.DGVCliente.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.DGVCliente.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.DGVCliente.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.DGVCliente.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVCliente.BackgroundColor = System.Drawing.SystemColors.MenuHighlight;
             this.DGVCliente.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.DGVCliente.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Raised;
             this.DGVCliente.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVCliente.GridColor = System.Drawing.SystemColors.MenuHighlight;
-            this.DGVCliente.Location = new System.Drawing.Point(21, 357);
+            this.DGVCliente.Location = new System.Drawing.Point(21, 426);
             this.DGVCliente.Name = "DGVCliente";
             this.DGVCliente.ReadOnly = true;
             this.DGVCliente.RowHeadersWidth = 51;
@@ -275,13 +280,64 @@
             this.DGVCliente.Size = new System.Drawing.Size(935, 431);
             this.DGVCliente.TabIndex = 16;
             // 
+            // iconButtonBuscar
+            // 
+            this.iconButtonBuscar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
+            this.iconButtonBuscar.ForeColor = System.Drawing.Color.Black;
+            this.iconButtonBuscar.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
+            this.iconButtonBuscar.IconColor = System.Drawing.Color.Black;
+            this.iconButtonBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonBuscar.IconSize = 29;
+            this.iconButtonBuscar.Location = new System.Drawing.Point(641, 82);
+            this.iconButtonBuscar.Name = "iconButtonBuscar";
+            this.iconButtonBuscar.Size = new System.Drawing.Size(146, 44);
+            this.iconButtonBuscar.TabIndex = 28;
+            this.iconButtonBuscar.Text = "Buscar";
+            this.iconButtonBuscar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButtonBuscar.UseVisualStyleBackColor = false;
+            this.iconButtonBuscar.Click += new System.EventHandler(this.iconButtonBuscar_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(647, 8);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(140, 20);
+            this.label9.TabIndex = 27;
+            this.label9.Text = "Buscar por Código";
+            // 
+            // BtnRefrescar
+            // 
+            this.BtnRefrescar.AutoSize = true;
+            this.BtnRefrescar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
+            this.BtnRefrescar.Image = ((System.Drawing.Image)(resources.GetObject("BtnRefrescar.Image")));
+            this.BtnRefrescar.Location = new System.Drawing.Point(831, 80);
+            this.BtnRefrescar.Name = "BtnRefrescar";
+            this.BtnRefrescar.Size = new System.Drawing.Size(125, 46);
+            this.BtnRefrescar.TabIndex = 26;
+            this.BtnRefrescar.Text = "Refrescar";
+            this.BtnRefrescar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnRefrescar.UseVisualStyleBackColor = false;
+            this.BtnRefrescar.Click += new System.EventHandler(this.BtnRefrescar_Click);
+            // 
+            // TxtBuscar
+            // 
+            this.TxtBuscar.Location = new System.Drawing.Point(641, 45);
+            this.TxtBuscar.Name = "TxtBuscar";
+            this.TxtBuscar.Size = new System.Drawing.Size(315, 26);
+            this.TxtBuscar.TabIndex = 25;
+            // 
             // FrmCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(978, 834);
+            this.ClientSize = new System.Drawing.Size(978, 873);
+            this.Controls.Add(this.iconButtonBuscar);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.BtnRefrescar);
+            this.Controls.Add(this.TxtBuscar);
             this.Controls.Add(this.DGVCliente);
             this.Controls.Add(this.panelCliente);
             this.Controls.Add(this.label1);
@@ -322,5 +378,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridView DGVCliente;
         private System.Windows.Forms.Button BtnLimpiar;
+        private FontAwesome.Sharp.IconButton iconButtonBuscar;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button BtnRefrescar;
+        private System.Windows.Forms.TextBox TxtBuscar;
     }
 }

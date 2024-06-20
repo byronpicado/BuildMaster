@@ -62,8 +62,6 @@ public class TareaCN
         if (tarea.descripcion.Length > 200)
             throw new ArgumentException("El campo Descripción no puede contener más de 200 caracteres");
 
-        if (tarea.fecha_inicio >= tarea.fecha_fin)
-            throw new ArgumentException("La fecha de inicio no puede ser mayor o igual a la fecha de fin");
     }
 
     public void ValidarAntesDeCrear(Tarea tarea)

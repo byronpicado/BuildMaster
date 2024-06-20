@@ -1,6 +1,9 @@
 ﻿using System;
 using System;
+using System.Data.SqlClient;
+using System.Data;
 using System.Windows.Forms;
+using CapaDeDatos;
 using CapaDeNegocio.CN_CRUD;
 using Entidades;
 
@@ -13,11 +16,14 @@ namespace CapaDePresentacion.Catálogos
         private Responsable responsable;
         private bool editar = false;
         private int responsableId;
+        private ConexionCD conexionCD;
+        private SqlDataReader LectorDatos;
 
         public FrmResponsable()
         {
             InitializeComponent();
             responsableCN = new ResponsableCN();
+            conexionCD = new ConexionCD();
         }
 
         private void FrmResponsable_Load(object sender, EventArgs e)
@@ -43,6 +49,7 @@ namespace CapaDePresentacion.Catálogos
         // Limpiar los controles de texto
         private void LimpiarDatos()
         {
+            TxtBuscar.Clear();
             TxtCodigo.Clear();
             TxtNombre1.Clear();
             TxtNombre2.Clear();
@@ -218,14 +225,56 @@ namespace CapaDePresentacion.Catálogos
 
         private void BtnLimpiar_Click_1(object sender, EventArgs e)
         {
-            if (DGVResponsable.SelectedRows.Count > 0)
+            llenar_grid();
+            LimpiarDatos();
+        }
+
+        private void iconButtonBuscar_Click(object sender, EventArgs e)
+        {
+            try
             {
-                DGVResponsable.ClearSelection();
+                // Abrir la conexión a la base de datos
+                SqlConnection conexion = conexionCD.AbrirConexion();
+
+                // Construir la consulta SQL con parámetros
+                string consulta = "SELECT * FROM Responsable WHERE codigo = @codigo";
+
+                // Crear y configurar el comando SQL
+                SqlCommand comando = new SqlCommand(consulta, conexion);
+                comando.Parameters.AddWithValue("@codigo", TxtBuscar.Text);
+
+                // Crear el adaptador y llenar el DataTable
+                SqlDataAdapter adaptador = new SqlDataAdapter(comando);
+                DataTable dt = new DataTable();
+                adaptador.Fill(dt);
+
+                // Asignar el DataTable al DataGridView
+                DGVResponsable.DataSource = dt;
+
+                // Cerrar la conexión
+                conexionCD.CerrarConexion();
             }
-            else
+            catch (Exception ex)
             {
-                LimpiarDatos();
+     
+                MessageBox.Show("Ocurrió un error al buscar los dato del Responsable." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void BtnRefrescar_Click(object sender, EventArgs e)
+        {
+            llenar_grid();
+            LimpiarDatos();
+        }
+        private void llenar_grid()
+        {
+            // Abrir la conexión a la base de datos
+            SqlConnection conexion = conexionCD.AbrirConexion();
+            string consulta = "SELECT * FROM Responsable";
+            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion);
+            DataTable dt = new DataTable();
+            adaptador.Fill(dt);
+            DGVResponsable.DataSource = dt;
         }
     }
 }

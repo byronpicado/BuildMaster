@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProyecto));
             this.label1 = new System.Windows.Forms.Label();
             this.DGVProyecto = new System.Windows.Forms.DataGridView();
             this.panelProyecto = new System.Windows.Forms.Panel();
@@ -45,6 +46,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.iconButtonBuscar = new FontAwesome.Sharp.IconButton();
+            this.label3 = new System.Windows.Forms.Label();
+            this.BtnRefrescar = new System.Windows.Forms.Button();
+            this.TxtBuscar = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVProyecto)).BeginInit();
             this.panelProyecto.SuspendLayout();
             this.SuspendLayout();
@@ -53,7 +58,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(295, 9);
+            this.label1.Location = new System.Drawing.Point(23, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(423, 51);
             this.label1.TabIndex = 0;
@@ -66,12 +71,12 @@
             this.DGVProyecto.BackgroundColor = System.Drawing.SystemColors.MenuHighlight;
             this.DGVProyecto.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVProyecto.GridColor = System.Drawing.SystemColors.MenuHighlight;
-            this.DGVProyecto.Location = new System.Drawing.Point(22, 437);
+            this.DGVProyecto.Location = new System.Drawing.Point(22, 584);
             this.DGVProyecto.Name = "DGVProyecto";
             this.DGVProyecto.ReadOnly = true;
             this.DGVProyecto.RowHeadersWidth = 62;
             this.DGVProyecto.RowTemplate.Height = 28;
-            this.DGVProyecto.Size = new System.Drawing.Size(935, 295);
+            this.DGVProyecto.Size = new System.Drawing.Size(935, 344);
             this.DGVProyecto.TabIndex = 19;
             this.DGVProyecto.Tag = "";
             // 
@@ -93,16 +98,17 @@
             this.panelProyecto.Controls.Add(this.label5);
             this.panelProyecto.Controls.Add(this.label4);
             this.panelProyecto.Controls.Add(this.label2);
-            this.panelProyecto.Location = new System.Drawing.Point(22, 78);
+            this.panelProyecto.Location = new System.Drawing.Point(22, 179);
             this.panelProyecto.Name = "panelProyecto";
-            this.panelProyecto.Size = new System.Drawing.Size(935, 341);
+            this.panelProyecto.Size = new System.Drawing.Size(935, 380);
             this.panelProyecto.TabIndex = 18;
+            this.panelProyecto.Paint += new System.Windows.Forms.PaintEventHandler(this.panelProyecto_Paint);
             // 
             // buttonLimpiar
             // 
-            this.buttonLimpiar.Location = new System.Drawing.Point(840, 289);
+            this.buttonLimpiar.Location = new System.Drawing.Point(784, 310);
             this.buttonLimpiar.Name = "buttonLimpiar";
-            this.buttonLimpiar.Size = new System.Drawing.Size(75, 29);
+            this.buttonLimpiar.Size = new System.Drawing.Size(106, 49);
             this.buttonLimpiar.TabIndex = 19;
             this.buttonLimpiar.Text = "Limpiar";
             this.buttonLimpiar.UseVisualStyleBackColor = true;
@@ -125,9 +131,9 @@
             // BtnEliminar
             // 
             this.BtnEliminar.BackColor = System.Drawing.Color.Red;
-            this.BtnEliminar.Location = new System.Drawing.Point(692, 295);
+            this.BtnEliminar.Location = new System.Drawing.Point(577, 316);
             this.BtnEliminar.Name = "BtnEliminar";
-            this.BtnEliminar.Size = new System.Drawing.Size(85, 30);
+            this.BtnEliminar.Size = new System.Drawing.Size(129, 43);
             this.BtnEliminar.TabIndex = 16;
             this.BtnEliminar.Text = "Eliminar";
             this.BtnEliminar.UseVisualStyleBackColor = false;
@@ -136,9 +142,9 @@
             // BtnEditar
             // 
             this.BtnEditar.BackColor = System.Drawing.Color.DarkOrange;
-            this.BtnEditar.Location = new System.Drawing.Point(397, 295);
+            this.BtnEditar.Location = new System.Drawing.Point(306, 316);
             this.BtnEditar.Name = "BtnEditar";
-            this.BtnEditar.Size = new System.Drawing.Size(75, 30);
+            this.BtnEditar.Size = new System.Drawing.Size(169, 41);
             this.BtnEditar.TabIndex = 15;
             this.BtnEditar.Text = "Editar";
             this.BtnEditar.UseVisualStyleBackColor = false;
@@ -148,9 +154,9 @@
             // 
             this.BtnGuardar.AutoSize = true;
             this.BtnGuardar.BackColor = System.Drawing.Color.Lime;
-            this.BtnGuardar.Location = new System.Drawing.Point(72, 295);
+            this.BtnGuardar.Location = new System.Drawing.Point(47, 316);
             this.BtnGuardar.Name = "BtnGuardar";
-            this.BtnGuardar.Size = new System.Drawing.Size(85, 30);
+            this.BtnGuardar.Size = new System.Drawing.Size(152, 45);
             this.BtnGuardar.TabIndex = 14;
             this.BtnGuardar.Text = "Guardar";
             this.BtnGuardar.UseVisualStyleBackColor = false;
@@ -224,17 +230,69 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "Código";
             // 
+            // iconButtonBuscar
+            // 
+            this.iconButtonBuscar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
+            this.iconButtonBuscar.ForeColor = System.Drawing.Color.Black;
+            this.iconButtonBuscar.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
+            this.iconButtonBuscar.IconColor = System.Drawing.Color.Black;
+            this.iconButtonBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonBuscar.IconSize = 29;
+            this.iconButtonBuscar.Location = new System.Drawing.Point(642, 91);
+            this.iconButtonBuscar.Name = "iconButtonBuscar";
+            this.iconButtonBuscar.Size = new System.Drawing.Size(146, 44);
+            this.iconButtonBuscar.TabIndex = 28;
+            this.iconButtonBuscar.Text = "Buscar";
+            this.iconButtonBuscar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButtonBuscar.UseVisualStyleBackColor = false;
+            this.iconButtonBuscar.Click += new System.EventHandler(this.iconButtonBuscar_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(648, 17);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(140, 20);
+            this.label3.TabIndex = 27;
+            this.label3.Text = "Buscar por Código";
+            // 
+            // BtnRefrescar
+            // 
+            this.BtnRefrescar.AutoSize = true;
+            this.BtnRefrescar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
+            this.BtnRefrescar.Image = ((System.Drawing.Image)(resources.GetObject("BtnRefrescar.Image")));
+            this.BtnRefrescar.Location = new System.Drawing.Point(832, 89);
+            this.BtnRefrescar.Name = "BtnRefrescar";
+            this.BtnRefrescar.Size = new System.Drawing.Size(125, 46);
+            this.BtnRefrescar.TabIndex = 26;
+            this.BtnRefrescar.Text = "Refrescar";
+            this.BtnRefrescar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnRefrescar.UseVisualStyleBackColor = false;
+            this.BtnRefrescar.Click += new System.EventHandler(this.BtnRefrescar_Click);
+            // 
+            // TxtBuscar
+            // 
+            this.TxtBuscar.Location = new System.Drawing.Point(642, 54);
+            this.TxtBuscar.Name = "TxtBuscar";
+            this.TxtBuscar.Size = new System.Drawing.Size(315, 26);
+            this.TxtBuscar.TabIndex = 25;
+            // 
             // FrmProyecto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(987, 744);
+            this.ClientSize = new System.Drawing.Size(987, 940);
+            this.Controls.Add(this.iconButtonBuscar);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.BtnRefrescar);
+            this.Controls.Add(this.TxtBuscar);
             this.Controls.Add(this.DGVProyecto);
             this.Controls.Add(this.panelProyecto);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "FrmProyecto";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Formulario Proyecto";
             this.Load += new System.EventHandler(this.FrmProyecto_Load);
             ((System.ComponentModel.ISupportInitialize)(this.DGVProyecto)).EndInit();
@@ -264,5 +322,9 @@
         private System.Windows.Forms.DateTimePicker DTPFechaFin;
         private System.Windows.Forms.DateTimePicker DTPFechaInicio;
         private System.Windows.Forms.Button buttonLimpiar;
+        private FontAwesome.Sharp.IconButton iconButtonBuscar;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button BtnRefrescar;
+        private System.Windows.Forms.TextBox TxtBuscar;
     }
 }

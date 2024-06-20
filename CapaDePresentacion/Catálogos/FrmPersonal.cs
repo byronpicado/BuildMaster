@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Data;
+using System.Data.SqlClient;
 using Entidades; // Ensure you include the Entidades namespace
 using CapaDeNegocio.CN_CRUD;
+using CapaDeDatos;
 using System.Diagnostics.Eventing.Reader; // Ensure you include the business layer namespace
 
 namespace CapaDePresentacion.Catálogos
@@ -13,11 +16,14 @@ namespace CapaDePresentacion.Catálogos
         private Personal personal;
         private bool editar = false;
         private int personalid;
+        private ConexionCD conexionCD;
+        private SqlDataReader LectorDatos;
 
         public FrmPersonal()
         {
             InitializeComponent();
             personalCN = new PersonalCN();
+            conexionCD = new ConexionCD();
         }
 
         private void FrmPersonal_Load(object sender, EventArgs e)
@@ -175,14 +181,67 @@ namespace CapaDePresentacion.Catálogos
 
         private void BtnLimpiar_Click(object sender, EventArgs e)
         {
-            if (DGVPersonal.SelectedRows.Count > 0)
-            {
-                DGVPersonal.ClearSelection();
-            }
-            else
-            {
+            llenar_grid();
                 LimpiarDatos();
+            
+        }
+
+        private void iconButtonBuscar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Abrir la conexión a la base de datos
+                SqlConnection conexion = conexionCD.AbrirConexion();
+
+                // Construir la consulta SQL con parámetros
+                string consulta = "SELECT * FROM Personal WHERE codigo = @codigo";
+
+                // Crear y configurar el comando SQL
+                SqlCommand comando = new SqlCommand(consulta, conexion);
+                comando.Parameters.AddWithValue("@codigo", TxtBuscar.Text);
+
+                // Crear el adaptador y llenar el DataTable
+                SqlDataAdapter adaptador = new SqlDataAdapter(comando);
+                DataTable dt = new DataTable();
+                adaptador.Fill(dt);
+
+                // Asignar el DataTable al DataGridView
+                DGVPersonal.DataSource = dt;
+
+                // Cerrar la conexión
+                conexionCD.CerrarConexion();
             }
+            catch (Exception ex)
+            {
+              
+                MessageBox.Show("Ocurrió un error al buscar los datos del personal." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BtnRefrescar_Click(object sender, EventArgs e)
+        {
+            llenar_grid();
+            LimpiarDatos();
+        }
+
+        private void TxtBuscar_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+        private void llenar_grid()
+        {
+            // Abrir la conexión a la base de datos
+            SqlConnection conexion = conexionCD.AbrirConexion();
+            string consulta = "SELECT * FROM Personal";
+            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion);
+            DataTable dt = new DataTable();
+            adaptador.Fill(dt);
+            DGVPersonal.DataSource = dt;
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿
+using CapaDeDatos;
 using CapaDeNegocio.CN_CRUD;
 using Entidades;
 using Entidades.Entidades;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -21,10 +23,13 @@ namespace CapaDePresentacion.Catálogos
         private Habilidad habilidad;
         private bool editar = false;
         private int habilidadid;
+        private ConexionCD conexionCD;
+        private SqlDataReader LectorDatos;
         public FrmHabilidad()
         {
             InitializeComponent();
             habilidadCN = new HabilidadCN();
+            conexionCD = new ConexionCD();
         }
 
 
@@ -53,6 +58,7 @@ namespace CapaDePresentacion.Catálogos
         //Limpiar los controles de texto
         private void LimpiarDatos()
         {
+            TxtBuscar.Clear();
             TxtCodigo.Clear();
             TxtDescripcion.Clear();
             TxtCodigo.Focus();
@@ -169,6 +175,7 @@ namespace CapaDePresentacion.Catálogos
 
         private void BtnLimpiar_Click(object sender, EventArgs e)
         {
+            llenar_grid();
             LimpiarDatos();
         }
         private bool ValidarInputs()
@@ -189,6 +196,54 @@ namespace CapaDePresentacion.Catálogos
         {
             // Log the exception (e.g., write to a log file or database)
             Console.WriteLine(ex.ToString());
+        }
+
+        private void iconButtonBuscar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Abrir la conexión a la base de datos
+                SqlConnection conexion = conexionCD.AbrirConexion();
+
+                // Construir la consulta SQL con parámetros
+                string consulta = "SELECT * FROM Habilidad WHERE codigo = @codigo";
+
+                // Crear y configurar el comando SQL
+                SqlCommand comando = new SqlCommand(consulta, conexion);
+                comando.Parameters.AddWithValue("@codigo", TxtBuscar.Text);
+
+                // Crear el adaptador y llenar el DataTable
+                SqlDataAdapter adaptador = new SqlDataAdapter(comando);
+                DataTable dt = new DataTable();
+                adaptador.Fill(dt);
+
+                // Asignar el DataTable al DataGridView
+                DGVHabilidad.DataSource = dt;
+
+                // Cerrar la conexión
+                conexionCD.CerrarConexion();
+            }
+            catch (Exception ex)
+            {
+                LogError(ex);
+                MessageBox.Show("Ocurrió un error al buscar los datos de la habilidad." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnRefrescar_Click(object sender, EventArgs e)
+        {
+            llenar_grid();
+            LimpiarDatos();
+        }
+        private void llenar_grid()
+        {
+            // Abrir la conexión a la base de datos
+            SqlConnection conexion = conexionCD.AbrirConexion();
+            string consulta = "SELECT * FROM Habilidad";
+            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion);
+            DataTable dt = new DataTable();
+            adaptador.Fill(dt);
+            DGVHabilidad.DataSource = dt;
         }
     }
 }

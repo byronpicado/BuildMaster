@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmResponsable));
             this.label1 = new System.Windows.Forms.Label();
             this.panelResponsable = new System.Windows.Forms.Panel();
             this.BtnLimpiar = new System.Windows.Forms.Button();
@@ -47,6 +48,10 @@
             this.label3 = new System.Windows.Forms.Label();
             this.Cédula = new System.Windows.Forms.Label();
             this.DGVResponsable = new System.Windows.Forms.DataGridView();
+            this.iconButtonBuscar = new FontAwesome.Sharp.IconButton();
+            this.label9 = new System.Windows.Forms.Label();
+            this.BtnRefrescar = new System.Windows.Forms.Button();
+            this.TxtBuscar = new System.Windows.Forms.TextBox();
             this.panelResponsable.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVResponsable)).BeginInit();
             this.SuspendLayout();
@@ -55,7 +60,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(329, 9);
+            this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(490, 51);
             this.label1.TabIndex = 0;
@@ -81,16 +86,16 @@
             this.panelResponsable.Controls.Add(this.label4);
             this.panelResponsable.Controls.Add(this.label3);
             this.panelResponsable.Controls.Add(this.Cédula);
-            this.panelResponsable.Location = new System.Drawing.Point(22, 82);
+            this.panelResponsable.Location = new System.Drawing.Point(22, 170);
             this.panelResponsable.Name = "panelResponsable";
-            this.panelResponsable.Size = new System.Drawing.Size(935, 255);
+            this.panelResponsable.Size = new System.Drawing.Size(935, 281);
             this.panelResponsable.TabIndex = 18;
             // 
             // BtnLimpiar
             // 
             this.BtnLimpiar.Location = new System.Drawing.Point(811, 207);
             this.BtnLimpiar.Name = "BtnLimpiar";
-            this.BtnLimpiar.Size = new System.Drawing.Size(75, 29);
+            this.BtnLimpiar.Size = new System.Drawing.Size(106, 54);
             this.BtnLimpiar.TabIndex = 17;
             this.BtnLimpiar.Text = "Limpiar";
             this.BtnLimpiar.UseVisualStyleBackColor = true;
@@ -101,7 +106,7 @@
             this.BtnEliminar.BackColor = System.Drawing.Color.Red;
             this.BtnEliminar.Location = new System.Drawing.Point(534, 207);
             this.BtnEliminar.Name = "BtnEliminar";
-            this.BtnEliminar.Size = new System.Drawing.Size(85, 30);
+            this.BtnEliminar.Size = new System.Drawing.Size(126, 54);
             this.BtnEliminar.TabIndex = 16;
             this.BtnEliminar.Text = "Eliminar";
             this.BtnEliminar.UseVisualStyleBackColor = false;
@@ -112,7 +117,7 @@
             this.BtnEditar.BackColor = System.Drawing.Color.DarkOrange;
             this.BtnEditar.Location = new System.Drawing.Point(298, 207);
             this.BtnEditar.Name = "BtnEditar";
-            this.BtnEditar.Size = new System.Drawing.Size(75, 30);
+            this.BtnEditar.Size = new System.Drawing.Size(118, 54);
             this.BtnEditar.TabIndex = 15;
             this.BtnEditar.Text = "Editar";
             this.BtnEditar.UseVisualStyleBackColor = false;
@@ -124,7 +129,7 @@
             this.BtnGuardar.BackColor = System.Drawing.Color.Lime;
             this.BtnGuardar.Location = new System.Drawing.Point(46, 207);
             this.BtnGuardar.Name = "BtnGuardar";
-            this.BtnGuardar.Size = new System.Drawing.Size(85, 30);
+            this.BtnGuardar.Size = new System.Drawing.Size(124, 54);
             this.BtnGuardar.TabIndex = 14;
             this.BtnGuardar.Text = "Guardar";
             this.BtnGuardar.UseVisualStyleBackColor = false;
@@ -234,21 +239,72 @@
             this.DGVResponsable.BackgroundColor = System.Drawing.SystemColors.MenuHighlight;
             this.DGVResponsable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVResponsable.GridColor = System.Drawing.SystemColors.MenuHighlight;
-            this.DGVResponsable.Location = new System.Drawing.Point(22, 362);
+            this.DGVResponsable.Location = new System.Drawing.Point(22, 483);
             this.DGVResponsable.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.DGVResponsable.Name = "DGVResponsable";
             this.DGVResponsable.ReadOnly = true;
             this.DGVResponsable.RowHeadersWidth = 51;
             this.DGVResponsable.RowTemplate.Height = 24;
-            this.DGVResponsable.Size = new System.Drawing.Size(935, 261);
+            this.DGVResponsable.Size = new System.Drawing.Size(935, 353);
             this.DGVResponsable.TabIndex = 17;
+            // 
+            // iconButtonBuscar
+            // 
+            this.iconButtonBuscar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
+            this.iconButtonBuscar.ForeColor = System.Drawing.Color.Black;
+            this.iconButtonBuscar.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
+            this.iconButtonBuscar.IconColor = System.Drawing.Color.Black;
+            this.iconButtonBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonBuscar.IconSize = 29;
+            this.iconButtonBuscar.Location = new System.Drawing.Point(642, 100);
+            this.iconButtonBuscar.Name = "iconButtonBuscar";
+            this.iconButtonBuscar.Size = new System.Drawing.Size(146, 44);
+            this.iconButtonBuscar.TabIndex = 36;
+            this.iconButtonBuscar.Text = "Buscar";
+            this.iconButtonBuscar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButtonBuscar.UseVisualStyleBackColor = false;
+            this.iconButtonBuscar.Click += new System.EventHandler(this.iconButtonBuscar_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(648, 26);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(140, 20);
+            this.label9.TabIndex = 35;
+            this.label9.Text = "Buscar por Código";
+            // 
+            // BtnRefrescar
+            // 
+            this.BtnRefrescar.AutoSize = true;
+            this.BtnRefrescar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
+            this.BtnRefrescar.Image = ((System.Drawing.Image)(resources.GetObject("BtnRefrescar.Image")));
+            this.BtnRefrescar.Location = new System.Drawing.Point(832, 98);
+            this.BtnRefrescar.Name = "BtnRefrescar";
+            this.BtnRefrescar.Size = new System.Drawing.Size(125, 46);
+            this.BtnRefrescar.TabIndex = 34;
+            this.BtnRefrescar.Text = "Refrescar";
+            this.BtnRefrescar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnRefrescar.UseVisualStyleBackColor = false;
+            this.BtnRefrescar.Click += new System.EventHandler(this.BtnRefrescar_Click);
+            // 
+            // TxtBuscar
+            // 
+            this.TxtBuscar.Location = new System.Drawing.Point(642, 63);
+            this.TxtBuscar.Name = "TxtBuscar";
+            this.TxtBuscar.Size = new System.Drawing.Size(315, 26);
+            this.TxtBuscar.TabIndex = 33;
             // 
             // FrmResponsable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(978, 684);
+            this.ClientSize = new System.Drawing.Size(978, 869);
+            this.Controls.Add(this.iconButtonBuscar);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.BtnRefrescar);
+            this.Controls.Add(this.TxtBuscar);
             this.Controls.Add(this.DGVResponsable);
             this.Controls.Add(this.panelResponsable);
             this.Controls.Add(this.label1);
@@ -286,5 +342,9 @@
         private System.Windows.Forms.Label Cédula;
         private System.Windows.Forms.DataGridView DGVResponsable;
         private System.Windows.Forms.Button BtnLimpiar;
+        private FontAwesome.Sharp.IconButton iconButtonBuscar;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button BtnRefrescar;
+        private System.Windows.Forms.TextBox TxtBuscar;
     }
 }

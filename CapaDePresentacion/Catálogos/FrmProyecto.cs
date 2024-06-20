@@ -1,7 +1,9 @@
-﻿using CapaDeNegocio.CN_CRUD;
+﻿using CapaDeDatos;
+using CapaDeNegocio.CN_CRUD;
 using Entidades;
 using System;
 using System.Data;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace CapaDePresentacion.Catálogos
@@ -13,11 +15,14 @@ namespace CapaDePresentacion.Catálogos
         private Proyecto proyecto;
         private bool editar = false;
         private int proyectoid;
+        private ConexionCD conexionCD;
+        private SqlDataReader LectorDatos;
 
         public FrmProyecto()
         {
             InitializeComponent();
             proyectoCN = new ProyectoCN();
+            conexionCD = new ConexionCD();
         }
 
         private void FrmProyecto_Load(object sender, EventArgs e)
@@ -45,6 +50,7 @@ namespace CapaDePresentacion.Catálogos
         // Limpiar los controles de texto
         private void LimpiarDatos()
         {
+            TxtBuscar.Clear();  
             TxtCodigo.Clear();
             
             TxtDescripcion.Clear();
@@ -161,6 +167,7 @@ namespace CapaDePresentacion.Catálogos
 
         private void buttonLimpiar_Click(object sender, EventArgs e)
         {
+            llenar_grid();
             LimpiarDatos();
         }
 
@@ -181,6 +188,59 @@ namespace CapaDePresentacion.Catálogos
             }
 
             return true;
+        }
+
+        private void iconButtonBuscar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Abrir la conexión a la base de datos
+                SqlConnection conexion = conexionCD.AbrirConexion();
+
+                // Construir la consulta SQL con parámetros
+                string consulta = "SELECT * FROM Proyecto WHERE codigo = @codigo";
+
+                // Crear y configurar el comando SQL
+                SqlCommand comando = new SqlCommand(consulta, conexion);
+                comando.Parameters.AddWithValue("@codigo", TxtBuscar.Text);
+
+                // Crear el adaptador y llenar el DataTable
+                SqlDataAdapter adaptador = new SqlDataAdapter(comando);
+                DataTable dt = new DataTable();
+                adaptador.Fill(dt);
+
+                // Asignar el DataTable al DataGridView
+                DGVProyecto.DataSource = dt;
+
+                // Cerrar la conexión
+                conexionCD.CerrarConexion();
+            }
+            catch (Exception ex)
+            {
+                
+                MessageBox.Show("Ocurrió un error al buscar los datos del equipo." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnRefrescar_Click(object sender, EventArgs e)
+        {
+            llenar_grid();
+            LimpiarDatos();
+        }
+        private void llenar_grid()
+        {
+            // Abrir la conexión a la base de datos
+            SqlConnection conexion = conexionCD.AbrirConexion();
+            string consulta = "SELECT * FROM Proyecto";
+            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion);
+            DataTable dt = new DataTable();
+            adaptador.Fill(dt);
+            DGVProyecto.DataSource = dt;
+        }
+
+        private void panelProyecto_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

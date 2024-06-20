@@ -1,4 +1,5 @@
 ﻿
+using CapaDeDatos;
 using CapaDeNegocio.CN_CRUD;
 using Entidades;
 using Entidades.Entidades;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Linq.Expressions;
@@ -22,10 +24,13 @@ namespace CapaDePresentacion.Catálogos
         private Mantenimiento mantenimiento;
         private bool editar = false;
         private int mantenimientoid;
+        private ConexionCD conexionCD;
+        private SqlDataReader LectorDatos;
         public FrmMantenimiento()
         {
             InitializeComponent();
             mantenimientoCN = new MantenimientoCN();
+            conexionCD = new ConexionCD();
         }
 
         private void FrmMantenimiento_Load(object sender, EventArgs e)
@@ -50,6 +55,7 @@ namespace CapaDePresentacion.Catálogos
         //Limpiar los controles de texto
         private void LimpiarDatos()
         {
+            TxtBuscar.Clear();
             TxtCodigo.Clear();
             TxtDescripcion.Clear();
             DTPFechaMantenimiento.Value = DateTime.Now;
@@ -163,14 +169,9 @@ namespace CapaDePresentacion.Catálogos
 
         private void BtnLimpiar_Click(object sender, EventArgs e)
         {
-            if (DGVMantenimiento.SelectedRows.Count > 0)
-            {
-                DGVMantenimiento.ClearSelection();
-            }
-            else
-            {
+            llenar_grid();
                 LimpiarDatos();
-            }
+            
         }
         private bool ValidarInputs()
         {
@@ -187,6 +188,54 @@ namespace CapaDePresentacion.Catálogos
         private void LogError(Exception ex)
         {
             Console.WriteLine(ex.ToString());
+        }
+
+        private void iconButtonBuscar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Abrir la conexión a la base de datos
+                SqlConnection conexion = conexionCD.AbrirConexion();
+
+                // Construir la consulta SQL con parámetros
+                string consulta = "SELECT * FROM Mantenimiento WHERE codigo = @codigo";
+
+                // Crear y configurar el comando SQL
+                SqlCommand comando = new SqlCommand(consulta, conexion);
+                comando.Parameters.AddWithValue("@codigo", TxtBuscar.Text);
+
+                // Crear el adaptador y llenar el DataTable
+                SqlDataAdapter adaptador = new SqlDataAdapter(comando);
+                DataTable dt = new DataTable();
+                adaptador.Fill(dt);
+
+                // Asignar el DataTable al DataGridView
+                DGVMantenimiento.DataSource = dt;
+
+                // Cerrar la conexión
+                conexionCD.CerrarConexion();
+            }
+            catch (Exception ex)
+            {
+                LogError(ex);
+                MessageBox.Show("Ocurrió un error al buscar los datos del mantenimiento." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void BtnRefrescar_Click(object sender, EventArgs e)
+        {
+            llenar_grid();
+            LimpiarDatos();
+        }
+        private void llenar_grid()
+        {
+            // Abrir la conexión a la base de datos
+            SqlConnection conexion = conexionCD.AbrirConexion();
+            string consulta = "SELECT * FROM Mantenimiento";
+            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion);
+            DataTable dt = new DataTable();
+            adaptador.Fill(dt);
+            DGVMantenimiento.DataSource = dt;
         }
     }
 }

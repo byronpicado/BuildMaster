@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMantenimiento));
             this.label1 = new System.Windows.Forms.Label();
             this.DGVMantenimiento = new System.Windows.Forms.DataGridView();
             this.panelHabilidad = new System.Windows.Forms.Panel();
@@ -41,6 +42,10 @@
             this.TxtDescripcion = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.iconButtonBuscar = new FontAwesome.Sharp.IconButton();
+            this.label9 = new System.Windows.Forms.Label();
+            this.BtnRefrescar = new System.Windows.Forms.Button();
+            this.TxtBuscar = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVMantenimiento)).BeginInit();
             this.panelHabilidad.SuspendLayout();
             this.SuspendLayout();
@@ -49,7 +54,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Times New Roman", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(250, 9);
+            this.label1.Location = new System.Drawing.Point(13, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(542, 51);
             this.label1.TabIndex = 1;
@@ -62,7 +67,7 @@
             this.DGVMantenimiento.BackgroundColor = System.Drawing.SystemColors.MenuHighlight;
             this.DGVMantenimiento.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVMantenimiento.GridColor = System.Drawing.SystemColors.MenuHighlight;
-            this.DGVMantenimiento.Location = new System.Drawing.Point(22, 354);
+            this.DGVMantenimiento.Location = new System.Drawing.Point(22, 509);
             this.DGVMantenimiento.Name = "DGVMantenimiento";
             this.DGVMantenimiento.ReadOnly = true;
             this.DGVMantenimiento.RowHeadersWidth = 62;
@@ -85,16 +90,16 @@
             this.panelHabilidad.Controls.Add(this.TxtDescripcion);
             this.panelHabilidad.Controls.Add(this.label3);
             this.panelHabilidad.Controls.Add(this.label2);
-            this.panelHabilidad.Location = new System.Drawing.Point(22, 82);
+            this.panelHabilidad.Location = new System.Drawing.Point(22, 205);
             this.panelHabilidad.Name = "panelHabilidad";
             this.panelHabilidad.Size = new System.Drawing.Size(935, 255);
             this.panelHabilidad.TabIndex = 20;
             // 
             // BtnLimpiar
             // 
-            this.BtnLimpiar.Location = new System.Drawing.Point(780, 164);
+            this.BtnLimpiar.Location = new System.Drawing.Point(751, 164);
             this.BtnLimpiar.Name = "BtnLimpiar";
-            this.BtnLimpiar.Size = new System.Drawing.Size(75, 33);
+            this.BtnLimpiar.Size = new System.Drawing.Size(104, 42);
             this.BtnLimpiar.TabIndex = 20;
             this.BtnLimpiar.Text = "Limpiar";
             this.BtnLimpiar.UseVisualStyleBackColor = true;
@@ -126,9 +131,9 @@
             // BtnEliminar
             // 
             this.BtnEliminar.BackColor = System.Drawing.Color.Red;
-            this.BtnEliminar.Location = new System.Drawing.Point(554, 160);
+            this.BtnEliminar.Location = new System.Drawing.Point(517, 160);
             this.BtnEliminar.Name = "BtnEliminar";
-            this.BtnEliminar.Size = new System.Drawing.Size(85, 30);
+            this.BtnEliminar.Size = new System.Drawing.Size(122, 46);
             this.BtnEliminar.TabIndex = 16;
             this.BtnEliminar.Text = "Eliminar";
             this.BtnEliminar.UseVisualStyleBackColor = false;
@@ -137,9 +142,9 @@
             // BtnEditar
             // 
             this.BtnEditar.BackColor = System.Drawing.Color.DarkOrange;
-            this.BtnEditar.Location = new System.Drawing.Point(312, 161);
+            this.BtnEditar.Location = new System.Drawing.Point(287, 161);
             this.BtnEditar.Name = "BtnEditar";
-            this.BtnEditar.Size = new System.Drawing.Size(75, 30);
+            this.BtnEditar.Size = new System.Drawing.Size(100, 45);
             this.BtnEditar.TabIndex = 15;
             this.BtnEditar.Text = "Editar";
             this.BtnEditar.UseVisualStyleBackColor = false;
@@ -151,7 +156,7 @@
             this.BtnGuardar.BackColor = System.Drawing.Color.Lime;
             this.BtnGuardar.Location = new System.Drawing.Point(82, 161);
             this.BtnGuardar.Name = "BtnGuardar";
-            this.BtnGuardar.Size = new System.Drawing.Size(85, 30);
+            this.BtnGuardar.Size = new System.Drawing.Size(120, 45);
             this.BtnGuardar.TabIndex = 14;
             this.BtnGuardar.Text = "Guardar";
             this.BtnGuardar.UseVisualStyleBackColor = false;
@@ -182,12 +187,63 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "*Código";
             // 
+            // iconButtonBuscar
+            // 
+            this.iconButtonBuscar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
+            this.iconButtonBuscar.ForeColor = System.Drawing.Color.Black;
+            this.iconButtonBuscar.IconChar = FontAwesome.Sharp.IconChar.MagnifyingGlass;
+            this.iconButtonBuscar.IconColor = System.Drawing.Color.Black;
+            this.iconButtonBuscar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.iconButtonBuscar.IconSize = 29;
+            this.iconButtonBuscar.Location = new System.Drawing.Point(642, 104);
+            this.iconButtonBuscar.Name = "iconButtonBuscar";
+            this.iconButtonBuscar.Size = new System.Drawing.Size(146, 44);
+            this.iconButtonBuscar.TabIndex = 40;
+            this.iconButtonBuscar.Text = "Buscar";
+            this.iconButtonBuscar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButtonBuscar.UseVisualStyleBackColor = false;
+            this.iconButtonBuscar.Click += new System.EventHandler(this.iconButtonBuscar_Click);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(648, 30);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(140, 20);
+            this.label9.TabIndex = 39;
+            this.label9.Text = "Buscar por Código";
+            // 
+            // BtnRefrescar
+            // 
+            this.BtnRefrescar.AutoSize = true;
+            this.BtnRefrescar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
+            this.BtnRefrescar.Image = ((System.Drawing.Image)(resources.GetObject("BtnRefrescar.Image")));
+            this.BtnRefrescar.Location = new System.Drawing.Point(832, 102);
+            this.BtnRefrescar.Name = "BtnRefrescar";
+            this.BtnRefrescar.Size = new System.Drawing.Size(125, 46);
+            this.BtnRefrescar.TabIndex = 38;
+            this.BtnRefrescar.Text = "Refrescar";
+            this.BtnRefrescar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.BtnRefrescar.UseVisualStyleBackColor = false;
+            this.BtnRefrescar.Click += new System.EventHandler(this.BtnRefrescar_Click);
+            // 
+            // TxtBuscar
+            // 
+            this.TxtBuscar.Location = new System.Drawing.Point(642, 67);
+            this.TxtBuscar.Name = "TxtBuscar";
+            this.TxtBuscar.Size = new System.Drawing.Size(315, 26);
+            this.TxtBuscar.TabIndex = 37;
+            // 
             // FrmMantenimiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(978, 684);
+            this.ClientSize = new System.Drawing.Size(978, 870);
+            this.Controls.Add(this.iconButtonBuscar);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.BtnRefrescar);
+            this.Controls.Add(this.TxtBuscar);
             this.Controls.Add(this.DGVMantenimiento);
             this.Controls.Add(this.panelHabilidad);
             this.Controls.Add(this.label1);
@@ -219,5 +275,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button BtnLimpiar;
+        private FontAwesome.Sharp.IconButton iconButtonBuscar;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Button BtnRefrescar;
+        private System.Windows.Forms.TextBox TxtBuscar;
     }
 }

@@ -190,10 +190,32 @@ namespace CapaDePresentacion.Catálogos
 
         private void BtnLimpiar_Click_1(object sender, EventArgs e)
         {
+            llenar_grid();
             LimpiarDatos();
         }
 
         private void button5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DGVEquipo_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void BtnRefrescar_Click(object sender, EventArgs e)
+        {
+            llenar_grid();
+            LimpiarDatos();
+        }
+
+        private void iconButtonBuscar_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void iconButtonBuscar_Click_1(object sender, EventArgs e)
         {
             try
             {
@@ -225,15 +247,14 @@ namespace CapaDePresentacion.Catálogos
             }
         }
 
-        private void DGVEquipo_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void TxtBuscar_TextChanged(object sender, EventArgs e)
         {
 
         }
 
-        private void BtnRefrescar_Click(object sender, EventArgs e)
+        private void label6_Click(object sender, EventArgs e)
         {
-            llenar_grid();
-            LimpiarDatos();
+
         }
     }
 }
