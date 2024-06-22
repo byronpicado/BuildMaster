@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCliente));
             this.label1 = new System.Windows.Forms.Label();
             this.panelCliente = new System.Windows.Forms.Panel();
@@ -42,7 +42,6 @@
             this.TxtApellidoPaterno = new System.Windows.Forms.TextBox();
             this.TxtNombre2 = new System.Windows.Forms.TextBox();
             this.TxtNombre1 = new System.Windows.Forms.TextBox();
-            this.TxtCodigo = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -55,6 +54,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.BtnRefrescar = new System.Windows.Forms.Button();
             this.TxtBuscar = new System.Windows.Forms.TextBox();
+            this.TxtCodigo = new System.Windows.Forms.MaskedTextBox();
             this.panelCliente.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DGVCliente)).BeginInit();
             this.SuspendLayout();
@@ -73,6 +73,7 @@
             // 
             this.panelCliente.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.panelCliente.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelCliente.Controls.Add(this.TxtCodigo);
             this.panelCliente.Controls.Add(this.BtnLimpiar);
             this.panelCliente.Controls.Add(this.BtnEliminar);
             this.panelCliente.Controls.Add(this.BtnEditar);
@@ -83,7 +84,6 @@
             this.panelCliente.Controls.Add(this.TxtApellidoPaterno);
             this.panelCliente.Controls.Add(this.TxtNombre2);
             this.panelCliente.Controls.Add(this.TxtNombre1);
-            this.panelCliente.Controls.Add(this.TxtCodigo);
             this.panelCliente.Controls.Add(this.label8);
             this.panelCliente.Controls.Add(this.label7);
             this.panelCliente.Controls.Add(this.label6);
@@ -163,31 +163,24 @@
             // 
             // TxtApellidoPaterno
             // 
-            this.TxtApellidoPaterno.Location = new System.Drawing.Point(664, 41);
+            this.TxtApellidoPaterno.Location = new System.Drawing.Point(690, 41);
             this.TxtApellidoPaterno.Name = "TxtApellidoPaterno";
             this.TxtApellidoPaterno.Size = new System.Drawing.Size(240, 26);
             this.TxtApellidoPaterno.TabIndex = 10;
             // 
             // TxtNombre2
             // 
-            this.TxtNombre2.Location = new System.Drawing.Point(414, 41);
+            this.TxtNombre2.Location = new System.Drawing.Point(437, 41);
             this.TxtNombre2.Name = "TxtNombre2";
             this.TxtNombre2.Size = new System.Drawing.Size(221, 26);
             this.TxtNombre2.TabIndex = 9;
             // 
             // TxtNombre1
             // 
-            this.TxtNombre1.Location = new System.Drawing.Point(168, 41);
+            this.TxtNombre1.Location = new System.Drawing.Point(186, 41);
             this.TxtNombre1.Name = "TxtNombre1";
             this.TxtNombre1.Size = new System.Drawing.Size(222, 26);
             this.TxtNombre1.TabIndex = 8;
-            // 
-            // TxtCodigo
-            // 
-            this.TxtCodigo.Location = new System.Drawing.Point(3, 41);
-            this.TxtCodigo.Name = "TxtCodigo";
-            this.TxtCodigo.Size = new System.Drawing.Size(153, 26);
-            this.TxtCodigo.TabIndex = 7;
             // 
             // label8
             // 
@@ -263,9 +256,9 @@
             // 
             this.DGVCliente.AllowUserToAddRows = false;
             this.DGVCliente.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.DGVCliente.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.MenuHighlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.DGVCliente.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.DGVCliente.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.DGVCliente.BackgroundColor = System.Drawing.SystemColors.MenuHighlight;
             this.DGVCliente.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -327,6 +320,14 @@
             this.TxtBuscar.Size = new System.Drawing.Size(315, 26);
             this.TxtBuscar.TabIndex = 25;
             // 
+            // TxtCodigo
+            // 
+            this.TxtCodigo.Location = new System.Drawing.Point(16, 41);
+            this.TxtCodigo.Mask = "000-000000-0000A";
+            this.TxtCodigo.Name = "TxtCodigo";
+            this.TxtCodigo.Size = new System.Drawing.Size(146, 26);
+            this.TxtCodigo.TabIndex = 29;
+            // 
             // FrmCliente
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -368,7 +369,6 @@
         private System.Windows.Forms.TextBox TxtApellidoPaterno;
         private System.Windows.Forms.TextBox TxtNombre2;
         private System.Windows.Forms.TextBox TxtNombre1;
-        private System.Windows.Forms.TextBox TxtCodigo;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
@@ -382,5 +382,6 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button BtnRefrescar;
         private System.Windows.Forms.TextBox TxtBuscar;
+        private System.Windows.Forms.MaskedTextBox TxtCodigo;
     }
 }
