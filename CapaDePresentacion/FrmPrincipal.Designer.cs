@@ -38,6 +38,8 @@ namespace CapaDePresentacion
             this.lblFecha = new System.Windows.Forms.Label();
             this.lblhora = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.MenuVertical.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnlogoInicio)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMenu)).BeginInit();
@@ -49,6 +51,7 @@ namespace CapaDePresentacion
             // 
             this.MenuVertical.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
             this.MenuVertical.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.MenuVertical.Controls.Add(this.label1);
             this.MenuVertical.Controls.Add(this.iconButtonResponsable);
             this.MenuVertical.Controls.Add(this.iconButtonProgreso);
             this.MenuVertical.Controls.Add(this.iconButtonPersonal);
@@ -71,7 +74,7 @@ namespace CapaDePresentacion
             this.iconButtonResponsable.IconColor = System.Drawing.Color.LightGreen;
             this.iconButtonResponsable.IconFont = FontAwesome.Sharp.IconFont.Solid;
             this.iconButtonResponsable.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButtonResponsable.Location = new System.Drawing.Point(-1, 537);
+            this.iconButtonResponsable.Location = new System.Drawing.Point(-1, 569);
             this.iconButtonResponsable.Name = "iconButtonResponsable";
             this.iconButtonResponsable.Size = new System.Drawing.Size(315, 60);
             this.iconButtonResponsable.TabIndex = 38;
@@ -86,7 +89,7 @@ namespace CapaDePresentacion
             this.iconButtonProgreso.IconColor = System.Drawing.Color.LightGreen;
             this.iconButtonProgreso.IconFont = FontAwesome.Sharp.IconFont.Solid;
             this.iconButtonProgreso.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButtonProgreso.Location = new System.Drawing.Point(-1, 471);
+            this.iconButtonProgreso.Location = new System.Drawing.Point(-1, 503);
             this.iconButtonProgreso.Name = "iconButtonProgreso";
             this.iconButtonProgreso.Size = new System.Drawing.Size(315, 60);
             this.iconButtonProgreso.TabIndex = 37;
@@ -101,7 +104,7 @@ namespace CapaDePresentacion
             this.iconButtonPersonal.IconColor = System.Drawing.Color.LightGreen;
             this.iconButtonPersonal.IconFont = FontAwesome.Sharp.IconFont.Solid;
             this.iconButtonPersonal.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButtonPersonal.Location = new System.Drawing.Point(-1, 405);
+            this.iconButtonPersonal.Location = new System.Drawing.Point(-1, 437);
             this.iconButtonPersonal.Name = "iconButtonPersonal";
             this.iconButtonPersonal.Size = new System.Drawing.Size(315, 60);
             this.iconButtonPersonal.TabIndex = 36;
@@ -116,7 +119,7 @@ namespace CapaDePresentacion
             this.iconButtonMantenimiento.IconColor = System.Drawing.Color.LightGreen;
             this.iconButtonMantenimiento.IconFont = FontAwesome.Sharp.IconFont.Solid;
             this.iconButtonMantenimiento.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButtonMantenimiento.Location = new System.Drawing.Point(-1, 338);
+            this.iconButtonMantenimiento.Location = new System.Drawing.Point(-1, 370);
             this.iconButtonMantenimiento.Name = "iconButtonMantenimiento";
             this.iconButtonMantenimiento.Size = new System.Drawing.Size(315, 60);
             this.iconButtonMantenimiento.TabIndex = 35;
@@ -131,7 +134,7 @@ namespace CapaDePresentacion
             this.iconButtonHabilidad.IconColor = System.Drawing.Color.LightGreen;
             this.iconButtonHabilidad.IconFont = FontAwesome.Sharp.IconFont.Solid;
             this.iconButtonHabilidad.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButtonHabilidad.Location = new System.Drawing.Point(-1, 272);
+            this.iconButtonHabilidad.Location = new System.Drawing.Point(-1, 304);
             this.iconButtonHabilidad.Name = "iconButtonHabilidad";
             this.iconButtonHabilidad.Size = new System.Drawing.Size(315, 60);
             this.iconButtonHabilidad.TabIndex = 34;
@@ -146,7 +149,7 @@ namespace CapaDePresentacion
             this.iconButtonEquipo.IconColor = System.Drawing.Color.LightGreen;
             this.iconButtonEquipo.IconFont = FontAwesome.Sharp.IconFont.Solid;
             this.iconButtonEquipo.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButtonEquipo.Location = new System.Drawing.Point(0, 206);
+            this.iconButtonEquipo.Location = new System.Drawing.Point(0, 238);
             this.iconButtonEquipo.Name = "iconButtonEquipo";
             this.iconButtonEquipo.Size = new System.Drawing.Size(315, 60);
             this.iconButtonEquipo.TabIndex = 33;
@@ -162,7 +165,7 @@ namespace CapaDePresentacion
             this.iconButtonCliente.IconColor = System.Drawing.Color.LightGreen;
             this.iconButtonCliente.IconFont = FontAwesome.Sharp.IconFont.Solid;
             this.iconButtonCliente.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButtonCliente.Location = new System.Drawing.Point(0, 140);
+            this.iconButtonCliente.Location = new System.Drawing.Point(0, 172);
             this.iconButtonCliente.Name = "iconButtonCliente";
             this.iconButtonCliente.Rotation = 1D;
             this.iconButtonCliente.Size = new System.Drawing.Size(315, 60);
@@ -200,6 +203,7 @@ namespace CapaDePresentacion
             // 
             this.BarraTitulo.BackColor = System.Drawing.Color.WhiteSmoke;
             this.BarraTitulo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.BarraTitulo.Controls.Add(this.label2);
             this.BarraTitulo.Controls.Add(this.iconButtonRecurso);
             this.BarraTitulo.Controls.Add(this.iconButtonTarea);
             this.BarraTitulo.Controls.Add(this.iconButtonProyecto);
@@ -208,7 +212,7 @@ namespace CapaDePresentacion
             this.BarraTitulo.Location = new System.Drawing.Point(315, 0);
             this.BarraTitulo.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.BarraTitulo.Name = "BarraTitulo";
-            this.BarraTitulo.Size = new System.Drawing.Size(1203, 108);
+            this.BarraTitulo.Size = new System.Drawing.Size(1203, 138);
             this.BarraTitulo.TabIndex = 3;
             // 
             // iconButtonRecurso
@@ -219,7 +223,7 @@ namespace CapaDePresentacion
             this.iconButtonRecurso.IconColor = System.Drawing.Color.LightGreen;
             this.iconButtonRecurso.IconFont = FontAwesome.Sharp.IconFont.Solid;
             this.iconButtonRecurso.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButtonRecurso.Location = new System.Drawing.Point(764, 23);
+            this.iconButtonRecurso.Location = new System.Drawing.Point(747, 56);
             this.iconButtonRecurso.Name = "iconButtonRecurso";
             this.iconButtonRecurso.Rotation = 1D;
             this.iconButtonRecurso.Size = new System.Drawing.Size(315, 60);
@@ -236,7 +240,7 @@ namespace CapaDePresentacion
             this.iconButtonTarea.IconColor = System.Drawing.Color.LightGreen;
             this.iconButtonTarea.IconFont = FontAwesome.Sharp.IconFont.Solid;
             this.iconButtonTarea.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButtonTarea.Location = new System.Drawing.Point(443, 23);
+            this.iconButtonTarea.Location = new System.Drawing.Point(426, 56);
             this.iconButtonTarea.Name = "iconButtonTarea";
             this.iconButtonTarea.Rotation = 1D;
             this.iconButtonTarea.Size = new System.Drawing.Size(315, 60);
@@ -253,7 +257,7 @@ namespace CapaDePresentacion
             this.iconButtonProyecto.IconColor = System.Drawing.Color.LightGreen;
             this.iconButtonProyecto.IconFont = FontAwesome.Sharp.IconFont.Solid;
             this.iconButtonProyecto.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.iconButtonProyecto.Location = new System.Drawing.Point(127, 23);
+            this.iconButtonProyecto.Location = new System.Drawing.Point(110, 56);
             this.iconButtonProyecto.Name = "iconButtonProyecto";
             this.iconButtonProyecto.Rotation = 1D;
             this.iconButtonProyecto.Size = new System.Drawing.Size(315, 60);
@@ -266,7 +270,7 @@ namespace CapaDePresentacion
             // 
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.Location = new System.Drawing.Point(23, 29);
+            this.pictureBox1.Location = new System.Drawing.Point(27, 56);
             this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(52, 54);
@@ -307,6 +311,26 @@ namespace CapaDePresentacion
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick_1);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(3, 140);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(131, 29);
+            this.label1.TabIndex = 39;
+            this.label1.Text = "Catálogos";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(106, 13);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(170, 29);
+            this.label2.TabIndex = 42;
+            this.label2.Text = " Operaciones";
+            // 
             // FrmPrincipal
             // 
             this.AllowDrop = true;
@@ -329,9 +353,11 @@ namespace CapaDePresentacion
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.FrmPrincipal_Load);
             this.MenuVertical.ResumeLayout(false);
+            this.MenuVertical.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.btnlogoInicio)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.btnMenu)).EndInit();
             this.BarraTitulo.ResumeLayout(false);
+            this.BarraTitulo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -361,6 +387,8 @@ namespace CapaDePresentacion
         private FontAwesome.Sharp.IconButton iconButtonProyecto;
         private FontAwesome.Sharp.IconButton iconButtonRecurso;
         private FontAwesome.Sharp.IconButton iconButtonTarea;
+        private Label label1;
+        private Label label2;
     }
 }
 

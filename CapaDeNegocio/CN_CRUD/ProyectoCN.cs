@@ -75,8 +75,7 @@ namespace CapaDeNegocio.CN_CRUD
 
         public void ValidarAntesDeEliminar(int proyectoId)
         {
-            if (proyectoCD.ProyectoConProyectoDetalle(proyectoId))
-                throw new InvalidOperationException("El Proyecto a eliminar contiene Recursos relacionados");
+      
         }
     }
 }

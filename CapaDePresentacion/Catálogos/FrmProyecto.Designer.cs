@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmProyecto));
             this.label1 = new System.Windows.Forms.Label();
             this.DGVProyecto = new System.Windows.Forms.DataGridView();
@@ -50,8 +51,13 @@
             this.label3 = new System.Windows.Forms.Label();
             this.BtnRefrescar = new System.Windows.Forms.Button();
             this.TxtBuscar = new System.Windows.Forms.TextBox();
+            this.comboBoxCliente = new System.Windows.Forms.ComboBox();
+            this.comboBoxResponsable = new System.Windows.Forms.ComboBox();
+            this.comboBoxProgreso = new System.Windows.Forms.ComboBox();
+            this.proyectoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.DGVProyecto)).BeginInit();
             this.panelProyecto.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.proyectoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -71,7 +77,7 @@
             this.DGVProyecto.BackgroundColor = System.Drawing.SystemColors.MenuHighlight;
             this.DGVProyecto.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGVProyecto.GridColor = System.Drawing.SystemColors.MenuHighlight;
-            this.DGVProyecto.Location = new System.Drawing.Point(22, 584);
+            this.DGVProyecto.Location = new System.Drawing.Point(22, 595);
             this.DGVProyecto.Name = "DGVProyecto";
             this.DGVProyecto.ReadOnly = true;
             this.DGVProyecto.RowHeadersWidth = 62;
@@ -84,6 +90,9 @@
             // 
             this.panelProyecto.BackColor = System.Drawing.SystemColors.MenuHighlight;
             this.panelProyecto.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelProyecto.Controls.Add(this.comboBoxProgreso);
+            this.panelProyecto.Controls.Add(this.comboBoxResponsable);
+            this.panelProyecto.Controls.Add(this.comboBoxCliente);
             this.panelProyecto.Controls.Add(this.buttonLimpiar);
             this.panelProyecto.Controls.Add(this.DTPFechaFin);
             this.panelProyecto.Controls.Add(this.DTPFechaInicio);
@@ -100,7 +109,7 @@
             this.panelProyecto.Controls.Add(this.label2);
             this.panelProyecto.Location = new System.Drawing.Point(22, 179);
             this.panelProyecto.Name = "panelProyecto";
-            this.panelProyecto.Size = new System.Drawing.Size(935, 380);
+            this.panelProyecto.Size = new System.Drawing.Size(935, 392);
             this.panelProyecto.TabIndex = 18;
             this.panelProyecto.Paint += new System.Windows.Forms.PaintEventHandler(this.panelProyecto_Paint);
             // 
@@ -182,7 +191,7 @@
             this.TxtCodigo.Location = new System.Drawing.Point(46, 42);
             this.TxtCodigo.Multiline = true;
             this.TxtCodigo.Name = "TxtCodigo";
-            this.TxtCodigo.Size = new System.Drawing.Size(198, 26);
+            this.TxtCodigo.Size = new System.Drawing.Size(234, 26);
             this.TxtCodigo.TabIndex = 7;
             // 
             // label7
@@ -277,12 +286,44 @@
             this.TxtBuscar.Size = new System.Drawing.Size(315, 26);
             this.TxtBuscar.TabIndex = 25;
             // 
+            // comboBoxCliente
+            // 
+            this.comboBoxCliente.BackColor = System.Drawing.SystemColors.Window;
+            this.comboBoxCliente.ForeColor = System.Drawing.Color.Black;
+            this.comboBoxCliente.FormattingEnabled = true;
+            this.comboBoxCliente.Items.AddRange(new object[] {
+            "Seleccionar"});
+            this.comboBoxCliente.Location = new System.Drawing.Point(306, 40);
+            this.comboBoxCliente.Name = "comboBoxCliente";
+            this.comboBoxCliente.Size = new System.Drawing.Size(197, 28);
+            this.comboBoxCliente.TabIndex = 20;
+            // 
+            // comboBoxResponsable
+            // 
+            this.comboBoxResponsable.FormattingEnabled = true;
+            this.comboBoxResponsable.Location = new System.Drawing.Point(538, 42);
+            this.comboBoxResponsable.Name = "comboBoxResponsable";
+            this.comboBoxResponsable.Size = new System.Drawing.Size(180, 28);
+            this.comboBoxResponsable.TabIndex = 21;
+            // 
+            // comboBoxProgreso
+            // 
+            this.comboBoxProgreso.FormattingEnabled = true;
+            this.comboBoxProgreso.Location = new System.Drawing.Point(737, 42);
+            this.comboBoxProgreso.Name = "comboBoxProgreso";
+            this.comboBoxProgreso.Size = new System.Drawing.Size(180, 28);
+            this.comboBoxProgreso.TabIndex = 22;
+            // 
+            // proyectoBindingSource
+            // 
+            this.proyectoBindingSource.DataSource = typeof(Entidades.Proyecto);
+            // 
             // FrmProyecto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(184)))), ((int)(((byte)(45)))));
-            this.ClientSize = new System.Drawing.Size(987, 940);
+            this.ClientSize = new System.Drawing.Size(987, 979);
             this.Controls.Add(this.iconButtonBuscar);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.BtnRefrescar);
@@ -298,6 +339,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DGVProyecto)).EndInit();
             this.panelProyecto.ResumeLayout(false);
             this.panelProyecto.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.proyectoBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -326,5 +368,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button BtnRefrescar;
         private System.Windows.Forms.TextBox TxtBuscar;
+        private System.Windows.Forms.ComboBox comboBoxResponsable;
+        private System.Windows.Forms.ComboBox comboBoxCliente;
+        private System.Windows.Forms.ComboBox comboBoxProgreso;
+        private System.Windows.Forms.BindingSource proyectoBindingSource;
     }
 }

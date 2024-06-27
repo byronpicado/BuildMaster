@@ -12,6 +12,9 @@ namespace CapaDePresentacion.Catálogos
     {
         // Variables
         private ProyectoCN proyectoCN;
+        private ClienteCN clienteCN = new ClienteCN();
+        private ResponsableCN responsableCN = new ResponsableCN();
+        private ProgresoCN progresoCN = new ProgresoCN();
         private Proyecto proyecto;
         private bool editar = false;
         private int proyectoid;
@@ -28,6 +31,7 @@ namespace CapaDePresentacion.Catálogos
         private void FrmProyecto_Load(object sender, EventArgs e)
         {
             MostrarProyecto();
+            CargarDatos();
         }
 
         // Obtener el proyecto desde la Capa de Negocio y la vamos a enviar al DGV
@@ -39,7 +43,17 @@ namespace CapaDePresentacion.Catálogos
                 DGVProyecto.DataSource = proyectoCN.ObtenerProyecto();
                 DGVProyecto.Columns["id_proyecto"].Visible = false;
                 DGVProyecto.Columns["id_cliente"].Visible = false;
+                DGVProyecto.Columns["id_progreso"].Visible = false;
                 DGVProyecto.Columns["id_responsable"].Visible = false;
+
+                DGVProyecto.Columns["codigo"].HeaderText = "Código";
+                DGVProyecto.Columns["descripcion"].HeaderText = "Descripción";
+                DGVProyecto.Columns["fecha_inicio"].HeaderText = "Fecha Inicio";
+                DGVProyecto.Columns["fecha_fin"].HeaderText = "Fecha Fin";
+                DGVProyecto.Columns["estado"].HeaderText = "Estado";
+                DGVProyecto.Columns["Cliente"].HeaderText = "Cliente";
+                DGVProyecto.Columns["Responsable"].HeaderText = "Responsable";
+                DGVProyecto.Columns["Progreso"].HeaderText = "Progreso";
             }
             catch (Exception ex)
             {
@@ -47,16 +61,19 @@ namespace CapaDePresentacion.Catálogos
             }
         }
 
+
         // Limpiar los controles de texto
         private void LimpiarDatos()
         {
-            TxtBuscar.Clear();  
+            TxtBuscar.Clear();
             TxtCodigo.Clear();
-            
             TxtDescripcion.Clear();
             TxtEstado.Clear();
             DTPFechaInicio.Value = DateTime.Now;
             DTPFechaFin.Value = DateTime.Now;
+            comboBoxCliente.SelectedIndex = -1;
+            comboBoxResponsable.SelectedIndex = -1;
+            comboBoxProgreso.SelectedIndex = -1;
             TxtCodigo.Focus();
             editar = false;
             proyectoid = 0;
@@ -68,11 +85,21 @@ namespace CapaDePresentacion.Catálogos
             {
                 if (ValidarInputs())
                 {
-                    proyecto = new Proyecto(proyectoid,TxtCodigo.Text,0,0, TxtDescripcion.Text, DTPFechaInicio.Value, DTPFechaFin.Value, TxtEstado.Text);
+                    proyecto = new Proyecto(
+                        proyectoid,
+                        TxtCodigo.Text,
+                        0,
+                        0,
+                        comboBoxCliente.SelectedValue?.ToString() ?? string.Empty,
+                        comboBoxResponsable.SelectedValue?.ToString() ?? string.Empty,
+                        comboBoxProgreso.SelectedValue?.ToString() ?? string.Empty,
+                        TxtDescripcion.Text,
+                        DTPFechaInicio.Value,
+                        DTPFechaFin.Value,
+                        TxtEstado.Text);
 
                     if (!editar)
                     {
-                        proyectoCN.ValidarAntesDeCrear(proyecto);
                         if (proyectoCN.Insertar(proyecto))
                         {
                             LimpiarDatos();
@@ -86,7 +113,6 @@ namespace CapaDePresentacion.Catálogos
                     }
                     else
                     {
-                        proyectoCN.ValidarAntesDeEditar(proyecto);
                         if (proyectoCN.Editar(proyecto))
                         {
                             LimpiarDatos();
@@ -97,6 +123,7 @@ namespace CapaDePresentacion.Catálogos
                         {
                             MessageBox.Show("El registro no se editó correctamente", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
+                        editar = false;
                     }
                 }
             }
@@ -114,8 +141,10 @@ namespace CapaDePresentacion.Catálogos
                 {
                     editar = true;
                     TxtCodigo.Text = DGVProyecto.CurrentRow.Cells["codigo"].Value.ToString();
-           
                     TxtDescripcion.Text = DGVProyecto.CurrentRow.Cells["descripcion"].Value.ToString();
+                    comboBoxCliente.Text = DGVProyecto.CurrentRow.Cells["Cliente"].Value.ToString();
+                    comboBoxResponsable.Text = DGVProyecto.CurrentRow.Cells["Responsable"].Value.ToString();
+                    comboBoxProgreso.Text = DGVProyecto.CurrentRow.Cells["Progreso"].Value.ToString();
                     DTPFechaInicio.Value = Convert.ToDateTime(DGVProyecto.CurrentRow.Cells["fecha_inicio"].Value);
                     DTPFechaFin.Value = Convert.ToDateTime(DGVProyecto.CurrentRow.Cells["fecha_fin"].Value);
                     TxtEstado.Text = DGVProyecto.CurrentRow.Cells["estado"].Value.ToString();
@@ -132,6 +161,7 @@ namespace CapaDePresentacion.Catálogos
             }
         }
 
+
         private void BtnEliminar_Click(object sender, EventArgs e)
         {
             try
@@ -141,7 +171,6 @@ namespace CapaDePresentacion.Catálogos
                     if (MessageBox.Show("¿Está seguro que desea eliminar este proyecto?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
                         int proyectoid = int.Parse(DGVProyecto.CurrentRow.Cells["id_proyecto"].Value.ToString());
-                        proyectoCN.ValidarAntesDeEliminar(proyectoid);
                         if (proyectoCN.Eliminar(proyectoid))
                         {
                             LimpiarDatos();
@@ -165,17 +194,44 @@ namespace CapaDePresentacion.Catálogos
             }
         }
 
+        private void CargarDatos()
+        {
+            try
+            {
+                comboBoxCliente.DataSource = clienteCN.ObtenerClientes();
+                comboBoxCliente.DisplayMember = "nombre1";
+                comboBoxCliente.ValueMember = "id_cliente";
+                comboBoxCliente.SelectedIndex = -1;
+
+                comboBoxResponsable.DataSource = responsableCN.ObtenerResponsable();
+                comboBoxResponsable.DisplayMember = "nombre1";
+                comboBoxResponsable.ValueMember = "id_responsable";
+                comboBoxResponsable.SelectedIndex = -1;
+
+                comboBoxProgreso.DataSource = progresoCN.ObtenerProgreso();
+                comboBoxProgreso.DisplayMember = "descripcion";
+                comboBoxProgreso.ValueMember = "id_progreso";
+                comboBoxProgreso.SelectedIndex = -1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
         private void buttonLimpiar_Click(object sender, EventArgs e)
         {
-            llenar_grid();
             LimpiarDatos();
+            MostrarProyecto();
         }
 
         private bool ValidarInputs()
         {
             if (string.IsNullOrWhiteSpace(TxtCodigo.Text) ||
                 string.IsNullOrWhiteSpace(TxtDescripcion.Text) ||
-                string.IsNullOrWhiteSpace(TxtEstado.Text))
+                string.IsNullOrWhiteSpace(TxtEstado.Text) ||
+                comboBoxCliente.SelectedIndex == -1 ||
+                comboBoxResponsable.SelectedIndex == -1 ||
+                comboBoxProgreso.SelectedIndex == -1)
             {
                 MessageBox.Show("Todos los campos marcados con * son obligatorios.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
@@ -194,48 +250,37 @@ namespace CapaDePresentacion.Catálogos
         {
             try
             {
-                // Abrir la conexión a la base de datos
                 SqlConnection conexion = conexionCD.AbrirConexion();
-
-                // Construir la consulta SQL con parámetros
                 string consulta = "SELECT * FROM Proyecto WHERE codigo = @codigo";
-
-                // Crear y configurar el comando SQL
                 SqlCommand comando = new SqlCommand(consulta, conexion);
                 comando.Parameters.AddWithValue("@codigo", TxtBuscar.Text);
-
-                // Crear el adaptador y llenar el DataTable
                 SqlDataAdapter adaptador = new SqlDataAdapter(comando);
                 DataTable dt = new DataTable();
                 adaptador.Fill(dt);
-
-                // Asignar el DataTable al DataGridView
                 DGVProyecto.DataSource = dt;
-
-                // Cerrar la conexión
                 conexionCD.CerrarConexion();
             }
             catch (Exception ex)
             {
-                
                 MessageBox.Show("Ocurrió un error al buscar los datos del equipo." + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void BtnRefrescar_Click(object sender, EventArgs e)
         {
-            llenar_grid();
+            MostrarProyecto();
             LimpiarDatos();
         }
+
         private void llenar_grid()
         {
-            // Abrir la conexión a la base de datos
             SqlConnection conexion = conexionCD.AbrirConexion();
             string consulta = "SELECT * FROM Proyecto";
-            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion);
             DataTable dt = new DataTable();
+            SqlDataAdapter adaptador = new SqlDataAdapter(consulta, conexion);
             adaptador.Fill(dt);
             DGVProyecto.DataSource = dt;
+            conexionCD.CerrarConexion();
         }
 
         private void panelProyecto_Paint(object sender, PaintEventArgs e)

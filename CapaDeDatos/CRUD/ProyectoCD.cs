@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 
 namespace CapaDeDatos.CRUD
 {
@@ -42,7 +43,9 @@ namespace CapaDeDatos.CRUD
                 comando.CommandText = "InsertarProyecto"; 
                 comando.CommandType = CommandType.StoredProcedure;
                 comando.Parameters.AddWithValue("@codigo", proyecto.codigo);
-               
+                comando.Parameters.AddWithValue("@Cliente", proyecto.Cliente);
+                comando.Parameters.AddWithValue("@Responsable", proyecto.Responsable);
+                comando.Parameters.AddWithValue("@Progreso", proyecto.Progreso);
                 comando.Parameters.AddWithValue("@descripcion", proyecto.descripcion);
                 comando.Parameters.AddWithValue("@fecha_inicio", proyecto.fecha_inicio);
                 comando.Parameters.AddWithValue("@fecha_fin", proyecto.fecha_fin);
@@ -129,21 +132,5 @@ namespace CapaDeDatos.CRUD
             return existe;
         }
 
-        public bool ProyectoConProyectoDetalle(int proyectoId)
-        {
-            bool existe = false;
-            using (SqlCommand comando = new SqlCommand())
-            {
-                comando.Connection = Conexion.AbrirConexion();
-                comando.CommandText = "ProyectoConProyectoDetalle"; 
-                comando.CommandType = CommandType.StoredProcedure;
-                comando.Parameters.AddWithValue("@id_proyecto", proyectoId);
-                existe = (int)comando.ExecuteScalar() > 0;
-                comando.Parameters.Clear();
-                Conexion.CerrarConexion();
-            }
-
-            return existe;
-        }
     }
 }
